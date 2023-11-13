@@ -1,6 +1,7 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
+"VLDB":
+  url: https://vldb.org
   color: "#00369f"
 
-"PhysRev":
-  url: https://journals.aps.org/
+"SIGMOD":
+  url: https://sigmod.org
+  color: #009f9c
