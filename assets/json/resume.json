@@ -17,6 +17,31 @@
     "profiles": [
     ]
   },
+  "volunteer": [],
+  "education": [
+    {
+      "institution": "University of California, Irvine",
+      "url": "",
+      "area": "Big data management, data-processing system, machine learning system",
+      "studyType": "Ph.D. of Computer Science",
+      "startDate": "2019-09-01",
+      "endDate": "2025-03-15",
+      "score": "3.9/4.0",
+      "courses": [
+      ]
+    },
+    {
+      "institution": "University of California, Irvine",
+      "url": "",
+      "area": "",
+      "studyType": "B.S. of Computer Science",
+      "startDate": "2015-09-01",
+      "endDate": "2019-06-20",
+      "score": "3.9/4.0",
+      "courses": [
+      ]
+    }
+  ],
   "work": [
     {
       "name": "VISA Inc.",
@@ -36,39 +61,14 @@
       "name": "ByteDance Inc.",
       "position": "Research Intern",
       "url": "",
-      "startDate": "2022-06-26",
-      "endDate": "2022-09-11",
+      "startDate": "2020-06-26",
+      "endDate": "2020-09-11",
       "summary": "",
       "highlights": [
         "Worked on an HTAP database to support instant query on the real-time data.",
         "Implemented TP (MySQL) metadata to AP (Kudu) schema conversion.",
         "Integrated lock-free data structure for heap implementation."
 
-      ]
-    }
-  ],
-  "volunteer": [],
-  "education": [
-    {
-      "institution": "University of California, Irvine",
-      "url": "",
-      "area": "Computer Science",
-      "studyType": "Ph.D.",
-      "startDate": "2019-09-01",
-      "endDate": "2025-03-15",
-      "score": "3.9/4.0",
-      "courses": [
-      ]
-    },
-    {
-      "institution": "University of California, Irvine",
-      "url": "",
-      "area": "Computer Science",
-      "studyType": "B.S.",
-      "startDate": "2015-09-01",
-      "endDate": "2019-06-20",
-      "score": "3.9/4.0",
-      "courses": [
       ]
     }
   ],
