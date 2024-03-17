@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Our paper "Demonstration of Udon: Line-by-line Debugging of User-Defined Functions in Data Workflows" is accepted by SIGMOD 2024, demonstration track.
+Our paper "Demonstration of Udon: Line-by-line Debugging of User-Defined Functions in Data Workflows" is accepted by SIGMOD 2024, demonstration track!
