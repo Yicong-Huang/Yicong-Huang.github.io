@@ -6,15 +6,19 @@ description:
 nav: true
 nav_order: 5
 ---
+### Associate Instructor (Lecturer) |  03/2024 — 06/2024
+  - Designed and taught a new course [ICS 80](https://canvas.eee.uci.edu/courses/63639), Data Science and AI/ML Using Workflows (S24).
+  - The course helped non-CS students to gain knowledge of data science, AI, and ML in a short period.
 
 ### Research Mentor | 06/2019 — present
 
 - PhD students:
-  - 2022-2023: Yunyan Ding (PhD);
+  - 2022-2023: Yunyan Ding (PhD), Xinyuan Lin (PhD), Jiadong Bai (PhD);
 - Master students:
   - 2022-2023: Aditya Verma (MS), Sreetej Reddy (MS), Dhruv Raipure (MS), Jiaxi Chen (MS);
   - 2019-2020: Yang Cao (MS);
-- Undergraduate students:
+- Undergraduate students: 
+  - 2023-2024: Kevin Wu;
   - 2022-2023: Chengxi Li (MS), Ethan Wong (MS), Tianyun Yuan (MS), Tony Liu (MS);
   - 2021-2022: Zhen Guan – UCSD (MS), Jiashu Zhang – Hong Kong Polytechnic University (PhD), Yinan Zhou – UCI (PhD), Andrew Li (MS), Eric Peng (MS), Jiyang Wu (MS), Zeyu Li (MS);
   - 2020-2021: Chen He – CMU (MS), Bihao Xu – Uchicago (MS), Conghuai Tan (MS), Make Tao (MS), Mingshuo Liu (MS), Qifan Yu (MS);
