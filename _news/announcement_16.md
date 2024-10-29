@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Our paper "DS4ALL: Teaching High-School Students Data Science and {AI/ML} Using the Texera Workflow Platform as a Service" is accepted by Data Science Education K-12: Research to Practice Conference (DSE-K12'25)!
+Our paper "DS4ALL: Teaching High-School Students Data Science and AI/ML Using the Texera Workflow Platform as a Service" is accepted by Data Science Education K-12: Research to Practice Conference (DSE-K12'25)!
