@@ -44,6 +44,18 @@
   ],
   "work": [
     {
+      "name": "Observe Inc.",
+      "position": "Software Engineer Intern",
+      "url": "",
+      "startDate": "2024-06-17",
+      "endDate": "2024-09-20",
+      "summary": "",
+      "highlights": [
+        "Contributed to the development of a dataset transformer for log store analytics, especially focusing on window maintenance of live data streams.",
+        "Investigated the use of Snowflake Time Travel to optimize data partitioning and clustering for transformed datasets."
+      ]
+    },
+    {
       "name": "VISA Inc.",
       "position": "Research Intern",
       "url": "",
