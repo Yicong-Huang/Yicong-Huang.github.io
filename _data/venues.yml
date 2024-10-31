@@ -2,6 +2,20 @@
   url: https://vldb.org
   color: "#00369f"
 
+"VLDB (Demo)":
+  url: https://vldb.org
+  color: "#00369f"
+
 "SIGMOD":
   url: https://sigmod.org
   color: "#009f9c"
+
+"SIGMOD (Demo)":
+  url: https://sigmod.org
+  color: "#009f9c"
+
+"ICDE":
+  color: "#ffbb0e"
+
+"ICDE (Workshop)":
+  color: "#ffbb0e"
