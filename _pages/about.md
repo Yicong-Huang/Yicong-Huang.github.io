@@ -18,7 +18,7 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Yicong Huang is a 6th-year Ph.D. candidate at the [Information System Group (ISG)](https://isg.ics.uci.edu), Computer
+Yicong Huang is a 6th-year Ph.D. candidate at the [Information Systems Group (ISG)](https://isg.ics.uci.edu), Computer
 Science department, University of California, Irvine.
 He is set to graduate in **June 2025**. 
 Guided by [Dr. Chen Li](https://chenli.ics.uci.edu), he specializes in big data management, data processing systems, and
