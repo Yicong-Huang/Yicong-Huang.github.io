@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Information System Group, University of California, Irvine</a>.
+subtitle: <a href='#'>Information Systems Group, University of California, Irvine</a>.
 
 profile:
   align: right
