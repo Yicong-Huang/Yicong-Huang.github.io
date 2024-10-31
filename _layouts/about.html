@@ -73,7 +73,7 @@ layout: default
 
           <!-- News -->
           {% if page.news and site.announcements.enabled -%}
-            <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit;">News</a></h2>
+            <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit;">News (Selected)</a></h2>
             {%- include news.html limit=true %}
           {%- endif %}
 
@@ -83,8 +83,8 @@ layout: default
             {%- include latest_posts.html %}
           {%- endif %}
 
-          <!-- Selected papers -->
-          {% if page.selected_papers -%}
+          <!-- Publications -->
+          {% if page.publications -%}
             <h2><a href="{{ '/publications/' | relative_url }}" style="color: inherit;">Publications</a></h2>
             {%- include selected_papers.html %}
           {%- endif %}
