@@ -27,15 +27,13 @@ He received his B.S. in Computer Science from University of California, Irvine a
 
 Yicong's journey includes vital contributions to the Texera project—an interactive workflow-based big data analytics
 system, showcasing extensive coding expertise and groundbreaking research.
-His publications in esteemed database venues such as VLDB and SIGMOD feature standout works like "Udon," an interactive
-UDF debugger, "Pasta," an optimizer for pipelining schedules, and "CORE," a machine learning
-acceleration framework for streaming data.
+His publications in prestigious database venues, such as VLDB and SIGMOD, showcase standout works including Udon, an interactive UDF debugger for dataflow systems; IcedTea, a time-travel debugging tool for dataflow systems; Pasta, an optimizer for pipelining schedules; and CORE, a machine learning acceleration framework for streaming data.
 His interdisciplinary reach spans venues such as TOCHI, PNAS Nexus, JAMIA, AMIA, and PloS ONE.
 
 Beyond academia, Yicong's expertise is refined through research internships at Bytedance and VISA, contributing to
 projects like the HTAP database and windowed aggregation operators, leading to system patents and papers.
 Notably, his leadership skills shine through managing collaborative research projects and mentoring over 40 students.
-In the dynamic field of computer science, Yicong Huang embodies a unique fusion of academic excellence and leadership.
+Yicong received fellowships including the 2024 Graduate Dean’s Dissertation Fellowship and the 2023 Public Impact Fellowship. 
 
 
 
