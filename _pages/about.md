@@ -18,22 +18,20 @@ publications: true # includes a list of papers
 social: true  # includes social icons at the bottom of the page
 ---
 
-Yicong Huang is a 6th-year Ph.D. candidate at the [Information Systems Group (ISG)](https://isg.ics.uci.edu), Computer
-Science department, University of California, Irvine.
-He is set to graduate in **June 2025**.
-Guided by [Dr. Chen Li](https://chenli.ics.uci.edu), he specializes in big data management, data processing systems, and
-machine learning systems.
+Yicong Huang is a 6th-year Ph.D. candidate at the [Information Systems Group (ISG)](https://isg.ics.uci.edu), Computer Science department, University of California, Irvine.
+He is set to graduate in **July 2025**.
+Guided by [Dr. Chen Li](https://chenli.ics.uci.edu), he specializes in big data management, data processing systems, and machine learning systems.
 He received his B.S. in Computer Science from University of California, Irvine as well.
 
-Yicong's journey includes vital contributions to the Texera project—an interactive workflow-based big data analytics
-system, showcasing extensive coding expertise and groundbreaking research.
+Yicong's journey includes vital contributions to the Texera project—an interactive workflow-based big data analytics system, showcasing extensive coding expertise and groundbreaking research.
 His publications in prestigious database venues, such as VLDB and SIGMOD, showcase standout works including Udon, an interactive UDF debugger for dataflow systems; IcedTea, a time-travel debugging tool for dataflow systems; Pasta, an optimizer for pipelining schedules; and CORE, a machine learning acceleration framework for streaming data.
 His interdisciplinary reach spans venues such as TOCHI, PNAS Nexus, JAMIA, AMIA, and PloS ONE.
 
-Beyond academia, Yicong's expertise is refined through research internships at Bytedance and VISA, contributing to
-projects like the HTAP database and windowed aggregation operators, leading to system patents and papers.
+Beyond academia, Yicong's expertise is refined through research internships at Bytedance and VISA, contributing to projects like the HTAP database and windowed aggregation operators, leading to system patents and papers.
 Notably, his leadership skills shine through managing collaborative research projects and mentoring over 40 students.
-Yicong received fellowships including the 2024 Graduate Dean’s Dissertation Fellowship and the 2023 Public Impact Fellowship. 
+Yicong received fellowships including the Joseph & Dorothy Fischer Memorial Endowed Fellowship, The Beall Family Foundation Graduate Student Entrepreneur Award in Computer Science, Graduate Dean’s Dissertation Fellowship and the Public Impact Fellowship. 
+
+<span style="color: red;">I am on the job market this year!</span>
 
 
 
