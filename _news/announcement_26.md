@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2025-03-10 22:07:51-0400
+date: 2025-03-07 20:52:58-0400
 inline: true
 related_posts: false
 ---
-I gave an invited talk at Lehigh University.
+I gave an invited talk at the University of Maryland, Baltimore County.

@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2025-03-13 21:33:01-0400
+date: 2025-03-10 22:07:51-0400
 inline: true
 related_posts: false
 ---
-I gave an invited talk at the University at Buffalo.
+I gave an invited talk at Lehigh University.
