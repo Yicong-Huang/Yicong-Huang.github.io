@@ -1,11 +1,10 @@
 ---
 layout: post
-date: 2024-8-30 21:02:14-0800
+date: 2024-08-06 11:07:54-0800
 inline: true
 related_posts: false
 ---
 
-I attended VLDB 2024 in Guangzhou, China, presenting the research paper for Texera, the system we have been building for the past 8
-years!
+Our paper "Pasta: A Cost-Based Optimizer for Generating Pipelining Schedules for Dataflow DAGs", is accepted by SIGMOD 2025!
 
 

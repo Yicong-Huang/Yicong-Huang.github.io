@@ -1,10 +1,11 @@
 ---
 layout: post
-date: 2024-9-25 21:44:52-0800
+date: 2024-8-30 21:02:14-0800
 inline: true
 related_posts: false
 ---
 
-I gave a tech talk at Databricks Inc. titled "Texera and Interactive Debugging in Distributed Data Processing Systems".
+I attended VLDB 2024 in Guangzhou, China, presenting the research paper for Texera, the system we have been building for the past 8
+years!
 
 

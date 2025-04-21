@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2025-04-01 14:47:05-0800
+date: 2025-03-31 22:43:59-0400
 inline: true
 related_posts: false
 ---
-I received two fellowships: Beall Family Foundation Graduate Student Entrepreneur Award in Computer Science for \$5,000 and Joseph & Dorothy Fischer Memorial Endowed Fellowship for \$3,000. Thanks for the support!
+I will serve as the Web/Publicity Chair for SIGMOD 2027. Let's make SIGMOD 2027 a great success!
