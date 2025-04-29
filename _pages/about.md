@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Information Systems Group, University of California, Irvine</a>.
+subtitle: Ph.D. Candidate @ UC Irvine | Incoming Software Engineer @ Databricks | Adjunct Assistant Professor @ UMass Amherst
 
 profile:
   align: right
@@ -19,7 +19,7 @@ social: true  # includes social icons at the bottom of the page
 ---
 Welcome to my personal website!
 
-I am currently a sixth-year Ph.D. candidate at the [Information Systems Group (ISG)](https://isg.ics.uci.edu), Computer Science department, University of California, Irvine.
+I am currently a sixth-year Ph.D. candidate at the [Information Systems Group (ISG)](https://isg.ics.uci.edu), [Computer Science department, University of California, Irvine](https://ics.uci.edu).
 I am advised by [Dr. Chen Li](https://chenli.ics.uci.edu) and expect to graduate in **July 2025**. 
 I received my B.S. in Computer Science from University of California, Irvine as well.
 
