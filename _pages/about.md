@@ -17,21 +17,24 @@ latest_posts: false  # includes a list of the newest posts
 publications: true # includes a list of papers
 social: true  # includes social icons at the bottom of the page
 ---
+Welcome to my personal website!
 
-Yicong Huang is a 6th-year Ph.D. candidate at the [Information Systems Group (ISG)](https://isg.ics.uci.edu), Computer Science department, University of California, Irvine.
-He is set to graduate in **July 2025**.
-Guided by [Dr. Chen Li](https://chenli.ics.uci.edu), he specializes in big data management, data processing systems, and machine learning systems.
-He received his B.S. in Computer Science from University of California, Irvine as well.
+I am currently a sixth-year Ph.D. candidate at the [Information Systems Group (ISG)](https://isg.ics.uci.edu), Computer Science department, University of California, Irvine.
+I am advised by [Dr. Chen Li](https://chenli.ics.uci.edu) and expect to graduate in **July 2025**. 
+I received my B.S. in Computer Science from University of California, Irvine as well.
 
-Yicong's journey includes vital contributions to the Texera project—an interactive workflow-based big data analytics system, showcasing extensive coding expertise and groundbreaking research.
-His publications in prestigious database venues, such as VLDB and SIGMOD, showcase standout works including Udon, an interactive UDF debugger for dataflow systems; IcedTea, a time-travel debugging tool for dataflow systems; Pasta, an optimizer for pipelining schedules; and CORE, a machine learning acceleration framework for streaming data.
-His interdisciplinary reach spans venues such as TOCHI, PNAS Nexus, JAMIA, AMIA, and PloS ONE.
+My research focuses on **big data management**, **data-processing systems**, and **machine learning systems**.
+I take a systems-driven approach by co-designing the key components of modern data-intensive pipelines, including workflow engines, UDF debugging frameworks, pipelining optimizers, and machine learning acceleration systems for streaming data.
+To optimize performance, usability, and scalability, I integrate techniques across data management, distributed systems, program analysis, and machine learning.
 
-Beyond academia, Yicong's expertise is refined through research internships at Bytedance and VISA, contributing to projects like the HTAP database and windowed aggregation operators, leading to system patents and papers.
-Notably, his leadership skills shine through managing collaborative research projects and mentoring over 40 students.
-Yicong received fellowships including the Joseph & Dorothy Fischer Memorial Endowed Fellowship, The Beall Family Foundation Graduate Student Entrepreneur Award in Computer Science, Graduate Dean’s Dissertation Fellowship and the Public Impact Fellowship. 
+I have contributed extensively to the [Texera](https://texera.io) project ([Apache Incubating](https://incubator.apache.org/projects/texera.html)), a collaborative and interactive system for data science and AI/ML using workflows.
+My research has been published in database venues such as SIGMOD ([Udon](https://dl.acm.org/doi/10.1145/3626712), [Pasta](https://dl.acm.org/doi/10.1145/3698832), etc) and VLDB ([Texera](https://dl.acm.org/doi/10.14778/3681954.3682022), [IcedTea](https://dl.acm.org/doi/10.14778/3712221.3712251), [CORE](https://www.vldb.org/pvldb/vol15/p2032-yang.pdf), etc), and my interdisciplinary work spans venues including TOCHI, PNAS Nexus, JAMIA, AMIA, and PLOS ONE.
 
-<span style="color: red;">I am on the job market this year!</span>
+My research was recognized with a [SIGMOD 2024 Best Demo Runner-Up Award](https://sigmod.org/sigmod-awards/sigmod-best-demonstration-award/) and has been supported by fellowships including the [2025 Joseph & Dorothy Fischer Memorial Endowed Fellowship](https://ics.uci.edu/academics/impact/student-awards-honors/), the [2025 Beall Family Foundation Graduate Student Entrepreneur Award in Computer Science](https://ics.uci.edu/academics/impact/student-awards-honors/), the [2024 Graduate Dean’s Dissertation Fellowship](https://ics.uci.edu/academics/impact/student-awards-honors/), and the [2023 Public Impact Fellowship](https://ics.uci.edu/academics/impact/student-awards-honors/).
 
+My expertise has been further shaped through internships at Observe, ByteDance, VISA and Observe. I have also led collaborative research projects and mentored over 50 students across various levels.
 
-
+<span style="color: red;"> Updates: </span>
+ 
+- 🚀 Thrilled to share that I’ll be joining Databricks in 2025, working on the Apache Spark Runtime team to advance one of the fastest and most scalable data engines in the world!  
+ - 🎓 Looking ahead, in Fall 2027, I’ll transition to the Manning College of Information and Computer Sciences (CICS) at UMass Amherst as a Tenure-Track Assistant Professor!
