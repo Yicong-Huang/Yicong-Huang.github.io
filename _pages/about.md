@@ -6,7 +6,7 @@ subtitle: Ph.D. Candidate @ UC Irvine | Incoming Software Engineer @ Databricks 
 
 profile:
   align: right
-  image: prof_pic.png
+  image: prof_pic.jpeg
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>2059 Donald Bren Hall</p>
