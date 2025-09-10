@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Ph.D. Candidate @ UC Irvine | Incoming Software Engineer @ Databricks | Adjunct Assistant Professor @ UMass Amherst
+subtitle: Software Engineer @ Databricks | Adjunct Assistant Professor @ UMass Amherst
 
 profile:
   align: right
@@ -19,8 +19,10 @@ social: true  # includes social icons at the bottom of the page
 ---
 Welcome to my personal website!
 
-I am currently a sixth-year Ph.D. candidate at the [Information Systems Group (ISG)](https://isg.ics.uci.edu), [Computer Science department, University of California, Irvine](https://ics.uci.edu).
-I am advised by [Dr. Chen Li](https://chenli.ics.uci.edu) and expect to graduate in **July 2025**. 
+I am a Software Engineer at Databricks Inc. and also serve as an Adjunct Assistant Professor at UMass Amherst.
+
+I obtained my Ph.D. in Computer Science from the [Information Systems Group (ISG)](https://isg.ics.uci.edu), [Computer Science department, University of California, Irvine](https://ics.uci.edu), advised by [Dr. Chen Li](https://chenli.ics.uci.edu) .
+My dissertation title is "UDF-Centric Dataflow Systems for Supporting User-Defined Functions in Collaborative Data Science, AI, and ML".
 I received my B.S. in Computer Science from University of California, Irvine as well.
 
 My research focuses on **big data management**, **data-processing systems**, and **machine learning systems**.
@@ -32,7 +34,7 @@ My research has been published in database venues such as SIGMOD ([Udon](https:/
 
 My research was recognized with a [SIGMOD 2024 Best Demo Runner-Up Award](https://sigmod.org/sigmod-awards/sigmod-best-demonstration-award/) and has been supported by fellowships including the [2025 Joseph & Dorothy Fischer Memorial Endowed Fellowship](https://ics.uci.edu/academics/impact/student-awards-honors/), the [2025 Beall Family Foundation Graduate Student Entrepreneur Award in Computer Science](https://ics.uci.edu/academics/impact/student-awards-honors/), the [2024 Graduate Dean’s Dissertation Fellowship](https://ics.uci.edu/academics/impact/student-awards-honors/), and the [2023 Public Impact Fellowship](https://ics.uci.edu/academics/impact/student-awards-honors/).
 
-My expertise has been further shaped through internships at Observe, ByteDance, VISA and Observe. I have also led collaborative research projects and mentored over 50 students across various levels.
+I interned at Observe, ByteDance, VISA and Observe. I have also led collaborative research projects and mentored over 50 students across various levels.
 
 <span style="color: red;"> Updates: </span>
  
