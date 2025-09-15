@@ -38,5 +38,5 @@ I interned at Observe, ByteDance, VISA and Observe. I have also led collaborativ
 
 <span style="color: red;"> Updates: </span>
  
- - 🚀 Thrilled to share that I’ll be joining Databricks in 2025, working on the Apache Spark Runtime team to advance one of the fastest and most scalable data engines in the world!  
+ - 🚀 Thrilled to share that I have joined Databricks in 2025, working on the Apache Spark Runtime team to advance one of the fastest and most scalable data engines in the world!  
  - 🎓 Looking ahead, in Fall 2027, I’ll transition to the Manning College of Information and Computer Sciences (CICS) at UMass Amherst as a Tenure-Track Assistant Professor!
