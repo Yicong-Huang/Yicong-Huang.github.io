@@ -9,7 +9,7 @@
     "summary": "• Researcher in Distributed Systems & Database • System builder for Machine Learning • Coder with passion",
     "location": {
       "address": "",
-      "postalCode": "94089",
+      "postalCode": "",
       "city": "Mountain View",
       "countryCode": "US",
       "region": "California"
@@ -76,7 +76,6 @@
         "Developed real-time window aggregation framework with out-of-order event support.",
         "Designed space-efficient, versatile list for in-memory raw-event storage.",
         "Proposed out-of-order handling algorithms, outperforming existing Flink designs."
-
       ]
     },
     {
@@ -90,11 +89,58 @@
         "Worked on an HTAP database to support instant query on the real-time data.",
         "Implemented TP (MySQL) metadata to AP (Kudu) schema conversion.",
         "Integrated lock-free data structure for heap implementation."
-
       ]
     }
   ],
   "awards": [
+    {
+      "title": "Most Promising Future Faculty Second Place Award",
+      "date": "2025",
+      "awarder": "University of California, Irvine",
+      "summary": "Recognized as the second-place recipient of the campus-wide future faculty award."
+    },
+    {
+      "title": "Joseph & Dorothy Fischer Memorial Endowed Fellowship",
+      "date": "2025",
+      "awarder": "University of California, Irvine"
+    },
+    {
+      "title": "Beall Family Foundation Graduate Student Entrepreneur Award in Computer Science",
+      "date": "2025",
+      "awarder": "University of California, Irvine"
+    },
+    {
+      "title": "Best Demo Award Runner-Up Award",
+      "date": "2024",
+      "awarder": "SIGMOD 2024"
+    },
+    {
+      "title": "Graduate Dean’s Dissertation Fellowship",
+      "date": "2024",
+      "awarder": "University of California, Irvine",
+      "summary": "Received a prestigious dissertation fellowship recognizing a highly impactful thesis."
+    },
+    {
+      "title": "Student Travel Award (SIGMOD)",
+      "date": "2024",
+      "awarder": "SIGMOD 2024"
+    },
+    {
+      "title": "Public Impact Fellowship",
+      "date": "2023",
+      "awarder": "University of California, Irvine"
+    },
+    {
+      "title": "Student Travel Award (VLDB)",
+      "date": "2023",
+      "awarder": "VLDB 2023"
+    },
+    {
+      "title": "Best Lecturer Award",
+      "date": "2020",
+      "awarder": "CUCS",
+      "summary": "Recognized for excellence in teaching performance."
+    }
   ],
   "certificates": [],
   "publications": [],
