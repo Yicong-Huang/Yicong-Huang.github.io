@@ -44,6 +44,16 @@
   ],
   "work": [
     {
+      "name": "Databricks Inc.",
+      "position": "Software Engineer",
+      "url": "",
+      "startDate": "2025-08-18",
+      "summary": "",
+      "highlights": [
+        "Working on PySpark."
+      ]
+    },
+    {
       "name": "Observe Inc.",
       "position": "Software Engineer Intern",
       "url": "",
