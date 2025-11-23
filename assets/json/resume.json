@@ -95,49 +95,49 @@
   "awards": [
     {
       "title": "Most Promising Future Faculty Second Place Award",
-      "date": "2025",
+      "date": "2025-09-13",
       "awarder": "University of California, Irvine",
       "summary": "Recognized as the second-place recipient of the campus-wide future faculty award."
     },
     {
       "title": "Joseph & Dorothy Fischer Memorial Endowed Fellowship",
-      "date": "2025",
+      "date": "2025-08-01",
       "awarder": "University of California, Irvine"
     },
     {
       "title": "Beall Family Foundation Graduate Student Entrepreneur Award in Computer Science",
-      "date": "2025",
+      "date": "2025-08-01",
       "awarder": "University of California, Irvine"
     },
     {
       "title": "Best Demo Award Runner-Up Award",
-      "date": "2024",
+      "date": "2024-06-12",
       "awarder": "SIGMOD 2024"
     },
     {
       "title": "Graduate Dean’s Dissertation Fellowship",
-      "date": "2024",
+      "date": "2024-03-03",
       "awarder": "University of California, Irvine",
       "summary": "Received a prestigious dissertation fellowship recognizing a highly impactful thesis."
     },
     {
       "title": "Student Travel Award (SIGMOD)",
-      "date": "2024",
+      "date": "2024-08-23",
       "awarder": "SIGMOD 2024"
     },
     {
       "title": "Public Impact Fellowship",
-      "date": "2023",
+      "date": "2023-04-05",
       "awarder": "University of California, Irvine"
     },
     {
       "title": "Student Travel Award (VLDB)",
-      "date": "2023",
+      "date": "2023-09-17",
       "awarder": "VLDB 2023"
     },
     {
       "title": "Best Lecturer Award",
-      "date": "2020",
+      "date": "2020-02-04",
       "awarder": "CUCS",
       "summary": "Recognized for excellence in teaching performance."
     }
