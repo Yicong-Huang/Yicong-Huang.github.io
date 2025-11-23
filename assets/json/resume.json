@@ -1,16 +1,16 @@
 {
   "basics": {
     "name": "Yicong Huang",
-    "label": "Ph.D. Candidate | Research Assistant",
+    "label": "Ph.D.",
     "image": "",
-    "email": "yicongh1@ics.uci.edu",
+    "email": "yicong.huang@databricks.com",
     "phone": "",
     "url": "https://Yicong-Huang.github.io",
     "summary": "• Researcher in Distributed Systems & Database • System builder for Machine Learning • Coder with passion",
     "location": {
-      "address": "2059 Donal Bren Hall",
-      "postalCode": "CA 92697",
-      "city": "Irvine",
+      "address": "",
+      "postalCode": "94089",
+      "city": "Mountain View",
       "countryCode": "US",
       "region": "California"
     },
@@ -25,7 +25,7 @@
       "area": "Big data management, data-processing system, machine learning system",
       "studyType": "Ph.D. of Computer Science",
       "startDate": "2019-09-01",
-      "endDate": "2025-07-15",
+      "endDate": "2025-08-15",
       "score": "3.96/4.0",
       "courses": [
       ]
