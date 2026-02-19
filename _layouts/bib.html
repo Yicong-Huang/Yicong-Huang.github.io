@@ -30,7 +30,7 @@
         {%- endif -%}
 
         <!-- Entry bib key -->
-        <div id="{{entry.key}}" class="{% if site.enable_publication_thumbnails %}col-sm-8{% else %}col-sm-10{% endif %}">
+        <div id="{{entry.key}}" class="{% if site.enable_publication_thumbnails %}col-sm-10{% else %}col-sm-12{% endif %}">
         <!-- Title -->
         <div class="title">{{entry.title}}</div>
         <!-- Author -->
@@ -138,24 +138,38 @@
 
           <!-- Links/Buttons -->
           <div class="links">
+          {%- assign has_bibtex = false -%}
+          {%- if entry.bibtex and entry.bibtex != "" -%}
+            {%- assign has_bibtex = true -%}
+          {%- endif -%}
+          {%- assign doi_href = "" -%}
+          {%- if entry.doi and entry.doi != "" -%}
+            {%- assign doi_href = entry.doi -%}
+            {%- unless doi_href contains "http://" or doi_href contains "https://" -%}
+              {%- assign doi_href = "https://doi.org/" | append: doi_href -%}
+            {%- endunless -%}
+          {%- endif -%}
           {%- if entry.abstract %}
             <a class="abstract btn btn-sm z-depth-0" role="button">Abs</a>
           {%- endif %}
           {%- if entry.arxiv %}
             <a href="http://arxiv.org/abs/{{ entry.arxiv }}" class="btn btn-sm z-depth-0" role="button">arXiv</a>
           {%- endif %}
-          {%- if entry.bibtex_show %}
-            <a class="bibtex btn btn-sm z-depth-0" role="button">Bib</a>
-          {%- endif %}
           {%- if entry.html %}
             <a href="{{ entry.html }}" class="btn btn-sm z-depth-0" role="button">HTML</a>
           {%- endif %}
           {%- if entry.pdf %}
             {% if entry.pdf contains '://' -%}
-            <a href="{{ entry.pdf }}" class="btn btn-sm z-depth-0" role="button">PDF</a>
+            <a href="{{ entry.pdf }}" class="btn btn-sm z-depth-0 pub-cta pub-cta-pdf" role="button"><i class="fas fa-file-pdf" aria-hidden="true"></i><span>PDF</span></a>
             {%- else -%}
-            <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">PDF</a>
+            <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0 pub-cta pub-cta-pdf" role="button"><i class="fas fa-file-pdf" aria-hidden="true"></i><span>PDF</span></a>
             {%- endif %}
+          {%- endif %}
+          {%- if doi_href != "" %}
+            <a href="{{ doi_href }}" class="btn btn-sm z-depth-0 pub-cta pub-cta-doi" role="button"><i class="fas fa-link" aria-hidden="true"></i><span>DOI</span></a>
+          {%- endif %}
+          {%- if has_bibtex %}
+            <a class="bibtex btn btn-sm z-depth-0 pub-cta pub-cta-bib" role="button"><i class="fas fa-code" aria-hidden="true"></i><span>BIB</span></a>
           {%- endif %}
           {%- if entry.supp %}
             {% if entry.supp contains '://' -%}
@@ -230,7 +244,7 @@
           </div>
           {%- endif -%}
 
-          {% if entry.bibtex_show -%}
+          {% if has_bibtex -%}
           <!-- Hidden bibtex block -->
           <div class="bibtex hidden">
             {% highlight bibtex %}{{ entry.bibtex | hideCustomBibtex }}{% endhighlight %}

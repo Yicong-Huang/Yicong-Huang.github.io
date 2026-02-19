@@ -45,7 +45,7 @@
 
               <!-- About -->
               <li class="nav-item {% if page.permalink == '/' %}active{% endif %}">
-                <a class="nav-link" href="{{ '/' | relative_url }}">{{ about_title }}
+                <a class="nav-link" href="{{ '/' | relative_url }}">{{ about_title | capitalize }}
                   {%- if page.permalink == '/' -%}
                   <span class="sr-only">(current)</span>
                   {%- endif -%}
@@ -69,7 +69,7 @@
               {%- if p.nav and p.autogen == nil -%}
               {%- if p.dropdown %}
               <li class="nav-item dropdown {% if page.title == p.title %}active{% endif %}">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ p.title }}
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ p.title | capitalize }}
                   {%- if page.title == p.title -%}
                   <span class="sr-only">(current)</span>
                   {%- endif -%}
@@ -79,14 +79,14 @@
                   {%- if child.title == 'divider' %}
                   <div class="dropdown-divider"></div>
                   {%- else %}
-                  <a class="dropdown-item" href="{{ child.permalink | relative_url }}">{{ child.title }}</a>
+                  <a class="dropdown-item" href="{{ child.permalink | relative_url }}">{{ child.title | capitalize }}</a>
                   {%- endif -%}
                   {% endfor %}
                 </div>
               </li>
               {%- else %}
               <li class="nav-item {% if page.title == p.title %}active{% endif %}">
-                <a class="nav-link" href="{{ p.url | relative_url }}">{{ p.title }}
+                <a class="nav-link" href="{{ p.url | relative_url }}">{{ p.title | capitalize }}
                   {%- if page.title == p.title -%}
                   <span class="sr-only">(current)</span>
                   {%- endif -%}
@@ -95,6 +95,12 @@
               {%- endif -%}
               {%- endif -%}
               {% endfor -%}
+
+              <!-- CV PDF -->
+              <li class="nav-item">
+                <a class="nav-link" href="{{ '/assets/pdf/Yicong_Huang_CV.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer">CV</a>
+              </li>
+
               {%- if site.enable_darkmode %}
 
               <!-- Toogle theme mode -->

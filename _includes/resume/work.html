@@ -1,32 +1,86 @@
 <ul class="card-text font-weight-light list-group list-group-flush">
   {% assign work = data[1] | sort: 'startDate' | reverse %}
   {% for content in work %}
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-xs-2 cl-sm-2 col-md-2 text-center" style="width: 75px;">
+  <li class="list-group-item work-row-item">
+    <div class="work-entry-grid">
+      <div class="text-center work-meta-col">
+        {% assign org_name = content.name | downcase %}
+        {% assign role_name = content.position | downcase %}
+        {% assign is_current_role = false %}
         {% if content.startDate %}
-        {% assign startDate = content.startDate | split: "-" | slice: 0,2 | join: "." %}
-        {% assign endDate   = content.endDate   | split: "-" | slice: 0,2 | join: "." | default: "Present" %}
-        {% assign date = startDate | append: " - "%}
-        {% assign date = date | append: endDate %}
+        {% assign startDateLabel = content.startDate | date: "%b %Y" %}
+        {% if content.endDate and content.endDate != "" %}
+        {% assign endDateLabel = content.endDate | date: "%b %Y" %}
+        {% assign endEpoch = content.endDate | date: "%s" | plus: 0 %}
+        {% else %}
+        {% assign is_current_role = true %}
+        {% assign endDateLabel = "Present" %}
+        {% assign endEpoch = "now" | date: "%s" | plus: 0 %}
+        {% endif %}
+        {% assign startEpoch = content.startDate | date: "%s" | plus: 0 %}
+        {% assign diffSeconds = endEpoch | minus: startEpoch %}
+        {% assign durationMonths = diffSeconds | plus: 2629799 | divided_by: 2629800 %}
+        {% if durationMonths < 1 %}
+        {% assign durationMonths = 1 %}
+        {% endif %}
+        {% assign durationYears = durationMonths | divided_by: 12 %}
+        {% assign durationRemainder = durationMonths | modulo: 12 %}
+        {% assign date = startDateLabel | append: " - " | append: endDateLabel %}
         {% else %}
         {% assign date = "" %}
         {% endif %}
-        <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px;">
-          {{ date }}
-        </span>
+        {% assign employmentType = "" %}
+        {% if role_name contains "intern" %}
+        {% assign employmentType = "Internship" %}
+        {% elsif role_name contains "adjunct" %}
+        {% assign employmentType = "Part-time" %}
+        {% elsif role_name contains "professor" %}
+        {% assign employmentType = "Academic" %}
+        {% else %}
+        {% assign employmentType = "Full-time" %}
+        {% endif %}
+        <div class="org-icon-wrap work-logo-wrap">
+          <div class="work-logo-tile">
+            {% if org_name contains "databricks" %}
+            <img class="org-logo org-logo-wide" src="{{ '/assets/img/org/databricks.png' | relative_url }}" alt="Databricks logo" title="{{ content.name }}">
+            {% elsif org_name contains "massachusetts amherst" or org_name contains "umass" %}
+            <img class="org-logo" src="{{ '/assets/img/org/umass_wordmark.svg' | relative_url }}" alt="UMass Amherst logo" title="{{ content.name }}">
+            {% elsif org_name contains "observe" %}
+            <img class="org-logo org-logo-wide" src="{{ '/assets/img/org/observe.svg' | relative_url }}" alt="Observe logo" title="{{ content.name }}">
+            {% elsif org_name contains "visa" %}
+            <img class="org-logo" src="{{ '/assets/img/org/visa.svg' | relative_url }}" alt="Visa logo" title="{{ content.name }}">
+            {% elsif org_name contains "bytedance" %}
+            <img class="org-logo" src="{{ '/assets/img/org/bytedance.png' | relative_url }}" alt="ByteDance logo" title="{{ content.name }}">
+            {% elsif org_name contains "university" or org_name contains "college" %}
+            <i class="fas fa-university org-icon" title="{{ content.name }}"></i>
+            {% else %}
+            <i class="fas fa-building org-icon" title="{{ content.name }}"></i>
+            {% endif %}
+          </div>
+        </div>
       </div>
-      <div class="col-xs-10 cl-sm-10 col-md-10 mt-2 mt-md-0">
-        <h6 class="title font-weight-bold ml-1 ml-md-4"><a href="{{ content.url }}">{{content.position}}</a></h6>
-        <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem;">{{content.name}}</h6>
-        <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem; font-style: italic;">{{content.summary}}</h6>
-        <ul class="items">
-          {% for item in content.highlights %}
-          <li>
-            <span class="item">{{ item }}</span>
-          </li>
-          {% endfor %}
-        </ul>
+      <div class="work-role-col">
+        <h6 class="title font-weight-bold mb-1 work-role-title">
+          {% if content.url and content.url != "" %}
+          <a href="{{ content.url }}">{{ content.position }}</a>
+          {% else %}
+          {{ content.position }}
+          {% endif %}
+        </h6>
+        <div class="work-org-meta">{{ content.name }}{% if employmentType != "" %} &middot; {{ employmentType }}{% endif %}</div>
+        {% if date != "" %}
+        <div class="work-date-text{% if is_current_role %} work-date-text-current{% endif %}">
+          {{ date }}
+          {% if durationYears > 0 %}
+          &middot; {{ durationYears }} yr{% if durationYears > 1 %}s{% endif %}{% if durationRemainder > 0 %} {{ durationRemainder }} mo{% if durationRemainder > 1 %}s{% endif %}{% endif %}
+          {% else %}
+          &middot; {{ durationMonths }} mo{% if durationMonths > 1 %}s{% endif %}
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+      <div class="work-keywords-col">
+        {{ content.highlights | join: ", " }}
       </div>
     </div>
   </li>

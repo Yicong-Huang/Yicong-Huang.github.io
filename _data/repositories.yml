@@ -2,4 +2,5 @@ github_users:
   - Yicong-Huang
 
 github_repos:
-  - Texera/texera
+  - apache/texera
+  - apache/spark

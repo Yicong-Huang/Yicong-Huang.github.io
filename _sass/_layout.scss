@@ -2,6 +2,10 @@
  * Content
  ******************************************************************************/
 
+html {
+  font-size: 15px;
+}
+
 body {
   padding-bottom: 70px;
   color: var(--global-text-color);
@@ -14,7 +18,7 @@ body {
 
 body.fixed-top-nav {
   // Add some padding for the nav-bar.
-  padding-top: 56px;
+  padding-top: 16px;
 }
 
 body.sticky-bottom-footer {
@@ -26,10 +30,358 @@ body.sticky-bottom-footer {
   max-width: $max-content-width;
 }
 
+.container.about-container {
+  max-width: min(1440px, 95vw);
+}
+
 // Profile
 .profile {
   img {
     width: 100%;
+  }
+}
+
+// About page two-column layout
+.about-shell {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: 2.2rem;
+  align-items: start;
+
+  .about-sidebar {
+    position: relative;
+  }
+
+  .about-sidebar-inner {
+    position: sticky;
+    top: 88px;
+  }
+
+  .about-id {
+    margin-bottom: 1.25rem;
+  }
+
+  .about-profile {
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    .figure {
+      margin-bottom: 0.85rem;
+    }
+  }
+
+  .about-side-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .about-title-contact-section {
+    border-top: 1px solid var(--global-divider-color);
+    border-bottom: 0;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .about-title-text {
+    margin: 0 0 0.35rem 0;
+    line-height: 1.35;
+  }
+
+  .about-title-line {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .about-title-line + .about-title-line {
+    margin-top: 0.1rem;
+  }
+
+  .about-title-mail {
+    color: #d44638;
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  .about-pronouns {
+    margin: 0.15rem 0 0.45rem 0;
+    line-height: 1.3;
+  }
+
+  .about-contact-more-info {
+    margin: 0.1rem 0 0 0;
+    line-height: 1.35;
+  }
+
+  .about-contact-more-info p {
+    margin: 0;
+  }
+
+  .about-contact-social {
+    text-align: left;
+
+    .contact-icons a i::before {
+      color: inherit !important;
+    }
+
+    .contact-icons a .fa-envelope { color: #d44638; }
+    .contact-icons a .ai-google-scholar { color: #4285f4; }
+    .contact-icons a .fa-github { color: #24292e; }
+    .contact-icons a .ai-dblp { color: #00549f; }
+    .contact-icons a .ai-orcid { color: #a6ce39; }
+
+    .contact-icons a:hover {
+      opacity: 0.82;
+    }
+  }
+
+  .about-news-section {
+    border-top: 1px solid var(--global-divider-color);
+    border-bottom: 1px solid var(--global-divider-color);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+
+    // Keep sidebar news compact: show about 5 items, then scroll.
+    .table-responsive {
+      max-height: 30rem !important;
+      overflow-y: auto;
+      scrollbar-gutter: stable;
+    }
+  }
+
+  .about-current-services {
+    border-bottom: 1px solid var(--global-divider-color);
+    padding-bottom: 0.7rem;
+  }
+
+  .about-side-all-link {
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    margin-left: 0.25rem;
+  }
+
+  .current-services-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    line-height: 1.35;
+    font-size: 0.92rem;
+  }
+
+  .current-services-list li + li {
+    margin-top: 0.2rem;
+  }
+
+  .travel-event-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .travel-events-list .travel-event-title {
+    color: #7f858a;
+    font-weight: 400;
+    line-height: 1.28;
+  }
+
+  .travel-events-list .travel-event-date {
+    color: #8a8f94;
+    line-height: 1.25;
+  }
+
+  .travel-events-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .travel-events-list li {
+    margin-bottom: 0.52rem;
+  }
+
+  .sidebar-repo-list {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .sidebar-repo-card {
+    display: block;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    background: var(--global-card-bg-color);
+    font-size: 0.9rem;
+    line-height: 1.25;
+    text-decoration: none;
+    color: var(--global-text-color) !important;
+  }
+
+  .sidebar-repo-card:hover {
+    border-color: var(--global-theme-color);
+    text-decoration: none;
+  }
+
+  .sidebar-repo-top {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    line-height: 1.2;
+  }
+
+  .sidebar-repo-sub {
+    margin-top: 0.1rem;
+    font-size: 0.82rem;
+    color: var(--global-text-color-light);
+    line-height: 1.2;
+  }
+
+  .sidebar-repo-sub i {
+    color: #5f6b7a;
+  }
+
+  .sidebar-repo-dot {
+    margin: 0 0.22rem;
+  }
+
+  .sidebar-repo-sparkline {
+    margin-top: 0.18rem;
+    height: 24px;
+  }
+
+  .sidebar-repo-sparkline svg {
+    width: 100%;
+    height: 24px;
+    display: block;
+  }
+
+  .sidebar-repo-sparkline-loading {
+    font-size: 0.74rem;
+    color: var(--global-text-color-light);
+    line-height: 24px;
+  }
+
+  .repo-sparkline-line {
+    fill: none;
+    stroke: #1f7ae0;
+    stroke-width: 1.4;
+  }
+
+  .repo-sparkline-area {
+    fill: rgba(31, 122, 224, 0.15);
+    stroke: none;
+  }
+
+  .social .contact-icons {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .about-side-title {
+    font-size: 1.35rem;
+    margin-bottom: 0.45rem;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  .about-main {
+    min-width: 0;
+  }
+
+  .about-main-content {
+    margin-bottom: 1.2rem;
+  }
+
+  .about-intro-card {
+    margin-top: 0.8rem !important;
+    padding: 0.85rem 1rem !important;
+
+    .about-main-content {
+      margin-bottom: 0;
+    }
+  }
+
+  .cv {
+    .card {
+      margin-top: 0.8rem !important;
+      padding: 0.85rem 1rem !important;
+    }
+
+    .list-group-item {
+      padding-top: 0.45rem;
+      padding-bottom: 0.45rem;
+    }
+
+    h6 {
+      margin-bottom: 0.22rem;
+      line-height: 1.3;
+    }
+
+    ul.items {
+      margin-bottom: 0.35rem;
+    }
+  }
+
+  .about-main .card .card-title {
+    margin-bottom: 0.45rem;
+    font-size: 1.35rem;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  .news {
+    font-size: 0.85rem;
+
+    .table {
+      font-size: 0.85rem;
+
+      tr {
+        display: block;
+        padding: 0.45rem 0;
+        border-bottom: 1px solid var(--global-divider-color);
+      }
+
+      th {
+        display: block;
+        width: auto;
+        white-space: nowrap;
+        font-weight: 700;
+        font-size: 0.88rem;
+        line-height: 1.35;
+        padding: 0 0 0.38rem 0;
+        color: var(--global-text-color);
+      }
+
+      .news-new-badge {
+        margin-left: 0.35rem;
+        color: #c62828;
+        font-weight: 700;
+        font-size: 0.8em;
+      }
+
+      td {
+        display: block;
+        padding: 0;
+        line-height: 1.45;
+      }
+    }
+  }
+
+  .card .publications {
+    margin-top: 0.25rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .about-shell {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+
+    .about-sidebar-inner {
+      position: static;
+    }
+
+    .about-side-section .table-responsive {
+      max-height: none !important;
+    }
   }
 }
 

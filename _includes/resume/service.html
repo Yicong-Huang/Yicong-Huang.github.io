@@ -1,0 +1,34 @@
+<ul class="card-text font-weight-light list-group list-group-flush">
+  {% assign service = data[1] %}
+  {% assign current_category = "" %}
+  {% for content in service %}
+  {% if content.category and content.category != current_category %}
+  <li class="list-group-item service-category-row{% unless forloop.first %} service-category-divider{% endunless %}">
+    <div class="service-category-text">{{ content.category }}</div>
+  </li>
+  {% assign current_category = content.category %}
+  {% endif %}
+  <li class="list-group-item service-row-item">
+    <div class="service-entry-grid">
+      <div class="service-period-col">
+        <div class="service-period-text">{{ content.year }}</div>
+      </div>
+      <div class="service-main-col">
+        <h6 class="title font-weight-bold mb-1">
+          {% if content.role and content.role != "" %}
+          <span class="service-role">{{ content.role }}</span>{% if content.event and content.event != "" %}, {% endif %}
+          {% endif %}
+          {% if content.url and content.url != "" %}
+          <a href="{{ content.url }}">{{ content.event }}</a>
+          {% else %}
+          {{ content.event }}
+          {% endif %}
+        </h6>
+        {% if content.location and content.location != "" %}
+        <div class="service-summary">{{ content.location }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>

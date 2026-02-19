@@ -1,17 +1,37 @@
           <div class="news">
             {% if site.news != blank -%}
             {%- assign news_size = site.news | size -%}
-            <div class="table-responsive" {% if include.limit and site.announcements.scrollable and news_size > 3 %}style="max-height: 60vw"{% endif %}>
-              <table class="table table-sm table-borderless">
-              {%- assign news = site.news | reverse -%}
-              {% if include.limit and site.announcements.limit %}
+            {% if include.initial %}
+              {% assign news_limit = include.initial %}
+            {% elsif include.limit and site.announcements.limit %}
               {% assign news_limit = site.announcements.limit %}
-              {% else %}
+            {% else %}
               {% assign news_limit = news_size %}
-              {% endif %}
+            {% endif %}
+            {% assign news_limit = news_limit | plus: 0 %}
+            {% if include.dynamic and include.batch %}
+              {% assign news_batch = include.batch %}
+            {% else %}
+              {% assign news_batch = news_limit %}
+            {% endif %}
+            <div class="table-responsive" {% if include.limit and site.announcements.scrollable and news_size > 3 %}style="max-height: 60vw"{% endif %} data-load-more="{% if include.dynamic %}true{% else %}false{% endif %}" data-load-batch="{{ news_batch }}">
+              <table class="table table-sm table-borderless">
+              {% assign now_ts = 'now' | date: "%s" | plus: 0 %}
+              {% assign six_month_seconds = 15724800 %}
+              {%- assign news = site.news | reverse -%}
+              {% if include.dynamic %}
               {% for item in news limit: news_limit %}
+                {% assign item_ts = item.date | date: "%s" | plus: 0 %}
+                {% assign age_seconds = now_ts | minus: item_ts %}
+                {% assign is_recent_news = false %}
+                {% if age_seconds >= 0 and age_seconds <= six_month_seconds %}
+                  {% assign is_recent_news = true %}
+                {% endif %}
                 <tr>
-                  <th scope="row" style="width: 20%">{{ item.date | date: "%b %-d, %Y" }}</th>
+                  <th scope="row" style="width: 20%">
+                    {{ item.date | date: "%b %-d, %Y" }}
+                    {% if is_recent_news %}<span class="news-new-badge">New!</span>{% endif %}
+                  </th>
                   <td>
                     {% if item.inline -%}
                       {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
@@ -21,9 +41,82 @@
                   </td>
                 </tr>
               {%- endfor %}
+              {% for item in news offset: news_limit %}
+                {% assign item_ts = item.date | date: "%s" | plus: 0 %}
+                {% assign age_seconds = now_ts | minus: item_ts %}
+                {% assign is_recent_news = false %}
+                {% if age_seconds >= 0 and age_seconds <= six_month_seconds %}
+                  {% assign is_recent_news = true %}
+                {% endif %}
+                <tr class="news-hidden d-none">
+                  <th scope="row" style="width: 20%">
+                    {{ item.date | date: "%b %-d, %Y" }}
+                    {% if is_recent_news %}<span class="news-new-badge">New!</span>{% endif %}
+                  </th>
+                  <td>
+                    {% if item.inline -%}
+                      {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
+                    {%- else -%}
+                      <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+                    {%- endif %}
+                  </td>
+                </tr>
+              {%- endfor %}
+              {% else %}
+              {% for item in news limit: news_limit %}
+                {% assign item_ts = item.date | date: "%s" | plus: 0 %}
+                {% assign age_seconds = now_ts | minus: item_ts %}
+                {% assign is_recent_news = false %}
+                {% if age_seconds >= 0 and age_seconds <= six_month_seconds %}
+                  {% assign is_recent_news = true %}
+                {% endif %}
+                <tr>
+                  <th scope="row" style="width: 20%">
+                    {{ item.date | date: "%b %-d, %Y" }}
+                    {% if is_recent_news %}<span class="news-new-badge">New!</span>{% endif %}
+                  </th>
+                  <td>
+                    {% if item.inline -%}
+                      {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
+                    {%- else -%}
+                      <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+                    {%- endif %}
+                  </td>
+                </tr>
+              {%- endfor %}
+              {% endif %}
               </table>
             </div>
           {%- else -%}
             <p>No news so far...</p>
           {%- endif %}
           </div>
+
+{% if include.dynamic %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".news .table-responsive[data-load-more='true']").forEach(function (section) {
+      var batch = parseInt(section.dataset.loadBatch || "5", 10);
+      var hiddenRows = Array.from(section.querySelectorAll("tr.news-hidden"));
+      if (hiddenRows.length === 0) return;
+
+      var reveal = function () {
+        if (hiddenRows.length === 0) return;
+        hiddenRows.splice(0, batch).forEach(function (row) {
+          row.classList.remove("d-none", "news-hidden");
+        });
+      };
+
+      section.addEventListener("scroll", function () {
+        // Auto-load more when the scroll position is near the bottom.
+        var nearBottom = section.scrollTop + section.clientHeight >= section.scrollHeight - 24;
+        if (nearBottom) reveal();
+      });
+
+      // Fallback: when users scroll/gesture over the news area, reveal more.
+      section.addEventListener("wheel", reveal, { passive: true });
+      section.addEventListener("touchmove", reveal, { passive: true });
+    });
+  });
+</script>
+{% endif %}

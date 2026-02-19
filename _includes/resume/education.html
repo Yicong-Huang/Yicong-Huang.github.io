@@ -1,49 +1,58 @@
 <ul class="card-text font-weight-light list-group list-group-flush">
   {% assign education = data[1] | sort: 'startDate' | reverse %}
   {% for content in education %}
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-xs-2 cl-sm-2 col-md-2 text-center" style="width: 75px;">
-        {% if content.startDate and content.startDate!="" %}
-        {% assign startDate = content.startDate | split: "-" | slice: 0,2 | join: "." %}
-        {% assign endDate   = content.endDate   | split: "-" | slice: 0,2 | join: "." | default: "Present" %}
-        {% assign date = startDate | append: " - "%}
-        {% assign date = date | append: endDate %}
+  <li class="list-group-item education-row-item">
+    <div class="education-entry-grid">
+      <div class="text-center education-meta-col">
+        {% assign institution_name = content.institution | downcase %}
+        {% if content.startDate and content.startDate != "" %}
+        {% assign startDateLabel = content.startDate | date: "%b %Y" %}
+        {% assign endDateLabel = content.endDate | date: "%b %Y" | default: "Present" %}
+        {% assign date = startDateLabel | append: " - " | append: endDateLabel %}
         {% else %}
-        {% assign date = null %}
+        {% assign date = "" %}
         {% endif %}
-        <table class="table-cv">
-          <tbody>
-            <tr>
-              <td>
-                {% if date %}
-                <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px;">
-                {{date}}
-                </span>
-                {% endif %}
-              </td>
-            </tr>
-            {% if content.location %}
-            <tr>
-              <td>
-                <p class="location"><i class="fas fa-map-marker-alt iconlocation"></i> {{ content.location }}</p>
-              </td>
-            </tr>
+        <div class="org-icon-wrap education-logo-wrap">
+          <div class="work-logo-tile">
+            {% if institution_name contains "university of california, irvine" or institution_name == "uci" %}
+            <img class="org-logo" src="{{ '/assets/img/org/uci_square.svg' | relative_url }}" alt="UCI logo" title="{{ content.institution }}">
+            {% elsif institution_name contains "university" or institution_name contains "college" %}
+            <i class="fas fa-university org-icon" title="{{ content.institution }}"></i>
+            {% else %}
+            <i class="fas fa-school org-icon" title="{{ content.institution }}"></i>
             {% endif %}
-          </tbody>
-        </table>
+          </div>
+        </div>
       </div>
-      <div class="col-xs-10 cl-sm-10 col-md-10 mt-2 mt-md-0">
-        <h6 class="title font-weight-bold ml-1 ml-md-4"><a href="{{ content.url }}">{{content.studyType}}</a></h6>
-        <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem;">{{content.institution}}</h6>
-        <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem; font-style: italic;">{{content.area}}</h6>
-        <ul class="items">
-          {% for item in content.courses %}
-          <li>
-            <span class="item">{{ item }}</span>
-          </li>
+      <div class="education-main-col">
+        <h6 class="title font-weight-bold mb-1">
+          {% if content.url and content.url != "" %}
+          <a href="{{ content.url }}">{{ content.studyType }}</a>
+          {% else %}
+          {{ content.studyType }}
+          {% endif %}
+        </h6>
+        <div class="education-org-meta">{{ content.institution }}</div>
+        {% if date != "" %}
+        <div class="education-date-text">{{ date }}</div>
+        {% endif %}
+      </div>
+      <div class="education-focus-col">
+        {% if content.highlights and content.highlights.size > 0 %}
+        <ul class="education-focus-list">
+          {% for item in content.highlights %}
+          <li>{{ item }}</li>
           {% endfor %}
         </ul>
+        {% elsif content.area and content.area != "" %}
+        <ul class="education-focus-list">
+          <li>{{ content.area }}</li>
+        </ul>
+        {% elsif content.courses and content.courses.size > 0 %}
+        <ul class="education-focus-list">
+          <li>{{ content.courses | join: ", " }}</li>
+        </ul>
+        {% endif %}
       </div>
     </div>
   </li>
