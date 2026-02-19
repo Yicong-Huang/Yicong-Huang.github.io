@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-labelledby="title desc">
+  <title id="title">UMass Amherst wordmark</title>
+  <desc id="desc">UMass Amherst two-line wordmark with black UMass and maroon Amherst text.</desc>
+  <rect width="300" height="300" fill="none"/>
+  <text x="150" y="138" text-anchor="middle" font-family="Times New Roman, Times, Georgia, serif" font-size="86" font-weight="500" fill="#000000" letter-spacing="0">UMass</text>
+  <text x="150" y="218" text-anchor="middle" font-family="Times New Roman, Times, Georgia, serif" font-size="74" font-weight="500" fill="#881c1c" letter-spacing="0">Amherst</text>
+</svg>
