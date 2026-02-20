@@ -43,13 +43,15 @@ def extract_totals(doc: str) -> dict:
     table = table_match.group(1)
 
     def row_vals(label: str) -> tuple[int, int]:
-        pat = rf"<tr[^>]*>\s*<td[^>]*>\s*{re.escape(label)}\s*</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>"
-        m = re.search(pat, table, re.S | re.I)
-        if not m:
-            raise RuntimeError(f"failed to parse row: {label}")
-        left = parse_int(html.unescape(re.sub(r"<[^>]+>", "", m.group(1))))
-        right = parse_int(html.unescape(re.sub(r"<[^>]+>", "", m.group(2))))
-        return left, right
+        for row_m in re.finditer(r"<tr[^>]*>(.*?)</tr>", table, re.S | re.I):
+            cells = re.findall(r"<td[^>]*>(.*?)</td>", row_m.group(1), re.S | re.I)
+            if len(cells) >= 3:
+                cell_text = html.unescape(re.sub(r"<[^>]+>", "", cells[0])).strip()
+                if cell_text.lower() == label.lower():
+                    left = parse_int(html.unescape(re.sub(r"<[^>]+>", "", cells[1])))
+                    right = parse_int(html.unescape(re.sub(r"<[^>]+>", "", cells[2])))
+                    return left, right
+        raise RuntimeError(f"failed to parse row: {label}")
 
     citations_all, citations_recent = row_vals("Citations")
     h_all, h_recent = row_vals("h-index")
