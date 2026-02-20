@@ -42,15 +42,26 @@ def extract_totals(doc: str) -> dict:
         raise RuntimeError("failed to locate metrics table: gsc_rsb_st")
     table = table_match.group(1)
 
+    rows = re.findall(r"<tr[^>]*>(.*?)</tr>", table, re.S | re.I)
+
+    normalized_rows: list[list[str]] = []
+    for row_html in rows:
+        cells = re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row_html, re.S | re.I)
+        texts = [html.unescape(re.sub(r"<[^>]+>", "", c)).strip() for c in cells]
+        texts = [t for t in texts if t]
+        if texts:
+            normalized_rows.append(texts)
+
     def row_vals(label: str) -> tuple[int, int]:
-        for row_m in re.finditer(r"<tr[^>]*>(.*?)</tr>", table, re.S | re.I):
-            cells = re.findall(r"<td[^>]*>(.*?)</td>", row_m.group(1), re.S | re.I)
-            if len(cells) >= 3:
-                cell_text = html.unescape(re.sub(r"<[^>]+>", "", cells[0])).strip()
-                if cell_text.lower() == label.lower():
-                    left = parse_int(html.unescape(re.sub(r"<[^>]+>", "", cells[1])))
-                    right = parse_int(html.unescape(re.sub(r"<[^>]+>", "", cells[2])))
-                    return left, right
+        key = label.lower().replace("-", "")
+        for row in normalized_rows:
+            if len(row) < 3:
+                continue
+            first = row[0].lower().replace("-", "")
+            if key in first:
+                left = parse_int(row[1])
+                right = parse_int(row[2])
+                return left, right
         raise RuntimeError(f"failed to parse row: {label}")
 
     citations_all, citations_recent = row_vals("Citations")
