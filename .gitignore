@@ -8,6 +8,5 @@ _site
 .tweet-cache
 Gemfile.lock
 vendor
-__pycache__
+__pycache__/
 *.pyc
-
