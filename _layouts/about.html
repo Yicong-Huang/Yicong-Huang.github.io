@@ -149,30 +149,22 @@ layout: default
       <section class="about-side-section about-current-services">
         <h2 class="about-side-title">Travel &amp; Events</h2>
         <ul class="current-services-list travel-events-list">
+          {% assign travel_events_sorted = site.travel_events | sort: "start_date" | reverse %}
+          {% for item in travel_events_sorted %}
           <li>
             <div class="travel-event-row">
-              <span class="travel-event-date">Feb 21, 2026</span>
-              <span class="travel-event-title">Prof. Chen Li's Reunion, UCI, CA</span>
+              <span class="travel-event-date">{{ item.date_text }}</span>
+              <span class="travel-event-title">{{ item.title }}</span>
             </div>
           </li>
+          {% endfor %}
+          {% if travel_events_sorted.size == 0 %}
           <li>
             <div class="travel-event-row">
-              <span class="travel-event-date">Sept 18, 2025</span>
-              <span class="travel-event-title">33rd UCI Teach Day 2025, UCI, CA</span>
+              <span class="travel-event-title">No upcoming travel/events.</span>
             </div>
           </li>
-          <li>
-            <div class="travel-event-row">
-              <span class="travel-event-date">Nov 7-9, 2025</span>
-              <span class="travel-event-title">PyData, Seattle, WA</span>
-            </div>
-          </li>
-          <li>
-            <div class="travel-event-row">
-              <span class="travel-event-date">Nov 8</span>
-              <span class="travel-event-title">Microsoft Research, Seattle, WA</span>
-            </div>
-          </li>
+          {% endif %}
         </ul>
       </section>
     </div>
@@ -325,7 +317,18 @@ layout: default
     {% if page.publications -%}
       <div class="card mt-3 p-3">
         <h3 class="card-title font-weight-medium">
-          <a href="{{ '/publications/' | relative_url }}" style="color: inherit;">Publications</a>
+          Selected Publications <a href="{{ '/publications/' | relative_url }}" style="color: inherit;">(All)</a>
+          <span class="pub-title-icons">
+            {% if site.orcid_id %}
+            <a href="https://orcid.org/{{ site.orcid_id }}" title="ORCID"><i class="ai ai-orcid"></i></a>
+            {% endif %}
+            {% if site.scholar_userid %}
+            <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+            {% endif %}
+            {% if site.dblp_url %}
+            <a href="{{ site.dblp_url }}" title="DBLP"><i class="ai ai-dblp"></i></a>
+            {% endif %}
+          </span>
         </h3>
         {%- include selected_papers.html %}
       </div>

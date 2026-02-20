@@ -484,7 +484,7 @@ footer.sticky-bottom {
 
   h2.awards-year {
     color: var(--global-text-color);
-    font-size: 2rem;
+    font-size: 1.45rem;
     padding-left: 0;
     margin: 0;
     text-align: left;
@@ -718,7 +718,7 @@ footer.sticky-bottom {
     }
 
     h2.awards-year {
-      font-size: 1.7rem;
+      font-size: 1.3rem;
       padding-left: 0;
       margin-bottom: 0.3rem;
     }
@@ -1242,7 +1242,7 @@ footer.sticky-bottom {
   h2.bibliography {
     grid-column: 1;
     color: var(--global-text-color);
-    font-size: 2rem;
+    font-size: 1.45rem;
     border-top: 1px solid var(--global-divider-color);
     padding-top: 0.45rem;
     padding-left: 0;
@@ -1259,9 +1259,14 @@ footer.sticky-bottom {
     column-gap: 0.45rem;
 
     h2.bibliography {
-      font-size: 1.7rem;
+      font-size: 1.3rem;
       padding-top: 0.4rem;
       padding-left: 0;
+    }
+
+    ol.bibliography li .abbr abbr.venue-badge {
+      width: 7.6rem;
+      font-size: 0.69rem;
     }
   }
 
@@ -1284,22 +1289,76 @@ footer.sticky-bottom {
       }
 
       .abbr {
-        height: 2rem;
+        min-height: 2rem;
         margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
 
-        abbr {
-          display: inline-block;
-          background-color: var(--global-theme-color);
-          padding-left: 1rem;
-          padding-right: 1rem;
+        abbr.venue-badge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 8.8rem;
+          max-width: 100%;
+          min-height: 1.38rem;
+          border-radius: 0.42rem;
+          border: 1px solid #d6dde7;
+          background-color: #f7f9fc;
+          color: #66768a !important;
+          font-weight: 600;
+          font-size: 0.76rem;
+          letter-spacing: 0.01em;
+          white-space: nowrap;
+          box-shadow: none;
+          padding: 0.12rem 0.5rem;
 
           a {
-            color: white;
+            color: #66768a !important;
+            opacity: 1 !important;
+            text-decoration: none !important;
+            font-weight: inherit;
 
             &:hover {
               text-decoration: none;
             }
           }
+        }
+
+        // Emphasize the three core venues with muted, less saturated tones.
+        abbr.venue-badge.venue-vldb,
+        abbr.venue-badge.venue-vldb-demo {
+          background-color: #dbe8ff;
+          border-color: #5f88da;
+          color: #113f8a !important;
+          box-shadow: 0 0 0 1px rgba(17, 63, 138, 0.14);
+        }
+
+        abbr.venue-badge.venue-sigmod,
+        abbr.venue-badge.venue-sigmod-demo {
+          background-color: #daf5f1;
+          border-color: #49b6ad;
+          color: #0a5e5a !important;
+          box-shadow: 0 0 0 1px rgba(10, 94, 90, 0.14);
+        }
+
+        abbr.venue-badge.venue-icde,
+        abbr.venue-badge.venue-icde-workshop {
+          background-color: #faefcf;
+          border-color: #bd972f;
+          color: #6a4f05 !important;
+          box-shadow: 0 0 0 1px rgba(106, 79, 5, 0.14);
+        }
+
+        abbr.venue-badge.venue-dissertation {
+          background-color: #ddf0ff;
+          border-color: #4aa0d7;
+          color: #0c4e80 !important;
+          box-shadow: 0 0 0 1px rgba(12, 78, 128, 0.14);
+        }
+
+        abbr.venue-badge.venue-core {
+          font-weight: 800;
         }
 
         .award {

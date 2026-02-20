@@ -16,14 +16,21 @@
             alt=entry.preview -%}
           {%- endif -%}
         {%- elsif entry.abbr -%}
+          {%- assign venue_slug = entry.abbr | downcase | replace: " ", "-" | replace: "(", "" | replace: ")", "" | replace: "/", "-" -%}
+          {%- assign venue_upper = entry.abbr | upcase -%}
+          {%- assign is_core_venue = false -%}
+          {%- if venue_upper contains "SIGMOD" or venue_upper contains "VLDB" or venue_upper contains "ICDE" -%}
+            {%- assign is_core_venue = true -%}
+          {%- endif -%}
+          {%- assign venue_class = "badge venue-badge" -%}
+          {%- assign venue_class = venue_class | append: " venue-" | append: venue_slug -%}
+          {%- if is_core_venue -%}
+            {%- assign venue_class = venue_class | append: " venue-core" -%}
+          {%- endif -%}
           {%- if site.data.venues[entry.abbr] -%}
-            {%- assign venue_style = nil -%}
-            {%- if site.data.venues[entry.abbr].color != blank -%}
-              {%- assign venue_style = site.data.venues[entry.abbr].color | prepend: 'style="background-color:' | append: '"' -%}
-            {%- endif -%}
-            <abbr class="badge" {% if venue_style %}{{venue_style}}{% endif %}><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
+            <abbr class="{{ venue_class }}"><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
           {%- else -%}
-            <abbr class="badge">{{entry.abbr}}</abbr>
+            <abbr class="{{ venue_class }}">{{entry.abbr}}</abbr>
           {%- endif -%}
         {%- endif -%}
         </div>

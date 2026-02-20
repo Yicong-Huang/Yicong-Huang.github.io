@@ -126,6 +126,7 @@ body.sticky-bottom-footer {
     .contact-icons a .fa-envelope { color: #d44638; }
     .contact-icons a .ai-google-scholar { color: #4285f4; }
     .contact-icons a .fa-github { color: #24292e; }
+    .contact-icons a .fa-linkedin { color: #0a66c2; }
     .contact-icons a .ai-dblp { color: #00549f; }
     .contact-icons a .ai-orcid { color: #a6ce39; }
 
@@ -325,6 +326,32 @@ body.sticky-bottom-footer {
     font-size: 1.35rem;
     line-height: 1.25;
     font-weight: 500;
+  }
+
+  .about-main .card .card-title .pub-title-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    margin-left: 0.5rem;
+    font-size: 0.96rem;
+    vertical-align: middle;
+  }
+
+  .about-main .card .card-title .pub-title-icons a {
+    color: inherit;
+    line-height: 1;
+  }
+
+  .about-main .card .card-title .pub-title-icons .ai-orcid {
+    color: #a6ce39;
+  }
+
+  .about-main .card .card-title .pub-title-icons .ai-google-scholar {
+    color: #4285f4;
+  }
+
+  .about-main .card .card-title .pub-title-icons .ai-dblp {
+    color: #00549f;
   }
 
   .news {
