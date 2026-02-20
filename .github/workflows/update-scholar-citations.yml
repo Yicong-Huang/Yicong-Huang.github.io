@@ -25,7 +25,8 @@ jobs:
           for i in 1 2 3; do
             python3 scripts/update_scholar_citations.py \
               --user-id "9ZmdkkIAAAAJ" \
-              --output "_data/scholar_citations.yml" && break
+              --output "_data/scholar_citations.yml" \
+              --graceful-http-errors && break
             if [ "$i" -eq 3 ]; then
               echo "Failed to fetch Scholar data after 3 attempts."
               exit 1

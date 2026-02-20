@@ -7,6 +7,7 @@ import argparse
 import html
 import re
 import sys
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -144,12 +145,23 @@ def parse_args() -> argparse.Namespace:
         default="_data/scholar_citations.yml",
         help="Output YAML path",
     )
+    parser.add_argument(
+        "--graceful-http-errors",
+        action="store_true",
+        help="Return success when Scholar blocks the request (e.g., HTTP 403).",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    doc = fetch_html(args.user_id)
+    try:
+        doc = fetch_html(args.user_id)
+    except urllib.error.HTTPError as exc:
+        if args.graceful_http_errors and exc.code in {403, 429}:
+            print(f"WARNING: Scholar blocked request with HTTP {exc.code}; keep existing data.")
+            return 0
+        raise
     totals = extract_totals(doc)
     yearly = extract_yearly(doc)
     out = render_yaml(totals, yearly)
