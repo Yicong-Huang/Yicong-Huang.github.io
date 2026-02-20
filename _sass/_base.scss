@@ -1080,6 +1080,67 @@ footer.sticky-bottom {
   margin-top: 0.08rem;
 }
 
+.media-press-row {
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+}
+
+.media-press-title {
+  font-weight: 700;
+  line-height: 1.28;
+  margin-top: 0.12rem;
+}
+
+.media-press-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.05rem;
+}
+
+.media-press-date {
+  color: #111111;
+  font-weight: 700;
+  line-height: 1.22;
+}
+
+.media-press-meta {
+  margin-top: 0.15rem;
+  color: var(--global-text-color);
+  line-height: 1.28;
+}
+
+.media-press-meta span + span::before {
+  content: " · ";
+  color: var(--global-text-color-light);
+}
+
+.media-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.05rem 0.42rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  line-height: 1.2;
+}
+
+.media-chip--talk {
+  color: #1b5e9a;
+  background: #e6f0fb;
+  border-color: #bdd5f1;
+}
+
+.media-chip--blog {
+  color: #155a32;
+  background: #e6f4ea;
+  border-color: #bddfc7;
+}
+
 @media (max-width: 680px) {
   .repo-card-layout {
     grid-template-columns: 1fr;
@@ -1097,6 +1158,8 @@ footer.sticky-bottom {
     grid-template-columns: 1fr;
     gap: 0.3rem;
   }
+
+  .media-press-head { gap: 0.34rem; }
 }
 
 // Blog

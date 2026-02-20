@@ -172,6 +172,116 @@ body.sticky-bottom-footer {
     margin-top: 0.2rem;
   }
 
+  .scholar-side-card {
+    border-top: 1px solid var(--global-divider-color);
+    padding-top: 0.45rem;
+  }
+
+  .scholar-metrics-header,
+  .scholar-metrics-body {
+    display: grid;
+    grid-template-columns: minmax(92px, 1fr) 0.7fr 0.9fr;
+    column-gap: 0.4rem;
+    align-items: center;
+    font-size: 0.88rem;
+  }
+
+  .scholar-metrics-header {
+    color: var(--global-text-color-light);
+    font-weight: 500;
+    border-bottom: 1px solid var(--global-divider-color);
+    padding-bottom: 0.22rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .scholar-metrics-body {
+    row-gap: 0.12rem;
+  }
+
+  .scholar-metrics-body > div:nth-child(3n + 2),
+  .scholar-metrics-body > div:nth-child(3n + 3) {
+    text-align: right;
+    font-weight: 500;
+    color: #111111;
+  }
+
+  .scholar-bars-wrap {
+    margin-top: 0.45rem;
+    border-top: 1px solid var(--global-divider-color);
+    padding-top: 0.32rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 2rem;
+    column-gap: 0.35rem;
+    align-items: end;
+  }
+
+  .scholar-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.2rem;
+    background-image: linear-gradient(
+      to top,
+      transparent 0,
+      transparent calc(25% - 1px),
+      var(--global-divider-color) calc(25% - 1px),
+      var(--global-divider-color) 25%,
+      transparent 25%,
+      transparent calc(50% - 1px),
+      var(--global-divider-color) calc(50% - 1px),
+      var(--global-divider-color) 50%,
+      transparent 50%,
+      transparent calc(75% - 1px),
+      var(--global-divider-color) calc(75% - 1px),
+      var(--global-divider-color) 75%,
+      transparent 75%
+    );
+  }
+
+  .scholar-bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .scholar-bar-col--spacer {
+    flex: 0 0 0.52rem;
+  }
+
+  .scholar-bar-wrap {
+    width: 100%;
+    height: 74px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .scholar-bar {
+    width: min(18px, 72%);
+    background: #8a9096;
+    border-radius: 2px 2px 0 0;
+  }
+
+  .scholar-bar-year {
+    margin-top: 0.12rem;
+    font-size: 0.72rem;
+    color: var(--global-text-color-light);
+    line-height: 1.1;
+  }
+
+  .scholar-yaxis {
+    height: 74px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--global-text-color-light);
+    line-height: 1;
+    text-align: right;
+    padding-bottom: 0.16rem;
+  }
+
   .travel-event-row {
     display: flex;
     align-items: baseline;
@@ -197,6 +307,39 @@ body.sticky-bottom-footer {
 
   .travel-events-list li {
     margin-bottom: 0.52rem;
+  }
+
+  .media-side-entry {
+    line-height: 1.28;
+  }
+
+  .media-side-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .current-teaching-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .media-side-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.36rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.05rem;
+  }
+
+  .media-side-date {
+    color: #111111;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .media-side-title {
+    color: #7f858a;
+    font-weight: 500;
   }
 
   .sidebar-repo-list {

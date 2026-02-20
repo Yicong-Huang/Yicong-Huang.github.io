@@ -69,6 +69,67 @@
       {%- endif %}
     </section>
 
+    {% if site.data.scholar_citations and site.scholar_userid %}
+    <section class="about-side-section about-current-services">
+      <h2 class="about-side-title">
+        Cited by
+        <a class="about-side-all-link" href="https://scholar.google.com/citations?hl=en&user={{ site.scholar_userid }}" target="_blank" rel="noopener noreferrer">(All)</a>
+      </h2>
+      <div class="scholar-side-card">
+        <div class="scholar-metrics-header">
+          <span></span>
+          <span>All</span>
+          <span>Since 2021</span>
+        </div>
+        <div class="scholar-metrics-body">
+          <div>Citations</div>
+          <div>{{ site.data.scholar_citations.totals.all.citations }}</div>
+          <div>{{ site.data.scholar_citations.totals.since_2021.citations }}</div>
+          <div>h-index</div>
+          <div>{{ site.data.scholar_citations.totals.all.h_index }}</div>
+          <div>{{ site.data.scholar_citations.totals.since_2021.h_index }}</div>
+          <div>i10-index</div>
+          <div>{{ site.data.scholar_citations.totals.all.i10_index }}</div>
+          <div>{{ site.data.scholar_citations.totals.since_2021.i10_index }}</div>
+        </div>
+        {% assign max_citations = 1 %}
+        {% for item in site.data.scholar_citations.yearly %}
+          {% if item.count > max_citations %}
+            {% assign max_citations = item.count %}
+          {% endif %}
+        {% endfor %}
+        {% assign y_max = max_citations | plus: 9 | divided_by: 10 | times: 10 %}
+        {% assign y_75 = y_max | times: 3 | divided_by: 4 %}
+        {% assign y_50 = y_max | divided_by: 2 %}
+        {% assign y_25 = y_max | divided_by: 4 %}
+        <div class="scholar-bars-wrap" style="display:grid;grid-template-columns:minmax(0,1fr) 2rem;column-gap:.35rem;align-items:end;">
+          <div class="scholar-bars" style="display:flex;align-items:flex-end;gap:.2rem;">
+            <div class="scholar-bar-col scholar-bar-col--spacer" aria-hidden="true" style="flex:0 0 .52rem;display:flex;flex-direction:column;align-items:center;min-width:0;">
+              <div class="scholar-bar-wrap" style="width:100%;height:74px;display:flex;align-items:flex-end;justify-content:center;"></div>
+              <div class="scholar-bar-year"></div>
+            </div>
+            {% for item in site.data.scholar_citations.yearly %}
+              {% assign h = item.count | times: 100 | divided_by: max_citations %}
+              <div class="scholar-bar-col" style="flex:1 1 0;display:flex;flex-direction:column;align-items:center;min-width:0;">
+                <div class="scholar-bar-wrap" style="width:100%;height:74px;display:flex;align-items:flex-end;justify-content:center;">
+                  <div class="scholar-bar" style="height: {{ h }}%;" title="{{ item.year }}: {{ item.count }}"></div>
+                </div>
+                <div class="scholar-bar-year">{{ item.year }}</div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="scholar-yaxis" aria-hidden="true" style="height:74px;display:flex;flex-direction:column;justify-content:space-between;text-align:right;">
+            <span style="display:block;">{{ y_max }}</span>
+            <span style="display:block;">{{ y_75 }}</span>
+            <span style="display:block;">{{ y_50 }}</span>
+            <span style="display:block;">{{ y_25 }}</span>
+            <span style="display:block;">0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
     {% if sidebar_source.news and site.announcements.enabled -%}
     <section class="about-side-section about-news-section">
       <h2 class="about-side-title"><a href="{{ '/news/' | relative_url }}" style="color: inherit;">News</a></h2>
@@ -135,8 +196,26 @@
     </section>
 
     <section class="about-side-section about-current-services">
+      <h2 class="about-side-title">Media &amp; Press <a class="about-side-all-link" href="{{ '/media/' | relative_url }}">(All)</a></h2>
+      <ul class="current-services-list media-side-list">
+        {% assign media_sidebar_items = site.data.media_press.sidebar_selected | sort: "start_date" | reverse %}
+        {% for item in media_sidebar_items %}
+        <li>
+          <div class="media-side-entry">
+            <div class="media-side-head">
+              <span class="media-side-date">{{ item.date_text }}</span>
+              <span class="media-chip media-chip--{{ item.label | downcase }}">{{ item.label }}</span>
+            </div>
+            <div class="media-side-title">{{ item.title }}</div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="about-side-section about-current-services">
       <h2 class="about-side-title">Current Teaching <a class="about-side-all-link" href="{{ '/teaching/' | relative_url }}">(All)</a></h2>
-      <ul class="current-services-list">
+      <ul class="current-services-list current-teaching-list">
         <li>No teaching scheduled at the moment.</li>
       </ul>
     </section>

@@ -1,0 +1,46 @@
+name: Update Scholar Citations
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 11 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Update scholar citation data
+        run: |
+          for i in 1 2 3; do
+            python3 scripts/update_scholar_citations.py \
+              --user-id "9ZmdkkIAAAAJ" \
+              --output "_data/scholar_citations.yml" && break
+            if [ "$i" -eq 3 ]; then
+              echo "Failed to fetch Scholar data after 3 attempts."
+              exit 1
+            fi
+            sleep 20
+          done
+
+      - name: Commit and push if changed
+        run: |
+          if git diff --quiet -- _data/scholar_citations.yml; then
+            echo "No citation changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/scholar_citations.yml
+          git commit -m "chore(data): refresh scholar citations"
+          git push

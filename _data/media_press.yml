@@ -1,0 +1,89 @@
+sidebar_selected:
+  - start_date: "2025-06-01"
+    date_text: "Jun 2025"
+    label: Talk
+    title: "UDF-Centric Dataflow Systems for Supporting User-Defined Functions in Collaborative Data Science, AI, and ML"
+  - start_date: "2025-01-15"
+    date_text: "2025"
+    label: Talk
+    title: "Building a Collaborative and Interactive Data System to Broaden Access to Data Science, AI, and ML"
+  - start_date: "2024-10-01"
+    date_text: "2024"
+    label: Blog
+    title: "Suggesting Python Code Type Annotations with LLM - A Language Server Enhancement"
+
+talks:
+  - start_date: "2025-06-01"
+    date_text: "Jun 2025"
+    label: Talk
+    title: "UDF-Centric Dataflow Systems for Supporting User-Defined Functions in Collaborative Data Science, AI, and ML."
+    description: "My final defense at University of California, Irvine."
+  - start_date: "2025-01-15"
+    date_text: "2025"
+    label: Talk
+    title: "Building a Collaborative and Interactive Data System to Broaden Access to Data Science, AI, and ML."
+    locations:
+      - "University at Buffalo."
+      - "Lehigh University."
+      - "University of Massachusetts Amherst."
+      - "Purdue University."
+      - "University of Massachusetts Boston."
+      - "Amazon Web Services."
+      - "Arizona State University."
+      - "Santa Clara University."
+  - start_date: "2024-11-01"
+    date_text: "Nov 2024"
+    label: Talk
+    title: "Texera and Interactive Debugging in Distributed Data Processing Systems."
+    description: "An invited talk at Databricks Inc., Mountain View, CA, United States."
+  - start_date: "2024-08-01"
+    date_text: "Aug 2024"
+    label: Talk
+    title: "Texera: A System for Collaborative and Interactive Data Analytics Using Workflows."
+    description: "A paper presentation talk at VLDB 2024, Guangzhou, China."
+  - start_date: "2024-05-01"
+    date_text: "May 2024"
+    label: Talk
+    title: "The Journey to Build Texera."
+    description: "An invited talk at ISG Reunion, Irvine, CA, United States."
+  - start_date: "2024-06-01"
+    date_text: "Jun 2024"
+    label: Talk
+    title: "Udon: Efficient Debugging of User-Defined Functions in Big Data Systems."
+    description: "A paper presentation talk at SIGMOD 2024, Santiago, Chile."
+  - start_date: "2023-07-01"
+    date_text: "Summer 2023"
+    label: Talk
+    title: "Python User-defined Functions on Workflows."
+    description: "A guest lecture at DS4ALL 2023 summer program, University of California, Irvine."
+  - start_date: "2022-01-01"
+    date_text: "2022"
+    label: Talk
+    title: "Data Challenges in Streaming Systems."
+    description: "A talk at VISA Research, AI Research team, Palo Alto, CA, United States."
+
+blogs:
+  - start_date: "2024-10-01"
+    date_text: "2024"
+    label: Blog
+    title: "Suggesting Python Code Type Annotations with LLM - A Language Server Enhancement."
+    outlet: "Texera Blog"
+    authors: "Minchong Wu and Yicong Huang"
+  - start_date: "2024-06-01"
+    date_text: "2024"
+    label: Blog
+    title: "Adding R UDF to Texera: The Journey."
+    outlet: "Texera Blog"
+    authors: "Kevin Wu and Yicong Huang"
+  - start_date: "2023-12-01"
+    date_text: "2023"
+    label: Blog
+    title: "Enhancing the UDF Editor by Adding Language Server Support."
+    outlet: "Texera Blog"
+    authors: "Aditya Verma, Dhruv Raipure, Jiaxi Chen, Sreetej Reddy, and Yicong Huang"
+  - start_date: "2023-04-01"
+    date_text: "2023"
+    label: Blog
+    title: "Using Texera to Perform Single-cell RNA Sequencing Analysis with R Language."
+    outlet: "Texera Blog"
+    authors: "Yicong Huang"
