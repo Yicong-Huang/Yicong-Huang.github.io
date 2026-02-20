@@ -1,8 +1,12 @@
 <ul class="card-text font-weight-light list-group list-group-flush">
   {% assign service = data[1] %}
+  {% assign show_category_headers = include.show_category_headers %}
+  {% if show_category_headers == nil %}
+    {% assign show_category_headers = true %}
+  {% endif %}
   {% assign current_category = "" %}
   {% for content in service %}
-  {% if content.category and content.category != current_category %}
+  {% if show_category_headers and content.category and content.category != current_category %}
   <li class="list-group-item service-category-row{% unless forloop.first %} service-category-divider{% endunless %}">
     <div class="service-category-text">{{ content.category }}</div>
   </li>

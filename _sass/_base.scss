@@ -799,9 +799,48 @@ footer.sticky-bottom {
 
 // Repositories
 
+.repo-page-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 32%);
+  gap: 1rem;
+  align-items: start;
+}
+
+.repo-page-main h2 {
+  margin-top: 0;
+}
+
+.repo-page-side {
+  position: sticky;
+  top: 88px;
+}
+
+.github-metrics-card {
+  width: 100%;
+  max-width: none !important;
+  padding: 0.9rem !important;
+}
+
+.github-metrics-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
 @media (min-width: 768px) {
   .repo {
     max-width: 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  .repo-page-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .repo-page-side {
+    position: static;
   }
 }
 
@@ -905,6 +944,7 @@ footer.sticky-bottom {
 
 .contribution-overview-card {
   width: 100%;
+  max-width: none !important;
   border: 1px solid #c7d0d9;
   border-radius: 14px;
 }
@@ -914,27 +954,32 @@ footer.sticky-bottom {
   align-items: center;
   gap: 0.9rem;
   margin-bottom: 0.9rem;
+  flex-wrap: nowrap;
 }
 
-.contrib-avatar {
+.contribution-overview-card .contrib-avatar {
   width: 64px;
   height: 64px;
+  min-width: 64px;
   border-radius: 999px;
   object-fit: cover;
   background: #eef2f6;
+  display: block;
+  flex: 0 0 64px;
 }
 
 .contrib-username {
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: 700;
   line-height: 1.1;
   color: #1f5fbf;
+  word-break: break-word;
 }
 
 .contrib-total {
-  font-size: 1.8rem;
+  font-size: 1.1rem;
   color: #57606a;
-  line-height: 1.15;
+  line-height: 1.25;
 }
 
 .contrib-chart {

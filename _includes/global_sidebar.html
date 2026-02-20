@@ -1,0 +1,262 @@
+{% assign sidebar_source = site.pages | where: "permalink", "/" | first %}
+<aside class="about-sidebar">
+  <div class="about-sidebar-inner">
+    <header class="about-id">
+      <h1 class="post-title">
+        {% if site.title == "blank" -%}
+          <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }} {{ site.last_name }}, PhD
+        {%- else -%}
+          {{ site.title }}
+        {%- endif %}
+      </h1>
+    </header>
+
+    {% if sidebar_source.profile -%}
+    <div class="profile about-profile">
+      {%- if sidebar_source.profile.image %}
+        {%- assign profile_image_path = sidebar_source.profile.image | prepend: 'assets/img/' -%}
+
+        {% if sidebar_source.profile.image_circular %}
+          {%- assign profile_image_class = "img-fluid z-depth-1 rounded-circle" -%}
+        {% else %}
+          {%- assign profile_image_class = "img-fluid z-depth-1 rounded" -%}
+        {% endif %}
+
+        {% include figure.html
+        path=profile_image_path
+        class=profile_image_class
+        alt=sidebar_source.profile.image
+        cache_bust=true -%}
+      {% endif -%}
+    </div>
+    {%- endif %}
+
+    <section class="about-side-section about-title-contact-section">
+      <h2 class="about-side-title">Title &amp; Contact</h2>
+      {% if sidebar_source.subtitle %}
+      {% assign subtitle_lines = sidebar_source.subtitle | split: "<br>" %}
+      <div class="about-title-text">
+        {% for line in subtitle_lines %}
+        {% assign line_clean = line | strip %}
+        {% if line_clean != "" %}
+        <div class="about-title-line">
+          <span>{{ line_clean }}</span>
+          {% if forloop.index == 1 and site.email %}
+          <a class="about-title-mail" href="mailto:{{ site.email | encode_email }}" title="Email (Databricks)"><i class="fas fa-envelope"></i></a>
+          {% elsif forloop.index == 2 and site.email_secondary %}
+          <a class="about-title-mail" href="mailto:{{ site.email_secondary | encode_email }}" title="Email (UMass)"><i class="fas fa-envelope"></i></a>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+      {%- if sidebar_source.profile.more_info %}
+      <div class="more-info about-contact-more-info">
+        {{ sidebar_source.profile.more_info }}
+      </div>
+      {%- endif %}
+      <p class="about-pronouns">Pronouns: he/him</p>
+      {%- if sidebar_source.social %}
+      <div class="social about-contact-social">
+        <div class="contact-icons">
+          {% include social.html %}
+        </div>
+        <div class="contact-note">
+          {{ site.contact_note }}
+        </div>
+      </div>
+      {%- endif %}
+    </section>
+
+    {% if sidebar_source.news and site.announcements.enabled -%}
+    <section class="about-side-section about-news-section">
+      <h2 class="about-side-title"><a href="{{ '/news/' | relative_url }}" style="color: inherit;">News</a></h2>
+      {%- include news.html limit=true dynamic=true batch=5 initial=5 %}
+    </section>
+    {%- endif %}
+
+    <section class="about-side-section about-current-services">
+      <h2 class="about-side-title">Selected Repositories <a class="about-side-all-link" href="{{ '/repositories/' | relative_url }}">(All)</a></h2>
+      {% if site.data.repositories.github_repos %}
+      {% assign repo_author = site.github_username | default: site.data.repositories.github_users.first %}
+      {% assign spark_repo = "" %}
+      {% assign other_repos = "" | split: "|" %}
+      {% for repo in site.data.repositories.github_repos %}
+        {% assign repo_lc = repo | downcase %}
+        {% if repo_lc contains "/spark" %}
+          {% assign spark_repo = repo %}
+        {% else %}
+          {% assign other_repos = other_repos | push: repo %}
+        {% endif %}
+      {% endfor %}
+      {% assign sidebar_repos = other_repos %}
+      {% if spark_repo != "" %}
+        {% assign sidebar_repos = "" | split: "|" %}
+        {% assign sidebar_repos = sidebar_repos | push: spark_repo %}
+        {% assign sidebar_repos = sidebar_repos | concat: other_repos %}
+      {% endif %}
+      <div class="sidebar-repo-list">
+        {% for repo in sidebar_repos %}
+        <a class="sidebar-repo-card" href="https://github.com/{{ repo }}" target="_blank" rel="noopener noreferrer" data-repo-fullname="{{ repo }}" data-my-author="{{ repo_author }}">
+          <div class="sidebar-repo-top">
+            <i class="fab fa-github mr-1"></i>
+            {{ repo }}
+          </div>
+          <div class="sidebar-repo-sub">
+            <i class="far fa-star" title="Stars"></i> <span data-field="stars">...</span>
+            <span class="sidebar-repo-dot">&middot;</span>
+            <i class="fas fa-code-commit" title="My commits"></i> <span data-field="my-commits">...</span>
+          </div>
+          <div class="sidebar-repo-sparkline" data-field="repo-sparkline">
+            <span class="sidebar-repo-sparkline-loading">Loading trend...</span>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <ul class="current-services-list">
+        <li>No repositories configured.</li>
+      </ul>
+      {% endif %}
+    </section>
+
+    <section class="about-side-section about-current-services">
+      <h2 class="about-side-title">Current Services <a class="about-side-all-link" href="{{ '/services/' | relative_url }}">(All)</a></h2>
+      {% assign current_services = site.data.resume.service | where_exp: "item", "item.currentService == true" %}
+      <ul class="current-services-list">
+        {% for item in current_services %}
+        <li>
+          {% if item.event and item.event contains "SIGMOD" %}SIGMOD{% else %}{{ item.event }}{% endif %}
+          {{ item.year }} {{ item.role }}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="about-side-section about-current-services">
+      <h2 class="about-side-title">Current Teaching <a class="about-side-all-link" href="{{ '/teaching/' | relative_url }}">(All)</a></h2>
+      <ul class="current-services-list">
+        <li>No teaching scheduled at the moment.</li>
+      </ul>
+    </section>
+
+    <section class="about-side-section about-current-services">
+      <h2 class="about-side-title">Travel &amp; Events</h2>
+      <ul class="current-services-list travel-events-list">
+        {% assign travel_events_sorted = site.travel_events | sort: "start_date" | reverse %}
+        {% for item in travel_events_sorted %}
+        <li>
+          <div class="travel-event-row">
+            <span class="travel-event-date">{{ item.date_text }}</span>
+            <span class="travel-event-title">{{ item.title }}</span>
+          </div>
+        </li>
+        {% endfor %}
+        {% if travel_events_sorted.size == 0 %}
+        <li>
+          <div class="travel-event-row">
+            <span class="travel-event-title">No upcoming travel/events.</span>
+          </div>
+        </li>
+        {% endif %}
+      </ul>
+    </section>
+  </div>
+</aside>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cards = Array.from(document.querySelectorAll(".sidebar-repo-card[data-repo-fullname][data-my-author]"));
+    if (cards.length === 0) return;
+
+    const fetchCommitCount = async (owner, repo, branch, author) => {
+      const url = `https://api.github.com/repos/${owner}/${repo}/commits?sha=${encodeURIComponent(branch)}&author=${encodeURIComponent(author)}&per_page=1`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Commits API failed: ${res.status}`);
+      const link = res.headers.get("link") || "";
+      const lastMatch = link.match(/[?&]page=(\d+)>;\s*rel="last"/i);
+      if (lastMatch && lastMatch[1]) return parseInt(lastMatch[1], 10).toLocaleString();
+      const data = await res.json();
+      if (Array.isArray(data)) return String(data.length);
+      return "N/A";
+    };
+
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const fetchCommitActivity = async (owner, repo) => {
+      const url = `https://api.github.com/repos/${owner}/${repo}/stats/commit_activity`;
+      for (let attempt = 0; attempt < 4; attempt++) {
+        const res = await fetch(url);
+        if (res.status === 202) {
+          await sleep(500 + attempt * 400);
+          continue;
+        }
+        if (!res.ok) throw new Error(`Commit activity API failed: ${res.status}`);
+        const data = await res.json();
+        return Array.isArray(data) ? data : [];
+      }
+      return [];
+    };
+
+    const renderSparkline = (card, weeklyActivity) => {
+      const holder = card.querySelector("[data-field='repo-sparkline']");
+      if (!holder) return;
+      const daily = [];
+      (weeklyActivity || []).slice(-5).forEach((w) => {
+        (w.days || []).forEach((d) => daily.push(Number(d || 0)));
+      });
+      const points = daily.slice(-30);
+      if (points.length === 0) {
+        holder.innerHTML = `<span class="sidebar-repo-sparkline-loading">No trend data</span>`;
+        return;
+      }
+
+      const width = 140;
+      const height = 24;
+      const maxVal = Math.max(1, ...points);
+      const step = points.length > 1 ? width / (points.length - 1) : width;
+      const linePoints = points.map((v, i) => {
+        const x = i * step;
+        const y = height - 1 - (v / maxVal) * (height - 4);
+        return `${x.toFixed(2)},${y.toFixed(2)}`;
+      }).join(" ");
+
+      const areaPoints = `0,${height} ${linePoints} ${width},${height}`;
+      holder.innerHTML = `
+        <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-label="Recent one month commit trend">
+          <polyline class="repo-sparkline-area" points="${areaPoints}"></polyline>
+          <polyline class="repo-sparkline-line" points="${linePoints}"></polyline>
+        </svg>
+      `;
+    };
+
+    cards.forEach(async (card) => {
+      const full = card.dataset.repoFullname || "";
+      const author = card.dataset.myAuthor || "";
+      const [owner, repo] = full.split("/");
+      const out = card.querySelector("[data-field='my-commits']");
+      if (!out || !owner || !repo || !author) return;
+      try {
+        const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+        if (!repoRes.ok) throw new Error(`Repo API failed: ${repoRes.status}`);
+        const repoData = await repoRes.json();
+        const starsOut = card.querySelector("[data-field='stars']");
+        if (starsOut) starsOut.textContent = Number(repoData.stargazers_count || 0).toLocaleString();
+        const branch = repoData.default_branch || "main";
+        out.textContent = await fetchCommitCount(owner, repo, branch, author);
+        try {
+          const weeklyActivity = await fetchCommitActivity(owner, repo);
+          renderSparkline(card, weeklyActivity);
+        } catch (_err) {
+          renderSparkline(card, []);
+        }
+      } catch (_err) {
+        const starsOut = card.querySelector("[data-field='stars']");
+        if (starsOut) starsOut.textContent = "N/A";
+        out.textContent = "N/A";
+        renderSparkline(card, []);
+      }
+    });
+  });
+</script>
