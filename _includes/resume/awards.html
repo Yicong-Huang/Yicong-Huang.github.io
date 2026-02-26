@@ -1,0 +1,58 @@
+{% assign awards = data[1] | sort: "date" | reverse %}
+{% assign years = "" | split: "," %}
+{% for item in awards %}
+  {% assign item_year = item.date | slice: 0, 4 %}
+  {% if item_year == "" %}
+    {% assign item_year = "Other" %}
+  {% endif %}
+  {% unless years contains item_year %}
+    {% assign years = years | push: item_year %}
+  {% endunless %}
+{% endfor %}
+
+{% for year in years %}
+<div class="awards-year-row">
+  <div class="awards-year-col">
+    <h2 class="bibliography awards-year">{{ year }}</h2>
+  </div>
+  <div class="awards-content-col">
+    <ul class="card-text font-weight-light list-group list-group-flush awards-list">
+      {% for p in (1..120) %}
+        {% for content in awards %}
+          {% assign content_year = content.date | slice: 0, 4 %}
+          {% if content_year == "" %}
+            {% assign content_year = "Other" %}
+          {% endif %}
+          {% assign content_priority = content.priority | default: 50 %}
+          {% if content_year == year and content_priority == p %}
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-sm-2 d-none d-sm-flex awards-middle-col">
+                {% if content.title == "UCI CS Best Dissertation Honorable Mention Award" %}
+                <span class="awards-new-badge">New!</span>
+                {% endif %}
+              </div>
+              <div class="col-12 col-sm-10">
+                <h6 class="title font-weight-bold">
+                  {% if content.url and content.url != "" %}
+                  <a href="{{ content.url }}">{{ content.title }}</a>
+                  {% else %}
+                  {{ content.title }}
+                  {% endif %}
+                </h6>
+                {% if content.awarder and content.awarder != "" %}
+                <h6 style="font-size: 0.95rem;">{{ content.awarder }}</h6>
+                {% endif %}
+                {% if content.summary and content.summary != "" %}
+                <h6 style="font-size: 0.95rem; font-style: italic;">{{ content.summary }}</h6>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endfor %}
