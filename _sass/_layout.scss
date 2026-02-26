@@ -447,6 +447,14 @@ body.sticky-bottom-footer {
     line-height: 1.2;
   }
 
+  .sidebar-repo-owner-icon,
+  .sidebar-repo-owner-badge {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    border-radius: 4px;
+  }
+
   .sidebar-repo-sub {
     margin-top: 0.1rem;
     font-size: 0.82rem;
@@ -456,6 +464,12 @@ body.sticky-bottom-footer {
 
   .sidebar-repo-sub i {
     color: #5f6b7a;
+    width: 0.85rem;
+    text-align: center;
+  }
+
+  .sidebar-repo-sub-secondary {
+    margin-top: 0.06rem;
   }
 
   .sidebar-repo-dot {

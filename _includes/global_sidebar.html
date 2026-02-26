@@ -138,35 +138,38 @@
 
     <section class="about-side-section about-current-services">
       <h2 class="about-side-title">Selected Repositories <a class="about-side-all-link" href="{{ '/repositories/' | relative_url }}">(All)</a></h2>
-      {% if site.data.repositories.github_repos %}
-      {% assign repo_author = site.github_username | default: site.data.repositories.github_users.first %}
-      {% assign spark_repo = "" %}
-      {% assign other_repos = "" | split: "|" %}
-      {% for repo in site.data.repositories.github_repos %}
-        {% assign repo_lc = repo | downcase %}
-        {% if repo_lc contains "/spark" %}
-          {% assign spark_repo = repo %}
-        {% else %}
-          {% assign other_repos = other_repos | push: repo %}
+      {% if site.data.repositories.repositories %}
+      {% assign sidebar_repos = "" | split: "|" %}
+      {% for repo_item in site.data.repositories.repositories %}
+        {% if repo_item.selected == true %}
+          {% assign sidebar_repos = sidebar_repos | push: repo_item.name %}
         {% endif %}
       {% endfor %}
-      {% assign sidebar_repos = other_repos %}
-      {% if spark_repo != "" %}
-        {% assign sidebar_repos = "" | split: "|" %}
-        {% assign sidebar_repos = sidebar_repos | push: spark_repo %}
-        {% assign sidebar_repos = sidebar_repos | concat: other_repos %}
-      {% endif %}
       <div class="sidebar-repo-list">
         {% for repo in sidebar_repos %}
-        <a class="sidebar-repo-card" href="https://github.com/{{ repo }}" target="_blank" rel="noopener noreferrer" data-repo-fullname="{{ repo }}" data-my-author="{{ repo_author }}">
+        {% assign repo_parts = repo | split: '/' %}
+        <a class="sidebar-repo-card" href="https://github.com/{{ repo }}" target="_blank" rel="noopener noreferrer" data-repo-fullname="{{ repo }}">
           <div class="sidebar-repo-top">
-            <i class="fab fa-github mr-1"></i>
+            {% if repo_parts[0] == "ISG-ICS" %}
+            <span class="repo-owner-badge sidebar-repo-owner-badge" title="ISG">ISG</span>
+            {% else %}
+            <img
+              class="repo-owner-icon sidebar-repo-owner-icon"
+              src="https://avatars.githubusercontent.com/{{ repo_parts[0] }}?size=64"
+              alt="{{ repo_parts[0] }} icon"
+              loading="lazy"
+            />
+            {% endif %}
             {{ repo }}
           </div>
           <div class="sidebar-repo-sub">
             <i class="far fa-star" title="Stars"></i> <span data-field="stars">...</span>
             <span class="sidebar-repo-dot">&middot;</span>
-            <i class="fas fa-code-commit" title="My commits"></i> <span data-field="my-commits">...</span>
+            <i class="fas fa-code-commit" title="Total commits"></i> <span data-field="total-commits">...</span>
+            <span class="sidebar-repo-dot">&middot;</span>
+            <i class="fas fa-code-branch" title="Forks"></i> <span data-field="forks">...</span>
+            <span class="sidebar-repo-dot">&middot;</span>
+            <i class="far fa-dot-circle" title="Open issues"></i> <span data-field="issues">...</span>
           </div>
           <div class="sidebar-repo-sparkline" data-field="repo-sparkline">
             <span class="sidebar-repo-sparkline-loading">Loading trend...</span>
@@ -274,6 +277,7 @@
   </div>
 </aside>
 
+<script src="{{ '/assets/js/github-repo-data.js' | relative_url | bust_file_cache }}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const geoWidget = document.querySelector(".visitor-geo-widget[data-src]");
@@ -311,230 +315,55 @@
       }
     }
 
-    const cards = Array.from(document.querySelectorAll(".sidebar-repo-card[data-repo-fullname][data-my-author]"));
+    const cards = Array.from(document.querySelectorAll(".sidebar-repo-card[data-repo-fullname]"));
     if (cards.length === 0) return;
-
-    const buildGlobalGitHubCache = () => {
-      const keyPrefix = "ghcache:v1:";
-      const inflight = new Map();
-      let rateLimitedUntil = 0;
-      let remainingQuota = null;
-
-      const now = () => Date.now();
-      const fullKey = (k) => `${keyPrefix}${k}`;
-      const markRateLimit = (res) => {
-        if (!res) return;
-        const remaining = res.headers && res.headers.get("x-ratelimit-remaining");
-        const remainingNum = Number(remaining);
-        if (Number.isFinite(remainingNum)) remainingQuota = remainingNum;
-        if (String(remaining) !== "0") return;
-        const resetRaw = res.headers.get("x-ratelimit-reset");
-        const resetMs = Number(resetRaw || 0) * 1000;
-        if (resetMs > now()) rateLimitedUntil = resetMs;
-      };
-      const readEntry = (k, allowExpired) => {
-        try {
-          const raw = localStorage.getItem(fullKey(k));
-          if (!raw) return null;
-          const obj = JSON.parse(raw);
-          if (!obj || typeof obj !== "object" || !obj.exp) return null;
-          if (!allowExpired && obj.exp < now()) {
-            localStorage.removeItem(fullKey(k));
-            return null;
-          }
-          return obj;
-        } catch (_err) {
-          return null;
-        }
-      };
-      const read = (k) => {
-        const obj = readEntry(k, false);
-        return obj ? obj.val : null;
-      };
-      const readStale = (k) => {
-        const obj = readEntry(k, true);
-        return obj ? obj.val : null;
-      };
-      const isConserving = () => rateLimitedUntil > now() || (remainingQuota !== null && remainingQuota <= 5);
-      const write = (k, val, ttlMs) => {
-        try {
-          localStorage.setItem(fullKey(k), JSON.stringify({ exp: now() + ttlMs, val }));
-        } catch (_err) {}
-      };
-      const remember = async (k, ttlMs, loader, opts = {}) => {
-        const optional = Boolean(opts.optional);
-        const cached = read(k);
-        if (cached !== null && cached !== undefined) return cached;
-        if (optional && isConserving()) {
-          const stale = readStale(k);
-          if (stale !== null && stale !== undefined) return stale;
-          throw new Error("GitHub API conserving quota");
-        }
-        if (rateLimitedUntil > now()) {
-          const stale = readStale(k);
-          if (stale !== null && stale !== undefined) return stale;
-          throw new Error("GitHub API rate-limited");
-        }
-        if (inflight.has(k)) return inflight.get(k);
-        const p = (async () => {
-          try {
-            const val = await loader();
-            write(k, val, ttlMs);
-            return val;
-          } catch (err) {
-            const stale = readStale(k);
-            if (stale !== null && stale !== undefined) return stale;
-            throw err;
-          }
-        })().finally(() => inflight.delete(k));
-        inflight.set(k, p);
-        return p;
-      };
-      return { remember, markRateLimit, read, write };
-    };
-
-    const ghCache = window.__ghCache || (window.__ghCache = buildGlobalGitHubCache());
-    const TTL_REPO_MS = 6 * 60 * 60 * 1000;
-    const TTL_COMMITS_MS = 6 * 60 * 60 * 1000;
-    const TTL_ACTIVITY_MS = 60 * 60 * 1000;
-
-    const fetchCommitCount = async (owner, repo, branch, author) => {
-      const cacheKey = `commits:${owner}/${repo}:${branch}:${author || "all"}`;
-      return ghCache.remember(cacheKey, TTL_COMMITS_MS, async () => {
-        const url = `https://api.github.com/repos/${owner}/${repo}/commits?sha=${encodeURIComponent(branch)}&author=${encodeURIComponent(author)}&per_page=1`;
-        const res = await fetch(url);
-        ghCache.markRateLimit(res);
-        if (!res.ok) throw new Error(`Commits API failed: ${res.status}`);
-        const link = res.headers.get("link") || "";
-        const lastMatch = link.match(/[?&]page=(\d+)>;\s*rel="last"/i);
-        if (lastMatch && lastMatch[1]) return parseInt(lastMatch[1], 10).toLocaleString();
-        const data = await res.json();
-        if (Array.isArray(data)) return String(data.length);
-        return "N/A";
-      });
-    };
+    const gh = window.GitHubRepoData;
+    if (!gh) return;
 
     const renderSparkline = (card, weeklyActivity) => {
       const holder = card.querySelector("[data-field='repo-sparkline']");
-      if (!holder) return;
-      const daily = [];
-      (weeklyActivity || []).slice(-5).forEach((w) => {
-        (w.days || []).forEach((d) => daily.push(Number(d || 0)));
+      if (!holder) return false;
+      return gh.renderPulseSparkline(holder, weeklyActivity, {
+        textClass: "sidebar-repo-sparkline-loading",
+        retryClass: "sidebar-repo-retry-btn",
+        retryRole: "repo-retry",
+        includeRetryButton: true,
+        owner: card.dataset.repoOwner || "",
+        repo: card.dataset.repoName || ""
       });
-      const points = daily.slice(-30);
-      if (points.length === 0) {
-        holder.innerHTML = `
-          <span class="sidebar-repo-sparkline-loading">No trend data</span>
-          <button
-            type="button"
-            class="sidebar-repo-retry-btn"
-            data-role="repo-retry"
-            data-owner="${card.dataset.repoOwner || ""}"
-            data-repo="${card.dataset.repoName || ""}">
-            Try again
-          </button>
-        `;
-        return;
-      }
-
-      const width = 140;
-      const height = 24;
-      const maxVal = Math.max(1, ...points);
-      const step = points.length > 1 ? width / (points.length - 1) : width;
-      const linePoints = points.map((v, i) => {
-        const x = i * step;
-        const y = height - 1 - (v / maxVal) * (height - 4);
-        return `${x.toFixed(2)},${y.toFixed(2)}`;
-      }).join(" ");
-
-      const areaPoints = `0,${height} ${linePoints} ${width},${height}`;
-      holder.innerHTML = `
-        <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-label="Recent one month commit trend">
-          <polyline class="repo-sparkline-area" points="${areaPoints}"></polyline>
-          <polyline class="repo-sparkline-line" points="${linePoints}"></polyline>
-        </svg>
-      `;
-    };
-
-    const hasTrendData = (weeklyActivity) => {
-      if (!Array.isArray(weeklyActivity) || weeklyActivity.length === 0) return false;
-      return weeklyActivity.some((w) => Array.isArray(w.days) && w.days.some((d) => Number(d || 0) > 0));
     };
 
     const setTrendMessage = (card, msg) => {
       const holder = card.querySelector("[data-field='repo-sparkline']");
-      if (!holder) return;
-      holder.innerHTML = `<span class="sidebar-repo-sparkline-loading">${msg}</span>`;
-    };
-
-    const fetchCommitActivity = async (owner, repo, forceFresh = false) => {
-      const primaryKey = `activity:${owner}/${repo}`;
-      if (!forceFresh) {
-        return ghCache.remember(primaryKey, TTL_ACTIVITY_MS, async () => {
-          const url = `https://api.github.com/repos/${owner}/${repo}/stats/commit_activity`;
-          for (let attempt = 0; attempt < 4; attempt++) {
-            const res = await fetch(url);
-            ghCache.markRateLimit(res);
-            if (res.status === 202) {
-              await new Promise((resolve) => setTimeout(resolve, 500 + attempt * 400));
-              continue;
-            }
-            if (!res.ok) throw new Error(`Commit activity API failed: ${res.status}`);
-            const data = await res.json();
-            return Array.isArray(data) ? data : [];
-          }
-          return [];
-        }, { optional: true });
-      }
-
-      const freshKey = `activity-fresh:${owner}/${repo}`;
-      const freshData = await ghCache.remember(freshKey, 2 * 60 * 1000, async () => {
-        const url = `https://api.github.com/repos/${owner}/${repo}/stats/commit_activity`;
-        for (let attempt = 0; attempt < 4; attempt++) {
-          const res = await fetch(url);
-          ghCache.markRateLimit(res);
-          if (res.status === 202) {
-            await new Promise((resolve) => setTimeout(resolve, 500 + attempt * 400));
-            continue;
-          }
-          if (!res.ok) throw new Error(`Commit activity API failed: ${res.status}`);
-          const data = await res.json();
-          return Array.isArray(data) ? data : [];
-        }
-        return [];
-      }, { optional: true });
-      ghCache.write(primaryKey, freshData, TTL_ACTIVITY_MS);
-      return freshData;
+      gh.setSparklineStatus(holder, msg, { textClass: "sidebar-repo-sparkline-loading" });
     };
 
     const loadRepoCard = async (card) => {
       const full = card.dataset.repoFullname || "";
-      const author = card.dataset.myAuthor || "";
       const [owner, repo] = full.split("/");
-      const out = card.querySelector("[data-field='my-commits']");
-      if (!out || !owner || !repo || !author) return;
+      if (!owner || !repo) return;
       card.dataset.repoOwner = owner;
       card.dataset.repoName = repo;
       try {
-        const repoData = await ghCache.remember(`repo:${owner}/${repo}`, TTL_REPO_MS, async () => {
-          const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-          ghCache.markRateLimit(repoRes);
-          if (!repoRes.ok) throw new Error(`Repo API failed: ${repoRes.status}`);
-          return repoRes.json();
-        });
+        const repoData = await gh.fetchRepo(owner, repo);
         const starsOut = card.querySelector("[data-field='stars']");
         if (starsOut) starsOut.textContent = Number(repoData.stargazers_count || 0).toLocaleString();
+        const forksOut = card.querySelector("[data-field='forks']");
+        if (forksOut) forksOut.textContent = Number(repoData.forks_count || 0).toLocaleString();
+        const issuesOut = card.querySelector("[data-field='issues']");
+        if (issuesOut) issuesOut.textContent = Number(repoData.open_issues_count || 0).toLocaleString();
         const branch = repoData.default_branch || "main";
-        out.textContent = await fetchCommitCount(owner, repo, branch, author);
+        const totalCommitsOut = card.querySelector("[data-field='total-commits']");
+        if (totalCommitsOut) totalCommitsOut.textContent = await gh.fetchCommitCount(owner, repo, branch, "", { optional: true });
         try {
-          const weeklyActivity = await fetchCommitActivity(owner, repo, false);
-          if (hasTrendData(weeklyActivity)) {
+          const weeklyActivity = await gh.fetchCommitActivity(owner, repo, { forceFresh: false });
+          if (gh.hasTrendData(weeklyActivity)) {
             renderSparkline(card, weeklyActivity);
           } else {
             setTrendMessage(card, "No trend data, retrying...");
             await new Promise((resolve) => setTimeout(resolve, 1200));
-            const retryActivity = await fetchCommitActivity(owner, repo, true);
-            if (hasTrendData(retryActivity)) {
+            const retryActivity = await gh.fetchCommitActivity(owner, repo, { forceFresh: true });
+            if (gh.hasTrendData(retryActivity)) {
               renderSparkline(card, retryActivity);
             } else {
               renderSparkline(card, []);
@@ -546,7 +375,12 @@
       } catch (_err) {
         const starsOut = card.querySelector("[data-field='stars']");
         if (starsOut) starsOut.textContent = "N/A";
-        out.textContent = "N/A";
+        const totalCommitsOut = card.querySelector("[data-field='total-commits']");
+        if (totalCommitsOut) totalCommitsOut.textContent = "N/A";
+        const forksOut = card.querySelector("[data-field='forks']");
+        if (forksOut) forksOut.textContent = "N/A";
+        const issuesOut = card.querySelector("[data-field='issues']");
+        if (issuesOut) issuesOut.textContent = "N/A";
         renderSparkline(card, []);
       }
     };
@@ -587,8 +421,8 @@
       card.dataset.retrying = "1";
       setTrendMessage(card, "Retrying...");
       try {
-        const retryActivity = await fetchCommitActivity(retryOwner, retryRepo, true);
-        if (hasTrendData(retryActivity)) {
+        const retryActivity = await gh.fetchCommitActivity(retryOwner, retryRepo, { forceFresh: true, bypassCache: true });
+        if (gh.hasTrendData(retryActivity)) {
           renderSparkline(card, retryActivity);
         } else {
           renderSparkline(card, []);

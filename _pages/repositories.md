@@ -11,28 +11,44 @@ nav_order: 3
 
 <div class="repo-page-shell">
   <div class="repo-page-main">
-    {% if site.data.repositories.github_repos %}
+    {% if site.data.repositories.repositories %}
     <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center">
-      {% for repo in site.data.repositories.github_repos %}
+      {% for repo_item in site.data.repositories.repositories %}
+        {% assign repo = repo_item.name %}
         {% assign repo_parts = repo | split: '/' %}
         <div class="repo card p-3 m-2 text-left repo-metrics-card" data-repo-fullname="{{ repo }}" data-my-author="{{ repo_author }}">
           <div class="repo-card-layout">
             <div class="repo-card-left">
               <h5 class="mb-1">
-                <i class="fas fa-code-branch mr-1"></i>
-                <a href="https://github.com/{{ repo }}" target="_blank" rel="noopener noreferrer">
-                  {{ repo }}
-                </a>
+                <span class="repo-title-row">
+                  {% if repo_parts[0] == "ISG-ICS" %}
+                  <span class="repo-owner-badge" title="ISG">ISG</span>
+                  {% else %}
+                  <img
+                    class="repo-owner-icon"
+                    src="https://avatars.githubusercontent.com/{{ repo_parts[0] }}?size=64"
+                    alt="{{ repo_parts[0] }} icon"
+                    loading="lazy"
+                  />
+                  {% endif %}
+                  <i class="fas fa-code-branch mr-1"></i>
+                  <a href="https://github.com/{{ repo }}" target="_blank" rel="noopener noreferrer">
+                    {{ repo }}
+                  </a>
+                </span>
               </h5>
               <div class="repo-metrics repo-metrics-primary mt-2">
-                <span class="repo-metric"><i class="fas fa-code-commit mr-1"></i><span data-field="total-commits">Loading...</span></span>
                 <span class="repo-metric"><i class="far fa-star mr-1"></i><span data-field="stars">Loading...</span></span>
+                <span class="repo-metric"><i class="fas fa-code-commit mr-1"></i><span data-field="total-commits">Loading...</span></span>
                 <span class="repo-metric"><i class="fas fa-code-branch mr-1"></i><span data-field="forks">Loading...</span></span>
                 <span class="repo-metric"><i class="far fa-dot-circle mr-1"></i><span data-field="issues">Loading...</span></span>
               </div>
               <div class="repo-metrics repo-metrics-secondary mt-1">
                 <span class="repo-metric"><i class="fas fa-user-check mr-1"></i><span class="repo-metric-label">My Commits</span> <span data-field="my-commits">Loading...</span></span>
                 <span class="repo-metric"><i class="fas fa-wave-square mr-1"></i><span class="repo-metric-label">My Pulse</span> <span data-field="my-pulse">Loading...</span></span>
+              </div>
+              <div class="repo-card-pulse-trend" data-field="repo-sparkline">
+                <span class="repo-sparkline-loading">Loading trend...</span>
               </div>
             </div>
             <div class="repo-card-right">
@@ -62,138 +78,36 @@ nav_order: 3
   </aside>
 </div>
 
+<script src="{{ '/assets/js/github-repo-data.js' | relative_url | bust_file_cache }}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const cards = Array.from(document.querySelectorAll(".repo-metrics-card[data-repo-fullname]"));
-
-    const buildGlobalGitHubCache = () => {
-      const keyPrefix = "ghcache:v1:";
-      const inflight = new Map();
-      let rateLimitedUntil = 0;
-      let remainingQuota = null;
-      const now = () => Date.now();
-      const fullKey = (k) => `${keyPrefix}${k}`;
-      const markRateLimit = (res) => {
-        if (!res) return;
-        const remaining = res.headers && res.headers.get("x-ratelimit-remaining");
-        const remainingNum = Number(remaining);
-        if (Number.isFinite(remainingNum)) remainingQuota = remainingNum;
-        if (String(remaining) !== "0") return;
-        const resetRaw = res.headers.get("x-ratelimit-reset");
-        const resetMs = Number(resetRaw || 0) * 1000;
-        if (resetMs > now()) rateLimitedUntil = resetMs;
-      };
-      const readEntry = (k, allowExpired) => {
-        try {
-          const raw = localStorage.getItem(fullKey(k));
-          if (!raw) return null;
-          const obj = JSON.parse(raw);
-          if (!obj || typeof obj !== "object" || !obj.exp) return null;
-          if (!allowExpired && obj.exp < now()) {
-            localStorage.removeItem(fullKey(k));
-            return null;
-          }
-          return obj;
-        } catch (_err) {
-          return null;
-        }
-      };
-      const read = (k) => {
-        const obj = readEntry(k, false);
-        return obj ? obj.val : null;
-      };
-      const readStale = (k) => {
-        const obj = readEntry(k, true);
-        return obj ? obj.val : null;
-      };
-      const isConserving = () => rateLimitedUntil > now() || (remainingQuota !== null && remainingQuota <= 5);
-      const write = (k, val, ttlMs) => {
-        try {
-          localStorage.setItem(fullKey(k), JSON.stringify({ exp: now() + ttlMs, val }));
-        } catch (_err) {}
-      };
-      const remember = async (k, ttlMs, loader, opts = {}) => {
-        const optional = Boolean(opts.optional);
-        const cached = read(k);
-        if (cached !== null && cached !== undefined) return cached;
-        if (optional && isConserving()) {
-          const stale = readStale(k);
-          if (stale !== null && stale !== undefined) return stale;
-          throw new Error("GitHub API conserving quota");
-        }
-        if (rateLimitedUntil > now()) {
-          const stale = readStale(k);
-          if (stale !== null && stale !== undefined) return stale;
-          throw new Error("GitHub API rate-limited");
-        }
-        if (inflight.has(k)) return inflight.get(k);
-        const p = (async () => {
-          try {
-            const val = await loader();
-            write(k, val, ttlMs);
-            return val;
-          } catch (err) {
-            const stale = readStale(k);
-            if (stale !== null && stale !== undefined) return stale;
-            throw err;
-          }
-        })().finally(() => inflight.delete(k));
-        inflight.set(k, p);
-        return p;
-      };
-      return { remember, markRateLimit };
-    };
-
-    const ghCache = window.__ghCache || (window.__ghCache = buildGlobalGitHubCache());
-    const TTL_REPO_MS = 6 * 60 * 60 * 1000;
-    const TTL_LANG_MS = 24 * 60 * 60 * 1000;
-    const TTL_COMMITS_MS = 12 * 60 * 60 * 1000;
-    const TTL_PULSE_MS = 6 * 60 * 60 * 1000;
+    const gh = window.GitHubRepoData;
+    if (!gh) return;
 
     const setMetric = (card, field, value) => {
       const el = card.querySelector(`[data-field="${field}"]`);
       if (el) el.textContent = value;
     };
 
-    const fetchCommitCount = async (owner, repo, branch, author, opts = {}) => {
-      const cacheKey = `commits:${owner}/${repo}:${branch}:${author || "all"}`;
-      return ghCache.remember(cacheKey, TTL_COMMITS_MS, async () => {
-        const authorQuery = author ? `&author=${encodeURIComponent(author)}` : "";
-        const commitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits?sha=${encodeURIComponent(branch)}${authorQuery}&per_page=1`;
-        const res = await fetch(commitsUrl);
-        ghCache.markRateLimit(res);
-        if (!res.ok) throw new Error(`Commits API failed: ${res.status}`);
-        const link = res.headers.get("link") || "";
-        const lastMatch = link.match(/[?&]page=(\d+)>;\s*rel="last"/i);
-        if (lastMatch && lastMatch[1]) return parseInt(lastMatch[1], 10).toLocaleString();
-        const data = await res.json();
-        if (Array.isArray(data)) return String(data.length);
-        return "N/A";
-      }, opts);
+    const renderTrend = (card, weeklyActivity) => {
+      const holder = card.querySelector("[data-field='repo-sparkline']");
+      if (!holder) return false;
+      const full = card.dataset.repoFullname || "";
+      const [owner, repo] = full.split("/");
+      return gh.renderPulseSparkline(holder, weeklyActivity, {
+        textClass: "repo-sparkline-loading",
+        retryClass: "repo-retry-btn",
+        retryRole: "repo-retry",
+        includeRetryButton: true,
+        owner: owner || "",
+        repo: repo || ""
+      });
     };
 
-    const fetchMyPulse = async (owner, repo, branch, author) => {
-      const pulseBucket = Math.floor(Date.now() / TTL_PULSE_MS);
-      const cacheKey = `pulse:${owner}/${repo}:${branch}:${author}:${pulseBucket}`;
-      return ghCache.remember(cacheKey, TTL_PULSE_MS, async () => {
-        const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-        const url = `https://api.github.com/repos/${owner}/${repo}/commits?sha=${encodeURIComponent(branch)}&author=${encodeURIComponent(author)}&since=${encodeURIComponent(since)}&per_page=1`;
-        const res = await fetch(url);
-        ghCache.markRateLimit(res);
-        if (!res.ok) throw new Error(`Pulse API failed: ${res.status}`);
-        const link = res.headers.get("link") || "";
-        const lastMatch = link.match(/[?&]page=(\d+)>;\s*rel="last"/i);
-        if (lastMatch && lastMatch[1]) {
-          return `${parseInt(lastMatch[1], 10)} in 30d`;
-        }
-        const data = await res.json();
-        if (!Array.isArray(data) || data.length === 0) return "0 in 30d";
-        const latestRaw = data[0] && data[0].commit && data[0].commit.author && data[0].commit.author.date;
-        if (!latestRaw) return `${data.length} in 30d`;
-        const latestDate = new Date(latestRaw);
-        const latestStr = latestDate.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
-        return `${data.length} in 30d (latest ${latestStr})`;
-      }, { optional: true });
+    const setTrendMessage = (card, message) => {
+      const holder = card.querySelector("[data-field='repo-sparkline']");
+      gh.setSparklineStatus(holder, message, { textClass: "repo-sparkline-loading" });
     };
 
     const languageColors = {
@@ -270,16 +184,12 @@ nav_order: 3
           setMetric(card, "forks", "N/A");
           setMetric(card, "issues", "N/A");
           setMetric(card, "my-pulse", "N/A");
+          renderTrend(card, []);
           continue;
         }
 
         try {
-          const repoData = await ghCache.remember(`repo:${owner}/${repo}`, TTL_REPO_MS, async () => {
-            const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-            ghCache.markRateLimit(repoRes);
-            if (!repoRes.ok) throw new Error(`Repo API failed: ${repoRes.status}`);
-            return repoRes.json();
-          });
+          const repoData = await gh.fetchRepo(owner, repo);
           setMetric(card, "stars", Number(repoData.stargazers_count || 0).toLocaleString());
           setMetric(card, "forks", Number(repoData.forks_count || 0).toLocaleString());
           setMetric(card, "issues", Number(repoData.open_issues_count || 0).toLocaleString());
@@ -287,33 +197,45 @@ nav_order: 3
           const branch = repoData.default_branch || "main";
           repoMetaList.push({ owner, repo, branch, myAuthor });
           try {
-            const langData = await ghCache.remember(`lang:${owner}/${repo}`, TTL_LANG_MS, async () => {
-              const langRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/languages`);
-              ghCache.markRateLimit(langRes);
-              if (!langRes.ok) return {};
-              return langRes.json();
-            });
+            const langData = await gh.fetchLanguages(owner, repo);
             renderLanguageComposition(card, langData || {});
           } catch (_err) {
             renderLanguageComposition(card, {});
           }
           try {
-            const totalCommits = await fetchCommitCount(owner, repo, branch, "", { optional: true });
+            const totalCommits = await gh.fetchCommitCount(owner, repo, branch, "", { optional: true });
             setMetric(card, "total-commits", totalCommits);
           } catch (_err) {
             setMetric(card, "total-commits", "N/A");
           }
           try {
-            const myCommits = await fetchCommitCount(owner, repo, branch, myAuthor);
+            const myCommits = await gh.fetchCommitCount(owner, repo, branch, myAuthor);
             setMetric(card, "my-commits", myCommits);
           } catch (_err) {
             setMetric(card, "my-commits", "N/A");
           }
           try {
-            const pulse = await fetchMyPulse(owner, repo, branch, myAuthor);
+            const pulse = await gh.fetchMyPulse(owner, repo, branch, myAuthor);
             setMetric(card, "my-pulse", pulse);
           } catch (_err) {
             setMetric(card, "my-pulse", "N/A");
+          }
+          try {
+            const weeklyActivity = await gh.fetchCommitActivity(owner, repo, { forceFresh: false });
+            if (gh.hasTrendData(weeklyActivity)) {
+              renderTrend(card, weeklyActivity);
+            } else {
+              setTrendMessage(card, "No trend data, retrying...");
+              await new Promise((resolve) => setTimeout(resolve, 1200));
+              const retryActivity = await gh.fetchCommitActivity(owner, repo, { forceFresh: true });
+              if (gh.hasTrendData(retryActivity)) {
+                renderTrend(card, retryActivity);
+              } else {
+                renderTrend(card, []);
+              }
+            }
+          } catch (_err) {
+            renderTrend(card, []);
           }
         } catch (_err) {
           setMetric(card, "total-commits", "N/A");
@@ -323,10 +245,38 @@ nav_order: 3
           setMetric(card, "issues", "N/A");
           setMetric(card, "my-pulse", "N/A");
           renderLanguageComposition(card, {});
+          renderTrend(card, []);
         }
       }
       return repoMetaList;
     };
+
+    document.addEventListener("click", async (evt) => {
+      const retryBtn = evt.target.closest(".repo-retry-btn[data-role='repo-retry']");
+      if (!retryBtn) return;
+      evt.preventDefault();
+      evt.stopPropagation();
+      const card = retryBtn.closest(".repo-metrics-card");
+      if (!card || card.dataset.retrying === "1") return;
+      const owner = retryBtn.dataset.owner || "";
+      const repo = retryBtn.dataset.repo || "";
+      if (!owner || !repo) return;
+
+      card.dataset.retrying = "1";
+      setTrendMessage(card, "Retrying...");
+      try {
+        const retryActivity = await gh.fetchCommitActivity(owner, repo, { forceFresh: true, bypassCache: true });
+        if (gh.hasTrendData(retryActivity)) {
+          renderTrend(card, retryActivity);
+        } else {
+          renderTrend(card, []);
+        }
+      } catch (_err) {
+        renderTrend(card, []);
+      } finally {
+        card.dataset.retrying = "0";
+      }
+    });
 
     loadRepoCards();
   });

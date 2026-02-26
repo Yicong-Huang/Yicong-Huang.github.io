@@ -1,7 +1,10 @@
 github_users:
   - Yicong-Huang
 
-github_repos:
-  - apache/spark
-  - apache/texera
-  - ISG-ICS/cloudberry
+repositories:
+  - name: apache/spark
+    selected: true
+  - name: apache/texera
+    selected: true
+  - name: ISG-ICS/cloudberry
+    selected: false
