@@ -109,7 +109,9 @@
               {% assign h = item.count | times: 100 | divided_by: max_citations %}
               <div class="scholar-bar-col" style="flex:1 1 0;display:flex;flex-direction:column;align-items:center;min-width:0;">
                 <div class="scholar-bar-wrap" style="width:100%;height:74px;display:flex;align-items:flex-end;justify-content:center;">
-                  <div class="scholar-bar" style="height: {{ h }}%;" title="{{ item.year }}: {{ item.count }}"></div>
+                  <div class="scholar-bar" style="height: {{ h }}%;" title="{{ item.year }}: {{ item.count }}">
+                    <span class="scholar-bar-value">{{ item.count }}</span>
+                  </div>
                 </div>
                 <div class="scholar-bar-year">{{ item.year }}</div>
               </div>

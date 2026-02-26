@@ -202,7 +202,7 @@ body.sticky-bottom-footer {
   .scholar-metrics-body > div:nth-child(3n + 3) {
     text-align: right;
     font-weight: 500;
-    color: #111111;
+    color: var(--global-text-color);
   }
 
   .scholar-bars-wrap {
@@ -258,9 +258,22 @@ body.sticky-bottom-footer {
   }
 
   .scholar-bar {
+    position: relative;
     width: min(18px, 72%);
     background: #8a9096;
     border-radius: 2px 2px 0 0;
+  }
+
+  .scholar-bar-value {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 2px);
+    transform: translateX(-50%);
+    font-size: 0.64rem;
+    line-height: 1;
+    color: var(--global-text-color-light);
+    white-space: nowrap;
+    pointer-events: none;
   }
 
   .scholar-bar-year {
