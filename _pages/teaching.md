@@ -7,6 +7,85 @@ nav: true
 nav_order: 6
 ---
 <style>
+  .teaching-outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .teaching-outcomes-panel {
+    border: 1px solid var(--global-divider-color);
+    border-radius: 10px;
+    padding: 0.75rem 0.8rem;
+    background: color-mix(in srgb, var(--global-card-bg-color) 92%, var(--global-bg-color) 8%);
+  }
+
+  .teaching-outcomes-label {
+    font-size: 0.88rem;
+    color: var(--global-text-color-light);
+    margin-bottom: 0.25rem;
+  }
+
+  .teaching-outcomes-value {
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.35rem;
+    color: var(--global-text-color);
+  }
+
+  .teaching-outcomes-sub {
+    font-size: 0.83rem;
+    color: var(--global-text-color-light);
+    line-height: 1.3;
+  }
+
+  .teaching-dist-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .teaching-dist-row + .teaching-dist-row {
+    margin-top: 0.38rem;
+  }
+
+  .teaching-dist-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.84rem;
+    color: var(--global-text-color);
+    margin-bottom: 0.12rem;
+  }
+
+  .teaching-dist-track {
+    height: 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--global-divider-color) 70%, transparent);
+    overflow: hidden;
+  }
+
+  .teaching-dist-fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+
+  .teaching-dist-fill-undergrad {
+    width: 92.9%;
+    background: #2f8fdb;
+  }
+
+  .teaching-dist-fill-graduate {
+    width: 5.1%;
+    background: #7a8ca6;
+  }
+
+  .teaching-dist-fill-highschool {
+    width: 2%;
+    background: #47a56b;
+  }
+
   .teaching-log-list .teaching-log-grid {
     display: grid !important;
     grid-template-columns: minmax(92px, 130px) minmax(220px, 1fr) minmax(320px, 1.45fr) !important;
@@ -15,6 +94,10 @@ nav_order: 6
   }
 
   @media (max-width: 680px) {
+    .teaching-outcomes-grid {
+      grid-template-columns: 1fr;
+    }
+
     .teaching-log-list .teaching-log-grid {
       grid-template-columns: 1fr !important;
       gap: 0.3rem !important;
@@ -27,6 +110,42 @@ nav_order: 6
   <ul class="mb-0">
     <li>No teaching scheduled at the moment.</li>
   </ul>
+</div>
+
+<div class="card mt-3 p-3">
+  <h3 class="card-title font-weight-medium">Teaching Outcomes</h3>
+  <div class="teaching-outcomes-grid">
+    <div class="teaching-outcomes-panel">
+      <div class="teaching-outcomes-label">Cumulative Learners</div>
+      <div class="teaching-outcomes-value">2,631+</div>
+      <div class="teaching-outcomes-sub">Aggregated across courses and educational events.</div>
+    </div>
+    <div class="teaching-outcomes-panel">
+      <div class="teaching-outcomes-label">Course Coverage</div>
+      <div class="teaching-outcomes-value">14</div>
+      <div class="teaching-outcomes-sub">Distinct courses/events taught across UCI and external programs.</div>
+    </div>
+    <div class="teaching-outcomes-panel">
+      <div class="teaching-outcomes-label">Audience Distribution</div>
+      <ul class="teaching-dist-list">
+        <li class="teaching-dist-row">
+          <div class="teaching-dist-head"><span>Undergrad / College</span><span>2,445 (92.9%)</span></div>
+          <div class="teaching-dist-track"><div class="teaching-dist-fill teaching-dist-fill-undergrad"></div></div>
+        </li>
+        <li class="teaching-dist-row">
+          <div class="teaching-dist-head"><span>Graduate</span><span>134 (5.1%)</span></div>
+          <div class="teaching-dist-track"><div class="teaching-dist-fill teaching-dist-fill-graduate"></div></div>
+        </li>
+        <li class="teaching-dist-row">
+          <div class="teaching-dist-head"><span>High School</span><span>52 (2.0%)</span></div>
+          <div class="teaching-dist-track"><div class="teaching-dist-fill teaching-dist-fill-highschool"></div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <p class="mb-0 mt-2 teaching-outcomes-sub">
+    Audience split uses the current summary table plus additional-events breakdown from the teaching log.
+  </p>
 </div>
 
 <div class="card mt-3 p-3">
