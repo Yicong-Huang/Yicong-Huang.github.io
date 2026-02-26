@@ -556,7 +556,7 @@ footer.sticky-bottom {
 
   .work-entry-grid {
     display: grid;
-    grid-template-columns: minmax(74px, 92px) minmax(285px, 1.2fr) minmax(295px, 1.3fr);
+    grid-template-columns: minmax(74px, 92px) minmax(210px, 1.15fr) minmax(0, 1.35fr);
     gap: 0.7rem;
     align-items: start;
   }
@@ -632,11 +632,21 @@ footer.sticky-bottom {
     color: var(--global-theme-color);
   }
 
-  .work-keywords-col { line-height: 1.35; }
+  .work-role-col,
+  .work-keywords-col,
+  .education-main-col,
+  .education-focus-col {
+    min-width: 0;
+  }
+
+  .work-keywords-col {
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
 
   .education-entry-grid {
     display: grid;
-    grid-template-columns: minmax(74px, 92px) minmax(240px, 1fr) minmax(320px, 1.5fr);
+    grid-template-columns: minmax(74px, 92px) minmax(205px, 1fr) minmax(0, 1.5fr);
     gap: 0.7rem;
     align-items: start;
   }
@@ -670,6 +680,7 @@ footer.sticky-bottom {
   .education-focus-col {
     line-height: 1.35;
     font-style: normal;
+    overflow-wrap: anywhere;
   }
 
   .education-focus-list {
@@ -773,20 +784,93 @@ footer.sticky-bottom {
     }
   }
 
-  @media (min-width: 768px) and (max-width: 1080px) {
+  @media (min-width: 768px) and (max-width: 980px) {
     .work-entry-grid {
-      grid-template-columns: minmax(70px, 86px) minmax(238px, 1.12fr) minmax(242px, 1.18fr);
+      grid-template-columns: minmax(66px, 84px) minmax(0, 1fr);
+      gap: 0.6rem 0.65rem;
+    }
+
+    .work-meta-col {
+      grid-row: 1 / span 2;
+    }
+
+    .work-role-col {
+      grid-column: 2;
+    }
+
+    .work-keywords-col {
+      grid-column: 2;
+    }
+
+    .education-entry-grid {
+      grid-template-columns: minmax(66px, 84px) minmax(0, 1fr);
+      gap: 0.6rem 0.65rem;
+    }
+
+    .education-meta-col {
+      grid-row: 1 / span 2;
+    }
+
+    .education-main-col {
+      grid-column: 2;
+    }
+
+    .education-focus-col {
+      grid-column: 2;
+    }
+
+    .service-entry-grid {
+      grid-template-columns: minmax(84px, 108px) minmax(0, 1fr);
+      gap: 0.6rem;
+    }
+  }
+
+  @media (min-width: 981px) and (max-width: 1080px) {
+    .work-entry-grid {
+      grid-template-columns: minmax(70px, 86px) minmax(200px, 1.08fr) minmax(0, 1.22fr);
       gap: 0.65rem;
     }
 
     .education-entry-grid {
-      grid-template-columns: minmax(70px, 86px) minmax(220px, 1fr) minmax(250px, 1.2fr);
+      grid-template-columns: minmax(70px, 86px) minmax(190px, 1fr) minmax(0, 1.25fr);
       gap: 0.65rem;
     }
 
     .service-entry-grid {
       grid-template-columns: minmax(84px, 110px) minmax(0, 1fr);
       gap: 0.65rem;
+    }
+  }
+
+  // About layout can become narrow before viewport hits smaller breakpoints
+  // (e.g., persistent sidebar + devtools pane). Switch Work/Education to 2 columns earlier.
+  @media (max-width: 1360px) {
+    .about-main .work-entry-grid {
+      grid-template-columns: minmax(66px, 84px) minmax(0, 1fr);
+      gap: 0.6rem 0.65rem;
+    }
+
+    .about-main .work-meta-col {
+      grid-row: 1 / span 2;
+    }
+
+    .about-main .work-role-col,
+    .about-main .work-keywords-col {
+      grid-column: 2;
+    }
+
+    .about-main .education-entry-grid {
+      grid-template-columns: minmax(66px, 84px) minmax(0, 1fr);
+      gap: 0.6rem 0.65rem;
+    }
+
+    .about-main .education-meta-col {
+      grid-row: 1 / span 2;
+    }
+
+    .about-main .education-main-col,
+    .about-main .education-focus-col {
+      grid-column: 2;
     }
   }
 }
@@ -985,6 +1069,11 @@ footer.sticky-bottom {
   align-items: start;
 }
 
+.repo-card-left,
+.repo-card-right {
+  min-width: 0;
+}
+
 .repo-card-right {
   border-left: 1px solid var(--global-divider-color);
   padding-left: 0.9rem;
@@ -1027,6 +1116,20 @@ footer.sticky-bottom {
 
 .repo-lang-item {
   white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .repo-page-main .repo-card-layout {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .repo-page-main .repo-card-right {
+    border-left: 0;
+    border-top: 1px solid var(--global-divider-color);
+    padding-left: 0;
+    padding-top: 0.65rem;
+  }
 }
 
 .repo-lang-dot {
@@ -1477,8 +1580,16 @@ footer.sticky-bottom {
       padding-left: 0;
     }
 
+    ol.bibliography li .abbr {
+      flex: 0 0 8rem;
+      width: 8rem;
+      max-width: 8rem;
+    }
+
     ol.bibliography li .abbr abbr.venue-badge {
       width: 7.6rem;
+      max-width: none;
+      flex-shrink: 0;
       font-size: 0.69rem;
     }
   }
@@ -1502,6 +1613,9 @@ footer.sticky-bottom {
       }
 
       .abbr {
+        flex: 0 0 9.2rem;
+        width: 9.2rem;
+        max-width: 9.2rem;
         min-height: 2rem;
         margin-bottom: 0.5rem;
         display: flex;
@@ -1513,7 +1627,8 @@ footer.sticky-bottom {
           align-items: center;
           justify-content: center;
           width: 8.8rem;
-          max-width: 100%;
+          max-width: none;
+          flex-shrink: 0;
           min-height: 1.38rem;
           border-radius: 0.42rem;
           border: 1px solid #d6dde7;
