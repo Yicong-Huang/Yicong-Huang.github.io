@@ -114,12 +114,14 @@
     {
       "title": "UCI CS Best Dissertation Honorable Mention Award",
       "date": "2026-02-12",
+      "priority": 1,
       "awarder": "University of California, Irvine",
       "url": "https://ics.uci.edu/academics/impact/student-awards-honors/"
     },
     {
       "title": "Most Promising Future Faculty Award",
       "date": "2025-09-13",
+      "priority": 1,
       "awarder": "University of California, Irvine",
       "summary": "Received at the 33rd UCI Teach Day Celebration of Teaching.",
       "url": "https://dtei.uci.edu/uci-teach-day/celebration-of-teaching/"
@@ -127,24 +129,28 @@
     {
       "title": "Joseph & Dorothy Fischer Memorial Endowed Fellowship",
       "date": "2025-08-01",
+      "priority": 3,
       "awarder": "University of California, Irvine",
       "url": "https://ics.uci.edu/academics/impact/student-awards-honors/"
     },
     {
       "title": "Beall Family Foundation Graduate Student Entrepreneur Award in Computer Science",
       "date": "2025-08-01",
+      "priority": 2,
       "awarder": "University of California, Irvine",
       "url": "https://ics.uci.edu/academics/impact/student-awards-honors/"
     },
     {
       "title": "SIGMOD 2024 Best Demo Runner-Up Award",
       "date": "2024-06-12",
+      "priority": 2,
       "awarder": "SIGMOD 2024",
       "url": "https://sigmod.org/sigmod-awards/sigmod-best-demonstration-award/"
     },
     {
       "title": "Graduate Dean’s Dissertation Fellowship",
       "date": "2024-03-03",
+      "priority": 1,
       "awarder": "University of California, Irvine",
       "summary": "Received a prestigious dissertation fellowship recognizing a highly impactful thesis.",
       "url": "https://ics.uci.edu/academics/impact/student-awards-honors/"
@@ -152,24 +158,28 @@
     {
       "title": "Student Travel Award (SIGMOD)",
       "date": "2024-08-23",
+      "priority": 99,
       "awarder": "SIGMOD 2024",
       "url":"https://2024.sigmod.org/"
     },
     {
       "title": "Public Impact Fellowship",
       "date": "2023-04-05",
+      "priority": 1,
       "awarder": "University of California, Irvine",
       "url": "https://ics.uci.edu/academics/impact/student-awards-honors/"
     },
     {
       "title": "Student Travel Award (VLDB)",
       "date": "2023-09-17",
+      "priority": 99,
       "awarder": "VLDB 2023",
       "url":"https://vldb.org/2023/"
     },
     {
       "title": "Best Lecturer Award",
       "date": "2020-02-04",
+      "priority": 1,
       "awarder": "CUCS",
       "summary": "Recognized for excellence in teaching performance.",
       "url":""

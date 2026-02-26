@@ -194,6 +194,11 @@ body.sticky-bottom-footer {
     margin-bottom: 0.25rem;
   }
 
+  .scholar-metrics-header > span:nth-child(2),
+  .scholar-metrics-header > span:nth-child(3) {
+    text-align: right;
+  }
+
   .scholar-metrics-body {
     row-gap: 0.12rem;
   }
@@ -355,7 +360,7 @@ body.sticky-bottom-footer {
   }
 
   .travel-events-list .travel-event-date {
-    color: #8a8f94;
+    color: var(--global-text-color-light);
     line-height: 1.25;
   }
 
@@ -391,13 +396,13 @@ body.sticky-bottom-footer {
   }
 
   .media-side-date {
-    color: #111111;
+    color: var(--global-text-color);
     font-weight: 700;
     white-space: nowrap;
   }
 
   .media-side-title {
-    color: #7f858a;
+    color: var(--global-text-color-light);
     font-weight: 500;
   }
 
