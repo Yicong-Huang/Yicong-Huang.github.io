@@ -241,7 +241,13 @@
               <span class="media-side-date">{{ item.date_text }}</span>
               <span class="media-chip media-chip--{{ item.label | downcase }}">{{ item.label }}</span>
             </div>
-            <div class="media-side-title">{{ item.title }}</div>
+            <div class="media-side-title">
+              {% if item.url and item.url != "" %}
+              <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+              {% else %}
+              {{ item.title }}
+              {% endif %}
+            </div>
           </div>
         </li>
         {% endfor %}

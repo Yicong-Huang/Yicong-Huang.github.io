@@ -19,7 +19,13 @@ nav_order: 5
             <span class="media-press-date">{{ item.date_text }}</span>
             <span class="media-chip media-chip--{{ item.label | downcase }}">{{ item.label }}</span>
           </div>
-          <div class="media-press-title">{{ item.title }}</div>
+          <div class="media-press-title">
+            {% if item.url and item.url != "" %}
+            <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+            {% else %}
+            {{ item.title }}
+            {% endif %}
+          </div>
           {% if item.description %}
           <div class="media-press-meta">{{ item.description }}</div>
           {% endif %}
@@ -47,10 +53,20 @@ nav_order: 5
             <span class="media-press-date">{{ item.date_text }}</span>
             <span class="media-chip media-chip--{{ item.label | downcase }}">{{ item.label }}</span>
           </div>
-          <div class="media-press-title">{{ item.title }}</div>
+          <div class="media-press-title">
+            {% if item.url and item.url != "" %}
+            <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+            {% else %}
+            {{ item.title }}
+            {% endif %}
+          </div>
           <div class="media-press-meta">
             {% if item.outlet %}<span>{{ item.outlet }}</span>{% endif %}
-            {% if item.authors %}<span>{{ item.authors }}</span>{% endif %}
+            {% if item.authors %}
+              {% capture self_author_mark %}<span class="media-author-self">Yicong Huang</span>{% endcapture %}
+              {% assign highlighted_authors = item.authors | replace: "Yicong Huang", self_author_mark %}
+              <span>{{ highlighted_authors }}</span>
+            {% endif %}
           </div>
         </div>
       </li>

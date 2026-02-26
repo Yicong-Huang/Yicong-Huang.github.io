@@ -11,6 +11,7 @@ sidebar_selected:
     date_text: "2024"
     label: Blog
     title: "Suggesting Python Code Type Annotations with LLM - A Language Server Enhancement"
+    url: "https://texera.io/suggesting-python-code-type-annotations-with-llm-a-language-server-enhancement/"
 
 talks:
   - start_date: "2025-06-01"
@@ -45,6 +46,7 @@ talks:
     date_text: "May 2024"
     label: Talk
     title: "The Journey to Build Texera."
+    url: "https://www.youtube.com/watch?v=CPADsqNY45M"
     description: "An invited talk at ISG Reunion, Irvine, CA, United States."
   - start_date: "2024-06-01"
     date_text: "Jun 2024"
@@ -67,23 +69,27 @@ blogs:
     date_text: "2024"
     label: Blog
     title: "Suggesting Python Code Type Annotations with LLM - A Language Server Enhancement."
+    url: "https://texera.io/suggesting-python-code-type-annotations-with-llm-a-language-server-enhancement/"
     outlet: "Texera Blog"
     authors: "Minchong Wu and Yicong Huang"
   - start_date: "2024-06-01"
     date_text: "2024"
     label: Blog
     title: "Adding R UDF to Texera: The Journey."
+    url: "https://texera.io/adding-r-udf-to-texera-the-journey/"
     outlet: "Texera Blog"
     authors: "Kevin Wu and Yicong Huang"
   - start_date: "2023-12-01"
     date_text: "2023"
     label: Blog
     title: "Enhancing the UDF Editor by Adding Language Server Support."
+    url: "https://texera.github.io/blog/enhancing-the-udf-editor-by-adding-language-server-support/"
     outlet: "Texera Blog"
     authors: "Aditya Verma, Dhruv Raipure, Jiaxi Chen, Sreetej Reddy, and Yicong Huang"
   - start_date: "2023-04-01"
     date_text: "2023"
     label: Blog
     title: "Using Texera to Perform Single-cell RNA Sequencing Analysis with R Language."
+    url: "https://texera.github.io/blog/using-texera-to-perform-single-cell-rna-sequencing-analysis-with-r-language/"
     outlet: "Texera Blog"
     authors: "Yicong Huang"

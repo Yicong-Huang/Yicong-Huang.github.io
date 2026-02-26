@@ -1216,6 +1216,11 @@ footer.sticky-bottom {
   color: var(--global-text-color-light);
 }
 
+.media-press-meta .media-author-self {
+  color: var(--global-text-color);
+  border-bottom: 1px solid var(--global-text-color);
+}
+
 .media-chip {
   display: inline-flex;
   align-items: center;
