@@ -23,7 +23,7 @@
           <span class="service-role">{{ content.role }}</span>{% if content.event and content.event != "" %}, {% endif %}
           {% endif %}
           {% if content.url and content.url != "" %}
-          <a href="{{ content.url }}">{{ content.event }}</a>
+          <a href="{{ content.url }}" target="_blank" rel="noopener noreferrer">{{ content.event }}</a>
           {% else %}
           {{ content.event }}
           {% endif %}

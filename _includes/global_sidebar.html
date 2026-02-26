@@ -214,8 +214,15 @@
       <ul class="current-services-list">
         {% for item in current_services %}
         <li>
-          {% if item.event and item.event contains "SIGMOD" %}SIGMOD{% else %}{{ item.event }}{% endif %}
-          {{ item.year }} {{ item.role }}
+          {% if item.url and item.url != "" %}
+          <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
+            {% if item.event and item.event contains "SIGMOD" %}SIGMOD{% else %}{{ item.event }}{% endif %}
+            {{ item.year }} {{ item.role }}
+          </a>
+          {% else %}
+            {% if item.event and item.event contains "SIGMOD" %}SIGMOD{% else %}{{ item.event }}{% endif %}
+            {{ item.year }} {{ item.role }}
+          {% endif %}
         </li>
         {% endfor %}
       </ul>
