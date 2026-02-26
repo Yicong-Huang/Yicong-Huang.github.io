@@ -479,6 +479,24 @@ body.sticky-bottom-footer {
     line-height: 24px;
   }
 
+  .sidebar-repo-retry-btn {
+    margin-left: 0.45rem;
+    border: 1px solid var(--global-divider-color);
+    background: transparent;
+    color: var(--global-theme-color);
+    border-radius: 999px;
+    font-size: 0.68rem;
+    line-height: 1.1;
+    padding: 0.1rem 0.42rem;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .sidebar-repo-retry-btn:hover {
+    border-color: var(--global-theme-color);
+    background: color-mix(in srgb, var(--global-theme-color) 10%, transparent);
+  }
+
   .repo-sparkline-line {
     fill: none;
     stroke: #1f7ae0;

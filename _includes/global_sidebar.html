@@ -390,7 +390,7 @@
         inflight.set(k, p);
         return p;
       };
-      return { remember, markRateLimit };
+      return { remember, markRateLimit, read, write };
     };
 
     const ghCache = window.__ghCache || (window.__ghCache = buildGlobalGitHubCache());
@@ -414,25 +414,6 @@
       });
     };
 
-    const fetchCommitActivity = async (owner, repo) => {
-      const cacheKey = `activity:${owner}/${repo}`;
-      return ghCache.remember(cacheKey, TTL_ACTIVITY_MS, async () => {
-        const url = `https://api.github.com/repos/${owner}/${repo}/stats/commit_activity`;
-        for (let attempt = 0; attempt < 4; attempt++) {
-          const res = await fetch(url);
-          ghCache.markRateLimit(res);
-          if (res.status === 202) {
-            await new Promise((resolve) => setTimeout(resolve, 500 + attempt * 400));
-            continue;
-          }
-          if (!res.ok) throw new Error(`Commit activity API failed: ${res.status}`);
-          const data = await res.json();
-          return Array.isArray(data) ? data : [];
-        }
-        return [];
-      }, { optional: true });
-    };
-
     const renderSparkline = (card, weeklyActivity) => {
       const holder = card.querySelector("[data-field='repo-sparkline']");
       if (!holder) return;
@@ -442,7 +423,17 @@
       });
       const points = daily.slice(-30);
       if (points.length === 0) {
-        holder.innerHTML = `<span class="sidebar-repo-sparkline-loading">No trend data</span>`;
+        holder.innerHTML = `
+          <span class="sidebar-repo-sparkline-loading">No trend data</span>
+          <button
+            type="button"
+            class="sidebar-repo-retry-btn"
+            data-role="repo-retry"
+            data-owner="${card.dataset.repoOwner || ""}"
+            data-repo="${card.dataset.repoName || ""}">
+            Try again
+          </button>
+        `;
         return;
       }
 
@@ -465,12 +456,65 @@
       `;
     };
 
-    cards.forEach(async (card) => {
+    const hasTrendData = (weeklyActivity) => {
+      if (!Array.isArray(weeklyActivity) || weeklyActivity.length === 0) return false;
+      return weeklyActivity.some((w) => Array.isArray(w.days) && w.days.some((d) => Number(d || 0) > 0));
+    };
+
+    const setTrendMessage = (card, msg) => {
+      const holder = card.querySelector("[data-field='repo-sparkline']");
+      if (!holder) return;
+      holder.innerHTML = `<span class="sidebar-repo-sparkline-loading">${msg}</span>`;
+    };
+
+    const fetchCommitActivity = async (owner, repo, forceFresh = false) => {
+      const primaryKey = `activity:${owner}/${repo}`;
+      if (!forceFresh) {
+        return ghCache.remember(primaryKey, TTL_ACTIVITY_MS, async () => {
+          const url = `https://api.github.com/repos/${owner}/${repo}/stats/commit_activity`;
+          for (let attempt = 0; attempt < 4; attempt++) {
+            const res = await fetch(url);
+            ghCache.markRateLimit(res);
+            if (res.status === 202) {
+              await new Promise((resolve) => setTimeout(resolve, 500 + attempt * 400));
+              continue;
+            }
+            if (!res.ok) throw new Error(`Commit activity API failed: ${res.status}`);
+            const data = await res.json();
+            return Array.isArray(data) ? data : [];
+          }
+          return [];
+        }, { optional: true });
+      }
+
+      const freshKey = `activity-fresh:${owner}/${repo}`;
+      const freshData = await ghCache.remember(freshKey, 2 * 60 * 1000, async () => {
+        const url = `https://api.github.com/repos/${owner}/${repo}/stats/commit_activity`;
+        for (let attempt = 0; attempt < 4; attempt++) {
+          const res = await fetch(url);
+          ghCache.markRateLimit(res);
+          if (res.status === 202) {
+            await new Promise((resolve) => setTimeout(resolve, 500 + attempt * 400));
+            continue;
+          }
+          if (!res.ok) throw new Error(`Commit activity API failed: ${res.status}`);
+          const data = await res.json();
+          return Array.isArray(data) ? data : [];
+        }
+        return [];
+      }, { optional: true });
+      ghCache.write(primaryKey, freshData, TTL_ACTIVITY_MS);
+      return freshData;
+    };
+
+    const loadRepoCard = async (card) => {
       const full = card.dataset.repoFullname || "";
       const author = card.dataset.myAuthor || "";
       const [owner, repo] = full.split("/");
       const out = card.querySelector("[data-field='my-commits']");
       if (!out || !owner || !repo || !author) return;
+      card.dataset.repoOwner = owner;
+      card.dataset.repoName = repo;
       try {
         const repoData = await ghCache.remember(`repo:${owner}/${repo}`, TTL_REPO_MS, async () => {
           const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
@@ -483,8 +527,19 @@
         const branch = repoData.default_branch || "main";
         out.textContent = await fetchCommitCount(owner, repo, branch, author);
         try {
-          const weeklyActivity = await fetchCommitActivity(owner, repo);
-          renderSparkline(card, weeklyActivity);
+          const weeklyActivity = await fetchCommitActivity(owner, repo, false);
+          if (hasTrendData(weeklyActivity)) {
+            renderSparkline(card, weeklyActivity);
+          } else {
+            setTrendMessage(card, "No trend data, retrying...");
+            await new Promise((resolve) => setTimeout(resolve, 1200));
+            const retryActivity = await fetchCommitActivity(owner, repo, true);
+            if (hasTrendData(retryActivity)) {
+              renderSparkline(card, retryActivity);
+            } else {
+              renderSparkline(card, []);
+            }
+          }
         } catch (_err) {
           renderSparkline(card, []);
         }
@@ -493,6 +548,55 @@
         if (starsOut) starsOut.textContent = "N/A";
         out.textContent = "N/A";
         renderSparkline(card, []);
+      }
+    };
+
+    const scheduleRepoLoad = (card) => {
+      const runner = () => loadRepoCard(card);
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(runner, { timeout: 1200 });
+      } else {
+        window.setTimeout(runner, 0);
+      }
+    };
+
+    if ("IntersectionObserver" in window) {
+      const repoObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          repoObserver.unobserve(entry.target);
+          scheduleRepoLoad(entry.target);
+        });
+      }, { rootMargin: "220px 0px" });
+      cards.forEach((card) => repoObserver.observe(card));
+    } else {
+      cards.forEach((card) => scheduleRepoLoad(card));
+    }
+
+    document.addEventListener("click", async (evt) => {
+      const retryBtn = evt.target.closest(".sidebar-repo-retry-btn[data-role='repo-retry']");
+      if (!retryBtn) return;
+      evt.preventDefault();
+      evt.stopPropagation();
+      const card = retryBtn.closest(".sidebar-repo-card");
+      if (!card || card.dataset.retrying === "1") return;
+      const retryOwner = retryBtn.dataset.owner || card.dataset.repoOwner || "";
+      const retryRepo = retryBtn.dataset.repo || card.dataset.repoName || "";
+      if (!retryOwner || !retryRepo) return;
+
+      card.dataset.retrying = "1";
+      setTrendMessage(card, "Retrying...");
+      try {
+        const retryActivity = await fetchCommitActivity(retryOwner, retryRepo, true);
+        if (hasTrendData(retryActivity)) {
+          renderSparkline(card, retryActivity);
+        } else {
+          renderSparkline(card, []);
+        }
+      } catch (_err) {
+        renderSparkline(card, []);
+      } finally {
+        card.dataset.retrying = "0";
       }
     });
   });
