@@ -247,17 +247,21 @@
       <div class="visitor-geo-card">
         <div class="visitor-geo-frame">
           {% if site.visitor_geo.provider == "mapmyvisitors" and site.visitor_geo.mapmyvisitors_d and site.visitor_geo.mapmyvisitors_d != "" %}
-          <script
-            type="text/javascript"
-            id="mapmyvisitors"
-            src="https://mapmyvisitors.com/map.js?d={{ site.visitor_geo.mapmyvisitors_d }}&cl={{ site.visitor_geo.mapmyvisitors_cl | default: 'ffffff' }}&w={{ site.visitor_geo.mapmyvisitors_w | default: 'a' }}">
-          </script>
+          <div
+            class="visitor-geo-widget"
+            data-provider="mapmyvisitors"
+            data-script-id="mapmyvisitors"
+            data-src="https://mapmyvisitors.com/map.js?d={{ site.visitor_geo.mapmyvisitors_d }}&cl={{ site.visitor_geo.mapmyvisitors_cl | default: 'ffffff' }}&w={{ site.visitor_geo.mapmyvisitors_w | default: 'a' }}">
+            <div class="visitor-geo-loading">Loading map...</div>
+          </div>
           {% elsif site.visitor_geo.provider == "clustrmaps" and site.visitor_geo.clustrmaps_token and site.visitor_geo.clustrmaps_token != "" %}
-          <script
-            type="text/javascript"
-            id="clustrmaps-widget"
-            src="https://cdn.clustrmaps.com/map_v2.js?cl={{ site.visitor_geo.clustrmaps_bg | default: 'ffffff' }}&w={{ site.visitor_geo.clustrmaps_width | default: 260 }}&t={{ site.visitor_geo.clustrmaps_theme | default: 'tt' }}&d={{ site.visitor_geo.clustrmaps_token }}&co={{ site.visitor_geo.clustrmaps_fg | default: '6c757d' }}&ct={{ site.visitor_geo.clustrmaps_bg | default: 'ffffff' }}">
-          </script>
+          <div
+            class="visitor-geo-widget"
+            data-provider="clustrmaps"
+            data-script-id="clustrmaps-widget"
+            data-src="https://cdn.clustrmaps.com/map_v2.js?cl={{ site.visitor_geo.clustrmaps_bg | default: 'ffffff' }}&w={{ site.visitor_geo.clustrmaps_width | default: 260 }}&t={{ site.visitor_geo.clustrmaps_theme | default: 'tt' }}&d={{ site.visitor_geo.clustrmaps_token }}&co={{ site.visitor_geo.clustrmaps_fg | default: '6c757d' }}&ct={{ site.visitor_geo.clustrmaps_bg | default: 'ffffff' }}">
+            <div class="visitor-geo-loading">Loading map...</div>
+          </div>
           {% else %}
           <div class="visitor-geo-placeholder">
             Set map config in <code>_config.yml</code> to enable the geo widget.
@@ -272,6 +276,41 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    const geoWidget = document.querySelector(".visitor-geo-widget[data-src]");
+    if (geoWidget) {
+      const loadVisitorGeo = () => {
+        if (geoWidget.dataset.loaded === "1") return;
+        geoWidget.dataset.loaded = "1";
+        const script = document.createElement("script");
+        script.src = geoWidget.dataset.src;
+        script.id = geoWidget.dataset.scriptId || "";
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+          const loadingEl = geoWidget.querySelector(".visitor-geo-loading");
+          if (loadingEl) loadingEl.remove();
+        };
+        script.onerror = () => {
+          const loadingEl = geoWidget.querySelector(".visitor-geo-loading");
+          if (loadingEl) loadingEl.textContent = "Map unavailable.";
+        };
+        geoWidget.appendChild(script);
+      };
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            observer.disconnect();
+            loadVisitorGeo();
+          });
+        }, { rootMargin: "120px 0px" });
+        observer.observe(geoWidget);
+      } else {
+        window.setTimeout(loadVisitorGeo, 600);
+      }
+    }
+
     const cards = Array.from(document.querySelectorAll(".sidebar-repo-card[data-repo-fullname][data-my-author]"));
     if (cards.length === 0) return;
 
