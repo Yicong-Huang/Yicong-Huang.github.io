@@ -1,0 +1,52 @@
+{% if site.visit_notify and site.visit_notify.enabled and site.visit_notify.webhook_url and site.visit_notify.webhook_url != "" %}
+<script>
+  (function () {
+    "use strict";
+
+    const cfg = {
+      webhookUrl: {{ site.visit_notify.webhook_url | jsonify }},
+      dedupeMinutes: Number({{ site.visit_notify.dedupe_minutes | default: 30 }}),
+      sendOnLocalhost: {% if site.visit_notify.send_on_localhost %}true{% else %}false{% endif %},
+      includeReferrer: {% if site.visit_notify.include_referrer == false %}false{% else %}true{% endif %}
+    };
+
+    if (!cfg.webhookUrl) return;
+    const host = window.location.hostname || "";
+    if (!cfg.sendOnLocalhost && (host === "localhost" || host === "127.0.0.1")) return;
+
+    const ua = navigator.userAgent || "";
+    const isBot = /bot|crawl|spider|preview|headless|slurp|bingpreview|facebookexternalhit|wget|curl/i.test(ua);
+    if (isBot || navigator.webdriver) return;
+
+    const pagePath = window.location.pathname || "/";
+    const pageBucket = Math.floor(Date.now() / (Math.max(1, cfg.dedupeMinutes) * 60 * 1000));
+    const dedupeKey = "visit_notify:v1:" + pagePath + ":" + pageBucket;
+
+    try {
+      if (localStorage.getItem(dedupeKey) === "1") return;
+      localStorage.setItem(dedupeKey, "1");
+    } catch (_err) {}
+
+    const payload = {
+      event: "page_visit",
+      ts: new Date().toISOString(),
+      page_path: pagePath,
+      page_url: window.location.href,
+      page_title: document.title || "",
+      host: host,
+      language: navigator.language || "",
+      timezone: (Intl.DateTimeFormat && Intl.DateTimeFormat().resolvedOptions().timeZone) || "",
+      viewport: { w: window.innerWidth || 0, h: window.innerHeight || 0 }
+    };
+
+    if (cfg.includeReferrer) payload.referrer = document.referrer || "";
+
+    fetch(cfg.webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true
+    }).catch(function () {});
+  })();
+</script>
+{% endif %}

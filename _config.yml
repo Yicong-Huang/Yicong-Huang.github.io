@@ -131,6 +131,14 @@ visitor_geo:
   clustrmaps_bg: ffffff
   clustrmaps_fg: 6c757d
 
+# Visit notification (Pipedream + Telegram)
+visit_notify:
+  enabled: true
+  webhook_url: "https://eottuhs2l68pzao.m.pipedream.net" # Pipedream HTTP trigger URL
+  dedupe_minutes: 30
+  send_on_localhost: false
+  include_referrer: true
+
 google_site_verification:  # your google-site-verification ID (Google Search Console)
 bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)
 
