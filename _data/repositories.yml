@@ -2,5 +2,6 @@ github_users:
   - Yicong-Huang
 
 github_repos:
-  - apache/texera
   - apache/spark
+  - apache/texera
+  - ISG-ICS/cloudberry

@@ -817,13 +817,25 @@ footer.sticky-bottom {
 
 .repo-page-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 32%);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 35%);
+  gap: 1.1rem;
   align-items: start;
 }
 
 .repo-page-main h2 {
   margin-top: 0;
+}
+
+.repo-page-main .repositories {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: stretch !important;
+}
+
+.repo-page-main .repo-metrics-card,
+.repo-page-side .github-metrics-card {
+  margin: 0 !important;
 }
 
 .repo-page-side {
