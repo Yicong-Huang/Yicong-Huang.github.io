@@ -1,4 +1,25 @@
 {% assign sidebar_source = site.pages | where: "permalink", "/" | first %}
+{% assign current_sidebar_url = page.url | default: page.permalink | default: "/" %}
+{% assign is_repositories_page = false %}
+{% assign is_services_page = false %}
+{% assign is_media_page = false %}
+{% assign is_teaching_page = false %}
+{% assign is_news_page = false %}
+{% if current_sidebar_url == "/repositories/" %}
+  {% assign is_repositories_page = true %}
+{% endif %}
+{% if current_sidebar_url == "/services/" %}
+  {% assign is_services_page = true %}
+{% endif %}
+{% if current_sidebar_url == "/media/" %}
+  {% assign is_media_page = true %}
+{% endif %}
+{% if current_sidebar_url == "/teaching/" %}
+  {% assign is_teaching_page = true %}
+{% endif %}
+{% if current_sidebar_url == "/news/" %}
+  {% assign is_news_page = true %}
+{% endif %}
 <aside class="about-sidebar">
   <div class="about-sidebar-inner">
     <header class="about-id">
@@ -129,13 +150,14 @@
     </section>
     {% endif %}
 
-    {% if sidebar_source.news and site.announcements.enabled -%}
+    {% if sidebar_source.news and site.announcements.enabled and is_news_page == false -%}
     <section class="about-side-section about-news-section">
       <h2 class="about-side-title"><a href="{{ '/news/' | relative_url }}" style="color: inherit;">News</a></h2>
       {%- include news.html limit=true dynamic=true batch=5 initial=5 %}
     </section>
     {%- endif %}
 
+    {% unless is_repositories_page %}
     <section class="about-side-section about-current-services">
       <h2 class="about-side-title">Selected Repositories <a class="about-side-all-link" href="{{ '/repositories/' | relative_url }}">(All)</a></h2>
       {% if site.data.repositories.repositories %}
@@ -183,7 +205,9 @@
       </ul>
       {% endif %}
     </section>
+    {% endunless %}
 
+    {% unless is_services_page %}
     <section class="about-side-section about-current-services">
       <h2 class="about-side-title">Current Services <a class="about-side-all-link" href="{{ '/services/' | relative_url }}">(All)</a></h2>
       {% assign current_services = site.data.resume.service | where_exp: "item", "item.currentService == true" %}
@@ -196,7 +220,9 @@
         {% endfor %}
       </ul>
     </section>
+    {% endunless %}
 
+    {% unless is_media_page %}
     <section class="about-side-section about-current-services">
       <h2 class="about-side-title">Media &amp; Press <a class="about-side-all-link" href="{{ '/media/' | relative_url }}">(All)</a></h2>
       <ul class="current-services-list media-side-list">
@@ -214,13 +240,16 @@
         {% endfor %}
       </ul>
     </section>
+    {% endunless %}
 
+    {% unless is_teaching_page %}
     <section class="about-side-section about-current-services">
       <h2 class="about-side-title">Current Teaching <a class="about-side-all-link" href="{{ '/teaching/' | relative_url }}">(All)</a></h2>
       <ul class="current-services-list current-teaching-list">
         <li>No teaching scheduled at the moment.</li>
       </ul>
     </section>
+    {% endunless %}
 
     <section class="about-side-section about-current-services">
       <h2 class="about-side-title">Travel &amp; Events</h2>
