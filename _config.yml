@@ -9,7 +9,7 @@ last_name: Huang
 email: yicong.huang@databricks.com
 email_secondary: yiconghuang@cs.umass.edu
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+  Yicong Huang's Personal Website
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
@@ -112,6 +112,20 @@ contact_note:
 
 google_analytics:  G-Y0NLC6BJBP # your Google Analytics measurement ID (format: G-XXXXXXXXXX)
 cronitor_analytics:  # cronitor RUM analytics site ID (format: XXXXXXXXX)
+
+# Visitor geo widget (optional)
+visitor_geo:
+  enabled: true
+  provider: mapmyvisitors
+  title: Visitor Geo
+  mapmyvisitors_d: "BTz2zo-ZjcJMn15FS0dTT3PPmcCz2apWswOF6w4DPQI"
+  mapmyvisitors_cl: "ffffff"
+  mapmyvisitors_w: "a"
+  clustrmaps_token: "" # set your clustrmaps "d" token to enable the map
+  clustrmaps_width: 260
+  clustrmaps_theme: tt
+  clustrmaps_bg: ffffff
+  clustrmaps_fg: 6c757d
 
 google_site_verification:  # your google-site-verification ID (Google Search Console)
 bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)

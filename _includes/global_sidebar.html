@@ -235,9 +235,36 @@
             <span class="travel-event-title">No upcoming travel/events.</span>
           </div>
         </li>
-        {% endif %}
+      {% endif %}
       </ul>
     </section>
+
+    {% if site.visitor_geo and site.visitor_geo.enabled %}
+    <section class="about-side-section about-current-services">
+      <h2 class="about-side-title">{{ site.visitor_geo.title | default: "Visitor Geo" }}</h2>
+      <div class="visitor-geo-card">
+        <div class="visitor-geo-frame">
+          {% if site.visitor_geo.provider == "mapmyvisitors" and site.visitor_geo.mapmyvisitors_d and site.visitor_geo.mapmyvisitors_d != "" %}
+          <script
+            type="text/javascript"
+            id="mapmyvisitors"
+            src="https://mapmyvisitors.com/map.js?d={{ site.visitor_geo.mapmyvisitors_d }}&cl={{ site.visitor_geo.mapmyvisitors_cl | default: 'ffffff' }}&w={{ site.visitor_geo.mapmyvisitors_w | default: 'a' }}">
+          </script>
+          {% elsif site.visitor_geo.provider == "clustrmaps" and site.visitor_geo.clustrmaps_token and site.visitor_geo.clustrmaps_token != "" %}
+          <script
+            type="text/javascript"
+            id="clustrmaps-widget"
+            src="https://cdn.clustrmaps.com/map_v2.js?cl={{ site.visitor_geo.clustrmaps_bg | default: 'ffffff' }}&w={{ site.visitor_geo.clustrmaps_width | default: 260 }}&t={{ site.visitor_geo.clustrmaps_theme | default: 'tt' }}&d={{ site.visitor_geo.clustrmaps_token }}&co={{ site.visitor_geo.clustrmaps_fg | default: '6c757d' }}&ct={{ site.visitor_geo.clustrmaps_bg | default: 'ffffff' }}">
+          </script>
+          {% else %}
+          <div class="visitor-geo-placeholder">
+            Set map config in <code>_config.yml</code> to enable the geo widget.
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
   </div>
 </aside>
 
