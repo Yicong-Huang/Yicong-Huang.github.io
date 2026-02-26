@@ -86,6 +86,127 @@ nav_order: 6
     background: #47a56b;
   }
 
+  .mentoring-outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .mentoring-outcomes-panel {
+    border: 1px solid var(--global-divider-color);
+    border-radius: 10px;
+    padding: 0.75rem 0.8rem;
+    background: color-mix(in srgb, var(--global-card-bg-color) 92%, var(--global-bg-color) 8%);
+  }
+
+  .mentoring-section-label {
+    font-size: 0.88rem;
+    color: var(--global-text-color-light);
+    margin-bottom: 0.28rem;
+  }
+
+  .mentoring-year-list,
+  .mentoring-school-list,
+  .mentoring-degree-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mentoring-year-item + .mentoring-year-item,
+  .mentoring-school-item + .mentoring-school-item,
+  .mentoring-degree-item + .mentoring-degree-item {
+    margin-top: 0.35rem;
+  }
+
+  .mentoring-row-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.84rem;
+    color: var(--global-text-color);
+    margin-bottom: 0.1rem;
+  }
+
+  .mentoring-track {
+    height: 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--global-divider-color) 70%, transparent);
+    overflow: hidden;
+  }
+
+  .mentoring-fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+
+  .mentoring-fill-year-2023 {
+    width: 25%;
+    background: #2f8fdb;
+  }
+
+  .mentoring-fill-year-2022 {
+    width: 62.5%;
+    background: #4f99de;
+  }
+
+  .mentoring-fill-year-2021 {
+    width: 43.8%;
+    background: #6ca8e3;
+  }
+
+  .mentoring-fill-year-2020 {
+    width: 37.5%;
+    background: #85b6e7;
+  }
+
+  .mentoring-fill-year-2019 {
+    width: 100%;
+    background: #2a74c9;
+  }
+
+  .mentoring-fill-school-uci {
+    width: 100%;
+    background: #2f8fdb;
+  }
+
+  .mentoring-fill-school-cmu {
+    width: 100%;
+    background: #3f9b73;
+  }
+
+  .mentoring-fill-school-ucsd {
+    width: 50%;
+    background: #7a8ca6;
+  }
+
+  .mentoring-fill-school-others {
+    width: 25%;
+    background: #9aa5b3;
+  }
+
+  .mentoring-fill-degree-undergrad {
+    width: 100%;
+    background: #2f8fdb;
+  }
+
+  .mentoring-fill-degree-ms {
+    width: 15.2%;
+    background: #7a8ca6;
+  }
+
+  .mentoring-fill-degree-phd {
+    width: 15.2%;
+    background: #47a56b;
+  }
+
+  .mentoring-note {
+    font-size: 0.83rem;
+    color: var(--global-text-color-light);
+    line-height: 1.35;
+    margin-top: 0.55rem;
+  }
+
   .teaching-log-list .teaching-log-grid {
     display: grid !important;
     grid-template-columns: minmax(92px, 130px) minmax(220px, 1fr) minmax(320px, 1.45fr) !important;
@@ -95,6 +216,10 @@ nav_order: 6
 
   @media (max-width: 680px) {
     .teaching-outcomes-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .mentoring-outcomes-grid {
       grid-template-columns: 1fr;
     }
 
@@ -251,6 +376,78 @@ nav_order: 6
     <li class="list-group-item teaching-log-row"><div class="teaching-log-grid"><div class="teaching-log-time">2017 Winter</div><div class="teaching-log-roleloc"><div class="teaching-log-role">Tutor</div><div class="teaching-log-location">University of California, Irvine, CA, United States</div></div><div class="teaching-log-course">ICS 32 - Programming with Software Libraries</div></div></li>
     <li class="list-group-item teaching-log-row"><div class="teaching-log-grid"><div class="teaching-log-time">2016 Fall</div><div class="teaching-log-roleloc"><div class="teaching-log-role">Tutor</div><div class="teaching-log-location">University of California, Irvine, CA, United States</div></div><div class="teaching-log-course">ICS 31 - Introduction to Programming</div></div></li>
   </ul>
+</div>
+
+<div class="card mt-3 p-3">
+  <h3 class="card-title font-weight-medium">Mentoring Outcomes</h3>
+  <div class="mentoring-outcomes-grid">
+    <div class="mentoring-outcomes-panel">
+      <div class="mentoring-section-label">Mentees by Academic Year</div>
+      <ul class="mentoring-year-list">
+        <li class="mentoring-year-item">
+          <div class="mentoring-row-head"><span>2023-2024</span><span>4</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-year-2023"></div></div>
+        </li>
+        <li class="mentoring-year-item">
+          <div class="mentoring-row-head"><span>2022-2023</span><span>10</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-year-2022"></div></div>
+        </li>
+        <li class="mentoring-year-item">
+          <div class="mentoring-row-head"><span>2021-2022</span><span>7</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-year-2021"></div></div>
+        </li>
+        <li class="mentoring-year-item">
+          <div class="mentoring-row-head"><span>2020-2021</span><span>6</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-year-2020"></div></div>
+        </li>
+        <li class="mentoring-year-item">
+          <div class="mentoring-row-head"><span>2019-2020</span><span>16</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-year-2019"></div></div>
+        </li>
+      </ul>
+    </div>
+    <div class="mentoring-outcomes-panel">
+      <div class="mentoring-section-label">Destination School Distribution</div>
+      <ul class="mentoring-school-list">
+        <li class="mentoring-school-item">
+          <div class="mentoring-row-head"><span>UCI</span><span>4</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-school-uci"></div></div>
+        </li>
+        <li class="mentoring-school-item">
+          <div class="mentoring-row-head"><span>CMU</span><span>4</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-school-cmu"></div></div>
+        </li>
+        <li class="mentoring-school-item">
+          <div class="mentoring-row-head"><span>UCSD</span><span>2</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-school-ucsd"></div></div>
+        </li>
+        <li class="mentoring-school-item">
+          <div class="mentoring-row-head"><span>UIUC, UW, NYU, UCLA, Brown, Cornell, UCD, Berkeley, UChicago, HKPU</span><span>1 each</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-school-others"></div></div>
+        </li>
+      </ul>
+    </div>
+    <div class="mentoring-outcomes-panel">
+      <div class="mentoring-section-label">Mentee Degree Type Distribution</div>
+      <ul class="mentoring-degree-list">
+        <li class="mentoring-degree-item">
+          <div class="mentoring-row-head"><span>Undergraduate</span><span>33 (76.7%)</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-degree-undergrad"></div></div>
+        </li>
+        <li class="mentoring-degree-item">
+          <div class="mentoring-row-head"><span>Master</span><span>5 (11.6%)</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-degree-ms"></div></div>
+        </li>
+        <li class="mentoring-degree-item">
+          <div class="mentoring-row-head"><span>Ph.D.</span><span>5 (11.6%)</span></div>
+          <div class="mentoring-track"><div class="mentoring-fill mentoring-fill-degree-phd"></div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="mentoring-note">
+    Based on the mentoring records listed below (2019-2024). Destination-school counts use explicitly labeled placements in the log.
+  </div>
 </div>
 
 <div class="card mt-3 p-3">
