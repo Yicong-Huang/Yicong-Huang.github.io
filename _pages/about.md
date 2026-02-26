@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Software Engineer @ Databricks<br>Adjunct Assistant Professor @ UMass Amherst
+subtitle: Software Engineer @ Databricks<br>Adjunct Assistant Professor @ <a href="https://www.cics.umass.edu/about/directory/yicong-huang" target="_blank" rel="noopener noreferrer">UMass Amherst</a><br>Contributor @ <a href="https://spark.apache.org/" target="_blank" rel="noopener noreferrer">Apache Spark</a><br>PPMC @ <a href="https://texera.apache.org/" target="_blank" rel="noopener noreferrer">Apache Texera</a>
 
 profile:
   align: right

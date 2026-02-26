@@ -251,7 +251,7 @@
             class="visitor-geo-widget"
             data-provider="mapmyvisitors"
             data-script-id="mapmyvisitors"
-            data-src="https://mapmyvisitors.com/map.js?d={{ site.visitor_geo.mapmyvisitors_d }}&cl={{ site.visitor_geo.mapmyvisitors_cl | default: 'ffffff' }}&w={{ site.visitor_geo.mapmyvisitors_w | default: 'a' }}">
+            data-src="https://mapmyvisitors.com/map.js?d={{ site.visitor_geo.mapmyvisitors_d }}&co={{ site.visitor_geo.mapmyvisitors_co | default: 'f5f7fa' }}&cl={{ site.visitor_geo.mapmyvisitors_cl | default: '6e7c8c' }}&cmo={{ site.visitor_geo.mapmyvisitors_cmo | default: '5cb85c' }}&cmn={{ site.visitor_geo.mapmyvisitors_cmn | default: '1e88e5' }}&ct={{ site.visitor_geo.mapmyvisitors_ct | default: '6b7280' }}&t={{ site.visitor_geo.mapmyvisitors_t | default: 'n' }}&st={{ site.visitor_geo.mapmyvisitors_st | default: 't' }}&w={{ site.visitor_geo.mapmyvisitors_w | default: 'a' }}">
             <div class="visitor-geo-loading">Loading map...</div>
           </div>
           {% elsif site.visitor_geo.provider == "clustrmaps" and site.visitor_geo.clustrmaps_token and site.visitor_geo.clustrmaps_token != "" %}

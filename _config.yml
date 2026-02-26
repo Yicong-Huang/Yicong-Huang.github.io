@@ -119,7 +119,13 @@ visitor_geo:
   provider: mapmyvisitors
   title: Visitor Geo
   mapmyvisitors_d: "BTz2zo-ZjcJMn15FS0dTT3PPmcCz2apWswOF6w4DPQI"
-  mapmyvisitors_cl: "ffffff"
+  mapmyvisitors_co: "f5f7fa" # ocean color
+  mapmyvisitors_cl: "6e7c8c" # land color
+  mapmyvisitors_cmo: "5cb85c" # past visitors
+  mapmyvisitors_cmn: "1e88e5" # recent visitors
+  mapmyvisitors_ct: "6b7280" # text color (theme-friendly gray)
+  mapmyvisitors_t: "n" # widget text style
+  mapmyvisitors_st: "t" # show pageviews counter: t=total
   mapmyvisitors_w: "a"
   clustrmaps_token: "" # set your clustrmaps "d" token to enable the map
   clustrmaps_width: 260
