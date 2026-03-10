@@ -3,207 +3,87 @@
   contents:
     - name: Full Name
       value: Yicong Huang
-    - name: Location
-      value: Mountain View, CA, United States
-    - name: Email
-      value: yicong.huang@databricks.com; yiconghuang@cs.umass.edu
-    - name: Website
-      value: <a href="https://yiconghuang.github.io/">yiconghuang.github.io</a>
-    - name: Profiles
-      value: <a href="https://www.linkedin.com/in/yiconghuang/">LinkedIn</a>, <a href="https://github.com/Yicong-Huang">GitHub</a>, <a href="https://scholar.google.com/citations?user=H2lRha4AAAAJ">Google Scholar</a>
-
-- title: Employment
-  type: time_table
-  contents:
-    - title: Software Engineer
-      institution: Databricks Inc., Mountain View, CA, United States
-      year: 2025 - Present
-      description:
-        - Apache Spark, PySpark, and the Spark Experience team.
-    - title: Adjunct Assistant Professor
-      institution: CICS at UMass Amherst, Amherst, MA, United States
-      year: 2025 - Present
-      description:
-        - AI Lakehouse, Lakebase, AI systems, and AI-native data engines.
-    - title: Software Engineer Intern
-      institution: Observe Inc., San Mateo, CA, United States
-      year: 2024
-      description:
-        - Dataset transformers with Go and Snowflake.
-    - title: Research Intern
-      institution: Visa Research, Visa Inc., Palo Alto, CA, United States
-      year: 2022
-      description:
-        - SWAT-RT real-time window aggregation on streaming systems.
-        - C++, Redis, Kafka, and Flink.
-    - title: Research Intern
-      institution: Infrastructure System Lab, ByteDance Inc., Mountain View, CA, United States
-      year: 2020
-      description:
-        - HTAP database system work with C++, Kudu, and MySQL.
+    - name: Date of Birth
+      value: 29th August 1995
+    - name: Languages
+      value: English, Chinese
 
 - title: Education
   type: time_table
   contents:
-    - title: Ph.D., Computer Science
-      institution: University of California, Irvine, CA, United States
-      year: 2019 - 2025
+    - title: Ph.D.
+      institution: University of California, Irvine
+      year: 2019 - exp. 2025
       description:
-        - Lab: Information Systems Group (ISG)
-        - Advisor: Dr. Chen Li
-        - GPA: 3.96/4.0
-        - Dissertation: UDF-Centric Dataflow Systems for Supporting User-Defined Functions in Collaborative Data Science, AI, and ML
-        - Research interests: data-processing systems, database management systems, machine learning systems
-    - title: B.S., Computer Science
-      institution: University of California, Irvine, CA, United States
+        - Dr. Chen Li (chenli@ics.uci.edu)
+        - Description 2.
+        - title: Description 3.
+          contents:
+            - Sub-description 1.
+            - Sub-description 2.
+    - title: B.A.
+      institution: University of California, Irvine
       year: 2015 - 2019
+      description:
+        - Description 1.
+        - Description 2.
 
-- title: Selected Awards
+- title: Experience
   type: time_table
   contents:
-    - year: 2026
-      items:
-        - CS Best Dissertation Honorable Mention Award (UC Irvine)
-    - year: 2025
-      items:
-        - Most Promising Future Faculty Second Place Award (UC Irvine)
-        - Joseph and Dorothy Fischer Memorial Endowed Fellowship (UC Irvine)
-        - Beall Family Foundation Graduate Student Entrepreneur Award in Computer Science (UC Irvine)
-    - year: 2024
-      items:
-        - Best Demo Award Runner-Up (SIGMOD)
-        - Graduate Dean's Dissertation Fellowship (UC Irvine)
-        - Student Travel Award (SIGMOD)
-    - year: 2023
-      items:
-        - Public Impact Fellowship (UC Irvine)
-        - Student Travel Award (VLDB)
+    - title: Research Intern
+      institution: VISA Inc.
+      year: 06/2022 - 09/2022
+      description:
+        - Developed real-time window aggregation framework with out-of-order event support.
+        - Designed space-efficient, versatile list for in-memory raw-event storage
+        - Proposed out-of-order handling algorithms, outperforming existing Flink designs.
 
-- title: Work Under Submission
+    - title: Research Intern
+      institution: ByteDance Inc.
+      year: 06/2020 - 09/2020
+      description:
+        - Worked on an HTAP database to support instant query on the real-time data.
+        - Implemented TP (MySQL) metadata to AP (Kudu) schema conversion.
+        - Integrated lock-free data structure for heap implementation.
+
+
+
+- title: Open Source Projects
   type: time_table
   contents:
-    - year: 2026
-      items:
-        - "S3 Peanut: Port-Based Compilation and Scheduling of UDFs in Dataflow Systems (under submission to VLDB)"
-        - "S2 SWAT-RT: Low Latency Windowed Analytical Feature Enrichment on Real-time Streams with Out-of-order Support (under submission to MLSys)"
-        - "S1 How Can AI Help Me with Data Science? An Exploration of AI-Assistants on Data Workflow Systems (under submission to SIGCHI)"
+    - title: <a href="https://github.com/Texera/texera">Texera</a>
+      year: 2020-present
+      description: Interactive Workflow-based Big Data Analytics System
+    - title: <a href="https://github.com/ISG-ICS/cloudberry">Cloudberry</a>
+      year: 2019-2020
+      description: Big Data Visualization
 
-- title: Research Projects
-  type: time_table
-  contents:
-    - title: Apache Texera
-      institution: Open-source system for cloud-based collaborative data science and AI/ML
-      year: 2020 - Present
-      description:
-        - Tech stack: Scala, TypeScript, Python, Arrow.
-        - Led system design across runtime/compiler/scheduler; built interactive Python UDF debugging and processing engine.
-    - title: Cloudberry
-      institution: Middleware for large-scale data visualization
-      year: 2019 - 2020
-      description:
-        - Tech stack: Scala, JavaScript, AWS.
-        - Built interactive tweet map over multi-terabyte data and deployed elastic service across 20+ AWS instances.
-    - title: ML-OPT
-      institution: Machine learning pipeline optimization
-      year: 2019 - 2020
-      description:
-        - Tech stack: Python.
-        - Explored confidence-aware optimization for video/NLP pipelines under accuracy constraints.
-    - title: Wildfire
-      institution: Wildfire detection and visualization with social media
-      year: 2019
-      description:
-        - Tech stack: Python, TypeScript, PostgreSQL.
-        - Led a team of 10 students and built real-time multimodal data pipelines.
-    - title: Blockchain
-      institution: Blockchain in Fin-tech and smart contracts
-      year: 2018
-      description:
-        - Tech stack: Python, C++.
-        - Reviewed 200+ whitepapers and developed an Ethereum smart contract prototype.
 
-- title: Service
-  type: time_table
-  contents:
-    - year: 2027
-      items:
-        - Web Chair, SIGMOD
-        - Program Committee, SIGMOD
-    - year: 2026
-      items:
-        - Program Committee, SIGMOD
-    - year: 2024
-      items:
-        - External Reviewer, IEEE Transactions on Knowledge and Data Engineering (TKDE)
-        - Program Committee, SIGMOD Artifact Review and Reproducibility (ARI)
-    - year: 2023
-      items:
-        - Student Volunteer, ACM SIGKDD
-        - Student Volunteer, ICDE
-    - year: 2019
-      items:
-        - Student Volunteer, VLDB
-    - year: 2018
-      items:
-        - Student Volunteer, California-Shanghai Innovation Dialogue Conference
-
-- title: Teaching
-  type: time_table
-  contents:
-    - title: Workshop Instructor
-      institution: Cerritos College, Norwalk, CA, United States
-      year: Fall 2024
-      description:
-        - Workshop of Data Science for Everyone 2024; two-day no-code data science and ML workshop for 50+ students and faculty.
-    - title: Associate Instructor (Lecturer)
-      institution: UC Irvine, CA, United States
-      year: Spring 2024
-      description:
-        - ICS 80: Data Science and AI/ML Using Workflows; designed and taught course for non-CS students.
-    - title: Teaching Assistant
-      institution: UC Irvine, CA, United States
-      year: 2018 - 2022
-      description:
-        - CS 222/122C Principles of Data Management
-        - CS 122B Projects in Databases and Web Applications
-        - ICS 51 Introduction to Computer Organization
-        - CS 141 Concepts of Programming Languages I
-
-- title: Mentorship
-  type: nested_list
-  contents:
-    - title: Ph.D. Student Mentorship
-      items:
-        - 2025 - 2026: Jiadong Bai
-        - 2023 - 2024: Raj Mohanty, Shagoto Rahman Shrestho
-        - 2022 - 2023: Xinyuan Lin, Yunyan Ding
-    - title: M.S. Research Mentorship
-      items:
-        - 2022 - 2023: Aditya Verma, Sreetej Reddy, Dhruv Raipure, Jiaxi Chen
-        - 2019 - 2020: Yang Cao
-    - title: Undergraduate Research Mentorship
-      items:
-        - 2023 - 2024: Kevin Wu
-        - 2022 - 2023: Chengxi Li, Ethan Wong, Tianyun Yuan, Tony Liu
-        - 2021 - 2022: Zhen Guan, Jiashu Zhang, Yinan Zhou, Andrew Li, Eric Peng, Jiyang Wu, Zeyu Li
-
-- title: Invited Talks (Selected)
-  type: time_table
-  contents:
-    - year: 2025
-      items:
-        - "UDF-Centric Dataflow Systems for Supporting User-Defined Functions in Collaborative Data Science, AI, and ML (Final defense, UC Irvine)"
-        - "Building a Collaborative and Interactive Data System to Broaden Access to Data Science, AI, and ML (University at Buffalo, Lehigh, UMass Amherst, Purdue, UMass Boston, AWS, ASU, Santa Clara University)"
-    - year: 2024
-      items:
-        - "Invited talk at Databricks: Texera and interactive debugging in distributed data processing systems"
-        - "VLDB 2024 paper presentation: Texera"
-        - "SIGMOD 2024 paper presentation: Udon"
-
-- title: Technical Skills
+#- title: Honors and Awards
+#  type: time_table
+#  contents:
+#    - year: 1921
+#      items:
+#        - Nobel Prize in Physics
+#        - Matteucci Medal
+#    - year: 2029
+#      items:
+#        - Max Planck Medal
+#
+#- title: Academic Interests
+#  type: nested_list
+#  contents:
+#    - title: Topic 1.
+#      items:
+#        - Description 1.
+#        - Description 2.
+#    - title: Topic 2.
+#      items:
+#        - Description 1.
+#        - Description 2.
+#
+#- title: Other Interests
   type: list
   contents:
-    - "Proficient: Python, Java/Scala, C/C++, JavaScript/TypeScript, Golang, Lisp, Prolog, MySQL, PostgreSQL"
-    - "Intermediate: HTML, CSS, SQL, R, Redis"
-    - "Frameworks: Arrow, Hadoop, Spark, Flink, Kudu, Protobuf, Spring, Angular2+, Django, Flask, Express, ReactJS, Elasticsearch"
-    - "Services: AWS, GCP, GitHub, Docker"
+    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
