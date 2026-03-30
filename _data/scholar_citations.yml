@@ -1,10 +1,10 @@
 totals:
   all:
-    citations: 342
+    citations: 349
     h_index: 8
     i10_index: 7
   since_2021:
-    citations: 341
+    citations: 348
     h_index: 8
     i10_index: 7
 
@@ -20,4 +20,4 @@ yearly:
   - year: 2025
     count: 113
   - year: 2026
-    count: 18
+    count: 24
