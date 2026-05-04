@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import re
 import sys
 import urllib.error
@@ -137,6 +138,10 @@ def render_yaml(totals: dict, yearly: list[dict]) -> str:
     return "\n".join(lines)
 
 
+def render_json(totals: dict, yearly: list[dict]) -> str:
+    return json.dumps({"totals": totals, "yearly": yearly}, indent=2) + "\n"
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--user-id", required=True, help="Google Scholar user id")
@@ -144,6 +149,11 @@ def parse_args() -> argparse.Namespace:
         "--output",
         default="_data/scholar_citations.yml",
         help="Output YAML path",
+    )
+    parser.add_argument(
+        "--json-output",
+        default="_data/scholar_citations.json",
+        help="Output JSON path",
     )
     parser.add_argument(
         "--graceful-http-errors",
@@ -164,10 +174,14 @@ def main() -> int:
         raise
     totals = extract_totals(doc)
     yearly = extract_yearly(doc)
-    out = render_yaml(totals, yearly)
-    out_path = Path(args.output)
-    out_path.write_text(out, encoding="utf-8")
-    print(f"updated {out_path} with {len(yearly)} yearly points")
+    yaml_out_path = Path(args.output)
+    yaml_out_path.write_text(render_yaml(totals, yearly), encoding="utf-8")
+    json_out_path = Path(args.json_output)
+    json_out_path.write_text(render_json(totals, yearly), encoding="utf-8")
+    print(
+        f"updated {yaml_out_path} and {json_out_path} "
+        f"with {len(yearly)} yearly points"
+    )
     return 0
 
 
