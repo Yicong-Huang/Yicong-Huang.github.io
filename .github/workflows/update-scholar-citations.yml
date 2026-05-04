@@ -12,8 +12,14 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout source branch
         uses: actions/checkout@v4
+
+      - name: Checkout scholar data branch
+        uses: actions/checkout@v4
+        with:
+          ref: scholar-data
+          path: scholar-data
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -25,8 +31,8 @@ jobs:
           for i in 1 2 3; do
             python3 scripts/update_scholar_citations.py \
               --user-id "9ZmdkkIAAAAJ" \
-              --output "_data/scholar_citations.yml" \
-              --json-output "_data/scholar_citations.json" \
+              --output "/tmp/scholar_citations.yml" \
+              --json-output "scholar-data/scholar_citations.json" \
               --graceful-http-errors && break
             if [ "$i" -eq 3 ]; then
               echo "Failed to fetch Scholar data after 3 attempts."
@@ -36,13 +42,14 @@ jobs:
           done
 
       - name: Commit and push if changed
+        working-directory: scholar-data
         run: |
-          if git diff --quiet -- _data/scholar_citations.yml _data/scholar_citations.json; then
+          if git diff --quiet -- scholar_citations.json; then
             echo "No citation changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add _data/scholar_citations.yml _data/scholar_citations.json
+          git add scholar_citations.json
           git commit -m "chore(data): refresh scholar citations"
           git push
