@@ -1,4 +1,9 @@
 sidebar_selected:
+  - start_date: "2026-05-20"
+    date_text: "May 2026"
+    label: Blog
+    title: "Introducing Arrow UDFs in PySpark: A Faster, Leaner Replacement for Pandas UDFs"
+    url: "https://www.databricks.com/blog/introducing-arrow-udfs-pyspark-faster-leaner-replacement-pandas-udfs"
   - start_date: "2026-05-14"
     date_text: "May 2026"
     label: Talk
@@ -76,6 +81,13 @@ talks:
     description: "A talk at VISA Research, AI Research team, Palo Alto, CA, United States."
 
 blogs:
+  - start_date: "2026-05-20"
+    date_text: "May 2026"
+    label: Blog
+    title: "Introducing Arrow UDFs in PySpark: A Faster, Leaner Replacement for Pandas UDFs."
+    url: "https://www.databricks.com/blog/introducing-arrow-udfs-pyspark-faster-leaner-replacement-pandas-udfs"
+    outlet: "Databricks Blog"
+    authors: "Ruifeng Zheng and Yicong Huang"
   - start_date: "2024-10-01"
     date_text: "2024"
     label: Blog
