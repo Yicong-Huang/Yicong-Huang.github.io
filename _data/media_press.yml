@@ -1,4 +1,8 @@
 sidebar_selected:
+  - start_date: "2026-05-14"
+    date_text: "May 2026"
+    label: Talk
+    title: "Harness Your Own AI Workflow"
   - start_date: "2025-06-01"
     date_text: "Jun 2025"
     label: Talk
@@ -14,6 +18,13 @@ sidebar_selected:
     url: "https://texera.io/suggesting-python-code-type-annotations-with-llm-a-language-server-enhancement/"
 
 talks:
+  - start_date: "2026-05-14"
+    date_text: "May 14, 2026"
+    label: Talk
+    title: "Harness Your Own AI Workflow."
+    description: "An invited talk by Dr. Yicong Huang on building personal AI workflow harnesses around daily work, featuring OpenEVA."
+    locations:
+      - "DBH 3011, 2:00 PM - 2:50 PM."
   - start_date: "2025-06-01"
     date_text: "Jun 2025"
     label: Talk

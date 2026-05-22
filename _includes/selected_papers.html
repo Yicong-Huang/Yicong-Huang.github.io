@@ -1,4 +1,10 @@
 
           <div class="publications">
               {% bibliography -f {{ site.scholar.bibliography }} -q @*[year>=2024] %}
+              <div class="selected-papers-more">
+                <a class="btn btn-sm z-depth-0 selected-papers-more-btn" href="{{ '/publications/' | relative_url }}" role="button">
+                  <span>Show More</span>
+                  <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
           </div>
