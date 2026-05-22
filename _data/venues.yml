@@ -19,3 +19,7 @@
 
 "ICDE (Workshop)":
   color: "#b3a141"
+
+"EDBT (Demo)":
+  url: https://edbt.org
+  color: "#7a4fb0"
