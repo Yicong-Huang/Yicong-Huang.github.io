@@ -31,7 +31,15 @@ def fetch_html(user_id: str) -> str:
                 "Mozilla/5.0 (X11; Linux x86_64) "
                 "AppleWebKit/537.36 (KHTML, like Gecko) "
                 "Chrome/122.0.0.0 Safari/537.36"
-            )
+            ),
+            "Accept": (
+                "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                "image/avif,image/webp,image/apng,*/*;q=0.8"
+            ),
+            "Accept-Language": "en-US,en;q=0.9",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
+            "Referer": "https://scholar.google.com/",
         },
     )
     with urllib.request.urlopen(req, timeout=30) as resp:
@@ -155,23 +163,12 @@ def parse_args() -> argparse.Namespace:
         default="_data/scholar_citations.json",
         help="Output JSON path",
     )
-    parser.add_argument(
-        "--graceful-http-errors",
-        action="store_true",
-        help="Return success when Scholar blocks the request (e.g., HTTP 403).",
-    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    try:
-        doc = fetch_html(args.user_id)
-    except urllib.error.HTTPError as exc:
-        if args.graceful_http_errors and exc.code in {403, 429}:
-            print(f"WARNING: Scholar blocked request with HTTP {exc.code}; keep existing data.")
-            return 0
-        raise
+    doc = fetch_html(args.user_id)
     totals = extract_totals(doc)
     yearly = extract_yearly(doc)
     yaml_out_path = Path(args.output)
