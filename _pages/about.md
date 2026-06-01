@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Software Engineer @ Databricks<br>Adjunct Assistant Professor @ <a href="https://www.cics.umass.edu/about/directory/yicong-huang" target="_blank" rel="noopener noreferrer">UMass Amherst</a><br>Contributor @ <a href="https://spark.apache.org/" target="_blank" rel="noopener noreferrer">Apache Spark</a><br>PPMC @ <a href="https://texera.apache.org/" target="_blank" rel="noopener noreferrer">Apache Texera</a>
+subtitle: Software Engineer @ Databricks<br>Adjunct Assistant Professor @ <a href="https://www.cics.umass.edu/about/directory/yicong-huang" target="_blank" rel="noopener noreferrer">UMass Amherst</a><br>Committer @ <a href="https://spark.apache.org/" target="_blank" rel="noopener noreferrer">Apache Spark</a><br>PPMC @ <a href="https://texera.apache.org/" target="_blank" rel="noopener noreferrer">Apache Texera</a>
 
 profile:
   align: right
@@ -30,7 +30,14 @@ streaming data.
 To optimize performance, usability, and scalability, I integrate techniques across data management, distributed systems,
 program analysis, and machine learning.
 
-I have contributed extensively to the [Apache Texera (Incubating)](https://apache.texera.io) project, a collaborative
-and interactive system for data science and AI/ML using workflows.
 My research has been published in database venues such as SIGMOD, VLDB and ICDE, and my interdisciplinary work spans
 venues including TOCHI, PNAS Nexus, JAMIA, AMIA, and PLOS ONE.
+
+### Open Source Projects
+
+- As an [Apache Spark](https://spark.apache.org/) committer, I contribute to Spark's Python ecosystem, including PySpark,
+  Spark Connect, and user-defined function support. My recent work includes improving the performance and usability of
+  Python UDFs in Spark.
+- As a PPMC member of [Apache Texera (Incubating)](https://apache.texera.io), I contribute to its collaborative and
+  interactive workflow system for data science and AI/ML. My work focuses on workflow engines, UDF support, and
+  interactive debugging for data-processing systems.
