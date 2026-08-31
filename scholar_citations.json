@@ -1,12 +1,12 @@
 {
   "totals": {
     "all": {
-      "citations": 378,
+      "citations": 384,
       "h_index": 8,
       "i10_index": 7
     },
     "since_2021": {
-      "citations": 377,
+      "citations": 383,
       "h_index": 8,
       "i10_index": 7
     }
@@ -30,11 +30,11 @@
     },
     {
       "year": 2025,
-      "count": 114
+      "count": 113
     },
     {
       "year": 2026,
-      "count": 60
+      "count": 66
     }
   ]
 }
