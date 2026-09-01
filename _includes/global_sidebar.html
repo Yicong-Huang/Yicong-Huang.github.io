@@ -276,7 +276,13 @@
         <li>
           <div class="travel-event-row">
             <span class="travel-event-date">{{ item.date_text }}</span>
-            <span class="travel-event-title">{{ item.title }}</span>
+            <span class="travel-event-title">
+              {% if item.url %}
+                <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+              {% else %}
+                {{ item.title }}
+              {% endif %}
+            </span>
           </div>
         </li>
         {% endfor %}
