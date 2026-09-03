@@ -23,6 +23,8 @@ I currently serve as a Software Engineer at Databricks Inc. working on the Apach
 the fastest and most scalable data engines in the world. I also serve as an Adjunct Assistant Professor at UMass
 Amherst.
 
+### Research
+
 My research focuses on **big data management**, **data-processing systems**, and **machine learning systems**.
 I take a systems-driven approach by co-designing the key components of modern data-intensive pipelines, including
 workflow engines, UDF debugging frameworks, pipelining optimizers, and machine learning acceleration systems for
