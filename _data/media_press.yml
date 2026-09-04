@@ -1,4 +1,9 @@
 sidebar_selected:
+  - start_date: "2026-06-18"
+    date_text: "Jun 2026"
+    label: Talk
+    title: "Faster, Leaner, and Easier to Debug: PySpark UDFs in 2026"
+    url: "https://www.databricks.com/dataaisummit/session/faster-leaner-and-easier-debug-pyspark-udfs-2026"
   - start_date: "2026-05-20"
     date_text: "May 2026"
     label: Blog
@@ -16,13 +21,16 @@ sidebar_selected:
     date_text: "2025"
     label: Talk
     title: "Building a Collaborative and Interactive Data System to Broaden Access to Data Science, AI, and ML"
-  - start_date: "2024-10-01"
-    date_text: "2024"
-    label: Blog
-    title: "Suggesting Python Code Type Annotations with LLM - A Language Server Enhancement"
-    url: "https://texera.io/suggesting-python-code-type-annotations-with-llm-a-language-server-enhancement/"
 
 talks:
+  - start_date: "2026-06-18"
+    date_text: "Jun 18, 2026"
+    label: Talk
+    title: "Faster, Leaner, and Easier to Debug: PySpark UDFs in 2026."
+    url: "https://www.databricks.com/dataaisummit/session/faster-leaner-and-easier-debug-pyspark-udfs-2026"
+    description: "A talk with Tian Gao at Databricks Data + AI Summit 2026 in San Francisco, CA, United States."
+    locations:
+      - "9:10 AM - 9:50 AM PT."
   - start_date: "2026-05-14"
     date_text: "May 14, 2026"
     label: Talk
